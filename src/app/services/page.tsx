@@ -29,7 +29,7 @@ export default function ServicesPage() {
 
           <div className="mt-12 grid gap-5 lg:grid-cols-2">
             {services.map((service, index) => (
-              <Reveal key={service.href} delay={index * 0.06}>
+              <Reveal key={service.href} delay={index * 0.07} variant={index % 2 === 0 ? "fade-left" : "fade-right"}>
                 <Link href={service.href} className="group block h-full">
                   <GlassCard className="h-full p-8 lg:p-10">
                     <div className="flex items-start justify-between gap-6">

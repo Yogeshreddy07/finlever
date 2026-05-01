@@ -40,37 +40,41 @@ export default function ContactPage() {
 
         <div className="site-container relative grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           {/* ── Left: info ── */}
-          <Reveal>
-            <SectionHeader
-              eyebrow="Contact Us"
-              title="Book a Professional Evaluation."
-              body="Tell us where your finance function is today. We will help identify the strategic, operational, and compliance systems needed for your next stage."
-            />
+          <div>
+            <Reveal variant="fade-left">
+              <SectionHeader
+                eyebrow="Contact Us"
+                title="Book a Professional Evaluation."
+                body="Tell us where your finance function is today. We will help identify the strategic, operational, and compliance systems needed for your next stage."
+              />
+            </Reveal>
 
             <div className="mt-10 grid gap-4">
-              {contactCards.map(({ icon: Icon, label, content }) => (
-                <GlassCard key={label} className="p-5">
-                  <div className="flex gap-4">
-                    {/* Icon badge */}
-                    <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[hsl(var(--accent)/0.12)] text-[hsl(var(--accent))]">
-                      <Icon className="size-4" />
+              {contactCards.map(({ icon: Icon, label, content }, i) => (
+                <Reveal key={label} variant="fade-left" delay={0.07 + i * 0.08}>
+                  <GlassCard className="p-5">
+                    <div className="flex gap-4">
+                      {/* Icon badge */}
+                      <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[hsl(var(--accent)/0.12)] text-[hsl(var(--accent))]">
+                        <Icon className="size-4" />
+                      </div>
+                      <div>
+                        <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[hsl(var(--foreground))]">
+                          {label}
+                        </p>
+                        <p className="mt-1 text-sm leading-7 text-[hsl(var(--muted-foreground))]">
+                          {content}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[hsl(var(--foreground))]">
-                        {label}
-                      </p>
-                      <p className="mt-1 text-sm leading-7 text-[hsl(var(--muted-foreground))]">
-                        {content}
-                      </p>
-                    </div>
-                  </div>
-                </GlassCard>
+                  </GlassCard>
+                </Reveal>
               ))}
             </div>
-          </Reveal>
+          </div>
 
           {/* ── Right: form ── */}
-          <Reveal delay={0.08}>
+          <Reveal delay={0.1} variant="fade-right">
             <form className="surface-panel rounded-2xl p-6 sm:p-8">
               <h3 className="mb-6 text-lg font-semibold text-[hsl(var(--foreground))]">
                 Send us a message

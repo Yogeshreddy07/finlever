@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FiArrowRight, FiMail, FiX } from "react-icons/fi";
+import { AnimatePresence, motion } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 
 /* ─── DATA ─────────────────────────────────────────────────────── */
@@ -171,7 +172,7 @@ export function TeamClient() {
         <div className="site-container">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {teamMembers.map((member, idx) => (
-              <Reveal key={member.name} delay={idx * 0.07}>
+              <Reveal key={member.name} delay={idx * 0.1} variant="scale">
                 <article
                   className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.8)] bg-[hsl(var(--card))] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:border-[hsl(var(--accent)/0.72)] hover:bg-[hsl(var(--card-hover))] hover:shadow-[0_24px_60px_hsl(var(--shadow)/0.22),0_0_0_1px_hsl(var(--accent)/0.22)] dark:hover:shadow-[0_24px_60px_hsl(var(--shadow)/0.5),0_0_0_1px_hsl(var(--accent)/0.22)]"
                   onClick={() => openModal(idx)}
@@ -304,22 +305,33 @@ export function TeamClient() {
       </section>
 
       {/* ── PROFILE MODAL ────────────────────────────────────────── */}
-      {activeIdx !== null && activeMember && (
-        <div
-          className="fixed inset-0 z-200 flex items-center justify-center p-4 sm:p-6"
-          style={{
-            backgroundColor: "rgba(0,0,0,0.72)",
-            backdropFilter: "blur(14px)",
-          }}
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Profile: ${activeMember.name}`}
-          onClick={handleOverlayClick}
-        >
-          <div
-            className="relative flex max-h-[88vh] w-full max-w-205 flex-col overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.9)] bg-[hsl(var(--card))] shadow-[0_40px_120px_hsl(var(--shadow)/0.5)] dark:border-[hsl(var(--border)/0.8)] dark:shadow-[0_40px_120px_hsl(var(--shadow)/0.72)]"
-            role="document"
+      <AnimatePresence>
+        {activeIdx !== null && activeMember && (
+          <motion.div
+            key="modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22 }}
+            className="fixed inset-0 z-200 flex items-center justify-center p-4 sm:p-6"
+            style={{
+              backgroundColor: "rgba(0,0,0,0.72)",
+              backdropFilter: "blur(14px)",
+            }}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Profile: ${activeMember.name}`}
+            onClick={handleOverlayClick}
           >
+            <motion.div
+              key="modal-panel"
+              initial={{ opacity: 0, scale: 0.94, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, y: 8 }}
+              transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+              className="relative flex max-h-[88vh] w-full max-w-205 flex-col overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.9)] bg-[hsl(var(--card))] shadow-[0_40px_120px_hsl(var(--shadow)/0.5)] dark:border-[hsl(var(--border)/0.8)] dark:shadow-[0_40px_120px_hsl(var(--shadow)/0.72)]"
+              role="document"
+            >
             {/* Accent top line */}
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,hsl(var(--accent)/0.5),transparent)]" />
 
@@ -342,6 +354,7 @@ export function TeamClient() {
                     src={activeMember.image}
                     alt={activeMember.name}
                     fill
+                    sizes="112px"
                     className="object-cover object-top grayscale contrast-[1.05]"
                   />
                 </div>
@@ -432,9 +445,10 @@ export function TeamClient() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

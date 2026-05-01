@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { FiChevronDown, FiMenu, FiX } from "react-icons/fi";
 import {
   DropdownMenu,
@@ -46,9 +47,15 @@ export function Header() {
   const [isServicesOpen, setServicesOpen] = useState(false);
   const pathname = usePathname();
   const servicesActive = pathname.startsWith("/services");
+  const shouldReduceMotion = useReducedMotion();
 
   return (
-    <header className="sticky top-3 z-50 px-3 py-3 sm:px-5">
+    <motion.header
+      className="sticky top-3 z-50 px-3 py-3 sm:px-5"
+      initial={shouldReduceMotion ? false : { y: -14, opacity: 0 }}
+      animate={shouldReduceMotion ? undefined : { y: 0, opacity: 1 }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+    >
       {/* Main pill nav bar */}
       <div className="relative mx-auto flex min-h-20 w-full max-w-352 items-center rounded-full border border-[hsl(var(--border)/0.72)] bg-[hsl(var(--card)/0.86)] px-3 shadow-[0_18px_55px_hsl(var(--shadow)/0.13),0_1px_0_hsl(0_0%_100%/0.56)_inset] backdrop-blur-2xl dark:border-[hsl(var(--border)/0.82)] dark:bg-[hsl(var(--card)/0.74)] dark:shadow-[0_20px_70px_hsl(var(--shadow)/0.46),0_1px_0_hsl(0_0%_100%/0.08)_inset] sm:px-5">
         {/* Subtle top gradient accent */}
@@ -102,7 +109,7 @@ export function Header() {
             <DropdownMenuContent
               align="center"
               sideOffset={10}
-              className="w-84 rounded-3xl border border-[hsl(var(--border)/0.78)] bg-[hsl(var(--popover)/0.92)] p-2.5 text-[hsl(var(--popover-foreground))] shadow-[0_24px_80px_hsl(var(--shadow)/0.24),0_1px_0_hsl(0_0%_100%/0.52)_inset] backdrop-blur-2xl dark:bg-[hsl(var(--popover)/0.88)] dark:shadow-[0_28px_90px_hsl(var(--shadow)/0.5),0_1px_0_hsl(0_0%_100%/0.08)_inset]"
+              className="finlever-nav-dropdown w-84 rounded-3xl border border-[hsl(var(--border)/0.78)] bg-[hsl(var(--popover)/0.92)] p-2.5 text-[hsl(var(--popover-foreground))] shadow-[0_24px_80px_hsl(var(--shadow)/0.24),0_1px_0_hsl(0_0%_100%/0.52)_inset] backdrop-blur-2xl dark:bg-[hsl(var(--popover)/0.88)] dark:shadow-[0_28px_90px_hsl(var(--shadow)/0.5),0_1px_0_hsl(0_0%_100%/0.08)_inset]"
             >
               {serviceLinks.map((link) => {
                 const isActive = pathname === link.href;
@@ -253,6 +260,6 @@ export function Header() {
           </nav>
         </div>
       ) : null}
-    </header>
+    </motion.header>
   );
 }

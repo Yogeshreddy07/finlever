@@ -20,7 +20,7 @@ export default function AboutPage() {
         <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(to_bottom,transparent,hsl(var(--background)/0.6))]" />
 
         <div className="site-container relative grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
-          <Reveal>
+          <Reveal variant="blur-up">
             <div className="capsule-badge mb-6">About Us</div>
             <h1 className="mt-2 text-balance font-display text-4xl font-normal leading-[1.04] tracking-[-0.01em] text-[hsl(var(--foreground))] sm:text-6xl lg:text-7xl">
               FINLEVER! Redefining Finance for Modern Businesses.
@@ -30,7 +30,7 @@ export default function AboutPage() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.1}>
+          <Reveal delay={0.12} variant="scale">
             <AbstractFinanceGraphic />
           </Reveal>
         </div>
@@ -39,7 +39,7 @@ export default function AboutPage() {
       {/* ── PHILOSOPHY CARDS ─────────────────────────────────────── */}
       <section className="section-pad-sm">
         <div className="site-container grid gap-6 lg:grid-cols-2">
-          <Reveal>
+          <Reveal variant="fade-left">
             <GlassCard className="h-full p-8 lg:p-10">
               <SectionHeader
                 eyebrow="Core Philosophy"
@@ -58,7 +58,7 @@ export default function AboutPage() {
             </GlassCard>
           </Reveal>
 
-          <Reveal delay={0.08}>
+          <Reveal delay={0.1} variant="fade-right">
             <GlassCard className="h-full p-8 lg:p-10">
               <SectionHeader
                 eyebrow="The Virtual CFO Model"

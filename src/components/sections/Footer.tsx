@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FiInstagram, FiLinkedin, FiTwitter, FiYoutube } from "react-icons/fi";
 import { Logo } from "@/components/ui/Logo";
+import { Reveal } from "@/components/ui/Reveal";
 import { contact, navItems, services, site } from "@/data/site";
 
 const socialIcons = [FiLinkedin, FiInstagram, FiYoutube, FiTwitter];
@@ -18,22 +19,22 @@ export function Footer() {
 
         <div className="site-container relative grid gap-10 py-14 lg:grid-cols-[1.5fr_1fr_1fr]">
           {/* Brand column */}
-          <div>
+          <Reveal variant="fade-up">
             <Logo imageClassName="h-12 sm:h-14" />
             <p className="mt-5 max-w-xs text-sm leading-7 text-[hsl(var(--muted-foreground))]">
               Driving growth with structured finance, optimized capital, and
               readiness for investors and markets.
             </p>
             <p className="mt-6 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[hsl(var(--accent))]">
-              Chennai & Coimbatore
+              Chennai &amp; Coimbatore
             </p>
             <p className="mt-1.5 text-xs text-[hsl(var(--muted-foreground))]">
               {contact.email}
             </p>
-          </div>
+          </Reveal>
 
           {/* Quick links */}
-          <div>
+          <Reveal variant="fade-up" delay={0.08}>
             <h3 className="text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[hsl(var(--foreground))]">
               Quick Links
             </h3>
@@ -48,10 +49,10 @@ export function Footer() {
                 </Link>
               ))}
             </div>
-          </div>
+          </Reveal>
 
           {/* Services */}
-          <div>
+          <Reveal variant="fade-up" delay={0.15}>
             <h3 className="text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[hsl(var(--foreground))]">
               Services
             </h3>
@@ -66,7 +67,7 @@ export function Footer() {
                 </Link>
               ))}
             </div>
-          </div>
+          </Reveal>
         </div>
 
         {/* Bottom bar */}

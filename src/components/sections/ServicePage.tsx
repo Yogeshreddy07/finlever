@@ -18,7 +18,7 @@ export function ServicePage({ service }: { service: Service }) {
         <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(to_bottom,transparent,hsl(var(--background)/0.6))]" />
 
         <div className="site-container relative">
-          <Reveal>
+          <Reveal variant="blur-up">
             <div className="capsule-badge mb-6">{service.eyebrow}</div>
             <h1 className="mt-2 max-w-5xl text-balance font-display text-4xl font-normal leading-[1.06] tracking-[-0.01em] text-[hsl(var(--foreground))] sm:text-5xl lg:text-6xl">
               {service.title}
@@ -34,7 +34,7 @@ export function ServicePage({ service }: { service: Service }) {
       <section className="pb-20 sm:pb-28">
         <div className="site-container grid gap-5 lg:grid-cols-2">
           {service.sections.map((section, index) => (
-            <Reveal key={section.title} delay={index * 0.06}>
+            <Reveal key={section.title} delay={index * 0.07} variant={index % 2 === 0 ? "fade-left" : "fade-right"}>
               <GlassCard className="h-full p-7 lg:p-8">
                 <h2 className="text-xl font-semibold text-[hsl(var(--foreground))] sm:text-2xl">
                   {section.title}

@@ -415,6 +415,37 @@
       transform: translateY(0);
     }
   }
+
+  /* ── Nav dropdown open/close animation ─────────────────────── */
+  .finlever-nav-dropdown[data-state="open"] {
+    animation: finlever-dropdown-in 0.24s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .finlever-nav-dropdown[data-state="closed"] {
+    animation: finlever-dropdown-out 0.18s ease forwards;
+  }
+
+  @keyframes finlever-dropdown-in {
+    from {
+      opacity: 0;
+      transform: scale(0.96) translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes finlever-dropdown-out {
+    from {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.97) translateY(-4px);
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

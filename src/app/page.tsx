@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
@@ -83,6 +84,13 @@ const heroButtonClass =
 
 export default function Home() {
   const prefersReducedMotion = useReducedMotion();
+  const [videoReady, setVideoReady] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setVideoReady(true), 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
   const previewServices = services.filter((service) =>
     ["Virtual CFO", "Treasury", "Accounting", "Compliance"].includes(
       service.shortTitle,
@@ -101,7 +109,7 @@ export default function Home() {
 
         <div className="site-container relative grid items-center gap-8 sm:gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-12 xl:gap-16">
           {/* ── Left: copy ── */}
-          <Reveal className="order-2 lg:order-1">
+          <Reveal className="order-2 lg:order-1" variant="blur-up">
             <h1 className="font-display text-[clamp(2rem,5.4vw,4rem)] font-normal leading-[1.06] tracking-[-0.015em] text-[hsl(var(--foreground))]">
               <span className="block">
                 The{" "}
@@ -140,7 +148,7 @@ export default function Home() {
           </Reveal>
 
           {/* ── Right: video card ── */}
-          <Reveal delay={0.06} className="order-1 lg:order-2 lg:justify-self-end">
+          <Reveal delay={0.08} variant="scale" className="order-1 lg:order-2 lg:justify-self-end">
             <div className="group relative w-full overflow-hidden rounded-3xl border border-[hsl(var(--border)/0.72)] bg-[linear-gradient(145deg,hsl(var(--card)/0.84),hsl(var(--card-hover)/0.56))] p-2 shadow-[0_26px_84px_hsl(var(--shadow)/0.16),0_1px_0_hsl(0_0%_100%/0.55)_inset] backdrop-blur-2xl transition duration-500 hover:scale-[1.015] hover:border-[hsl(var(--accent)/0.5)] hover:shadow-[0_32px_104px_hsl(var(--glow)/0.24),0_1px_0_hsl(0_0%_100%/0.55)_inset] dark:bg-[linear-gradient(145deg,hsl(var(--card)/0.76),hsl(var(--card-hover)/0.48))] dark:shadow-[0_30px_96px_hsl(var(--shadow)/0.52),0_1px_0_hsl(0_0%_100%/0.08)_inset]">
               <div className="relative aspect-16/10 overflow-hidden rounded-[1.25rem] bg-[hsl(var(--primary)/0.22)] lg:aspect-6/5">
                 <video
@@ -150,8 +158,10 @@ export default function Home() {
                   muted
                   loop
                   playsInline
-                  preload="metadata"
+                  preload="auto"
                   aria-label="FinLever AI finance intelligence preview"
+                  onCanPlay={() => setVideoReady(true)}
+                  onLoadedData={() => setVideoReady(true)}
                 />
                 <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,hsl(var(--foreground)/0.14),transparent_42%,hsl(var(--background)/0.34)),linear-gradient(180deg,transparent_52%,hsl(var(--background)/0.5))]" />
                 <div className="ai-grid pointer-events-none absolute inset-0 opacity-[0.10]" />
@@ -178,6 +188,23 @@ export default function Home() {
                   </p>
                   <p className="mt-1 text-sm font-semibold">Capital clarity</p>
                 </div>
+
+                {/* Video loading skeleton — fades out once video can play */}
+                <motion.div
+                  className="pointer-events-none absolute inset-0 z-30 bg-[linear-gradient(145deg,hsl(var(--card)/0.96),hsl(var(--card-hover)/0.88))]"
+                  initial={{ opacity: 1 }}
+                  animate={{ opacity: videoReady ? 0 : 1 }}
+                  transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                  aria-hidden="true"
+                >
+                  <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex flex-col items-center gap-3">
+                    <div className="h-1.5 w-24 animate-pulse rounded-full bg-[hsl(var(--accent)/0.22)]" />
+                    <div
+                      className="h-1 w-16 animate-pulse rounded-full bg-[hsl(var(--accent)/0.14)]"
+                      style={{ animationDelay: "0.3s" }}
+                    />
+                  </div>
+                </motion.div>
               </div>
             </div>
           </Reveal>
@@ -225,7 +252,7 @@ export default function Home() {
       {/* ── 2  SHIFT ─────────────────────────────────────────────── */}
       <section className="section-alt section-pad-sm">
         <div className="site-container grid gap-14 lg:grid-cols-2">
-          <Reveal>
+          <Reveal variant="fade-left">
             <h2 className="text-balance text-3xl font-semibold leading-tight text-[hsl(var(--foreground))] sm:text-4xl">
               Shift from Reactive Reporting to{" "}
               <span className="text-gradient">Proactive Foresight.</span>
@@ -255,7 +282,7 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.1}>
+          <Reveal delay={0.1} variant="fade-right">
             <h2 className="text-xl font-semibold text-[hsl(var(--foreground))] sm:text-2xl">
               Comprehensive Financial & Strategic Command.
             </h2>
@@ -291,7 +318,7 @@ export default function Home() {
       {/* ── 3  ADVANTAGE ─────────────────────────────────────────── */}
       <section className="section-pad-sm">
         <div className="site-container grid items-center gap-14 lg:grid-cols-2">
-          <Reveal>
+          <Reveal variant="fade-left">
             <div className="capsule-badge mb-5">The FinLever Advantage</div>
             <h2 className="text-balance text-4xl font-bold leading-[1.1] tracking-tight text-[hsl(var(--foreground))] sm:text-5xl">
               Clarity, Control, and Strategic Financial Growth
@@ -319,7 +346,7 @@ export default function Home() {
             </ul>
           </Reveal>
 
-          <Reveal delay={0.1} className="flex items-center justify-center">
+          <Reveal delay={0.12} variant="scale" className="flex items-center justify-center">
             <div className="w-full overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.6)] shadow-[0_12px_48px_hsl(var(--shadow)/0.12)] dark:shadow-[0_12px_56px_hsl(var(--glow)/0.18)]">
               <Image
                 src="/image/FinLever Advantage.png"
@@ -348,7 +375,7 @@ export default function Home() {
 
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {previewServices.map((service, index) => (
-              <Reveal key={service.href} delay={index * 0.07}>
+              <Reveal key={service.href} delay={index * 0.07} variant="scale">
                 <Link
                   href={service.href}
                   className="group premium-card flex h-full flex-col p-6 transition duration-300 hover:-translate-y-1 hover:border-[hsl(var(--accent)/0.55)]"
