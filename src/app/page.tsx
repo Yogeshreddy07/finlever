@@ -102,8 +102,6 @@ export default function Home() {
         <div className="site-container relative grid items-center gap-8 sm:gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-12 xl:gap-16">
           {/* ── Left: copy ── */}
           <Reveal className="order-2 lg:order-1">
-            <div className="capsule-badge mb-5">{site.shortName}</div>
-
             <h1 className="font-display text-[clamp(2rem,5.4vw,4rem)] font-normal leading-[1.06] tracking-[-0.015em] text-[hsl(var(--foreground))]">
               <span className="block">
                 The{" "}
@@ -139,24 +137,6 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Stat strip */}
-            <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3 border-t border-[hsl(var(--border)/0.5)] pt-8">
-              {heroStats.map((stat, i) => (
-                <div key={stat.label} className="flex items-center gap-7">
-                  <div>
-                    <p className="font-display text-2xl font-semibold tracking-tight text-[hsl(var(--foreground))]">
-                      {stat.value}
-                    </p>
-                    <p className="mt-0.5 text-[0.7rem] text-[hsl(var(--muted-foreground))]">
-                      {stat.label}
-                    </p>
-                  </div>
-                  {i < heroStats.length - 1 && (
-                    <div className="h-8 w-px bg-[hsl(var(--border)/0.62)]" />
-                  )}
-                </div>
-              ))}
-            </div>
           </Reveal>
 
           {/* ── Right: video card ── */}

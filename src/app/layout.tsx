@@ -20,7 +20,10 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description: site.description,
-  // icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [
+    { rel: "icon", url: "/image/favicon.ico" },
+    { rel: "shortcut icon", url: "/image/favicon.ico" },
+  ],
 };
 
 export default function RootLayout({
