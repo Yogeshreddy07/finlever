@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { FiArrowRight, FiLinkedin, FiMail, FiX } from "react-icons/fi";
+import { useEffect, useState } from "react";
+import { FiArrowRight, FiMail, FiX } from "react-icons/fi";
 import { Reveal } from "@/components/ui/Reveal";
 
-/* ─── DATA ──────────────────────────────────────────────────────── */
+/* ─── DATA ─────────────────────────────────────────────────────── */
 
 type TeamMember = {
   name: string;
@@ -89,7 +89,7 @@ const teamMembers: TeamMember[] = [
   },
 ];
 
-/* ─── LINKEDIN SVG ──────────────────────────────────────────────── */
+/* ─── LINKEDIN ICON ─────────────────────────────────────────────── */
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
@@ -104,7 +104,7 @@ function LinkedInIcon({ className }: { className?: string }) {
   );
 }
 
-/* ─── MAIN COMPONENT ────────────────────────────────────────────── */
+/* ─── MAIN COMPONENT ─────────────────────────────────────────────── */
 
 export function TeamClient() {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
@@ -126,7 +126,7 @@ export function TeamClient() {
       document.removeEventListener("keydown", handler);
       document.body.style.overflow = "";
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIdx]);
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -135,9 +135,12 @@ export function TeamClient() {
 
   return (
     <main>
-      {/* ── HERO ───────────────────────────────────────────────── */}
-      <section className="section-pad pb-0">
-        <div className="site-container">
+      {/* ── HERO ─────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden section-pad pb-0">
+        <div className="absolute inset-0 ai-grid opacity-[0.04]" />
+        <div className="absolute inset-x-0 top-0 h-72 bg-[radial-gradient(ellipse_72%_52%_at_50%_0%,hsl(var(--glow)/0.14),transparent_62%)]" />
+
+        <div className="site-container relative">
           <Reveal>
             {/* Eyebrow */}
             <div className="mb-6 flex items-center gap-3">
@@ -147,10 +150,9 @@ export function TeamClient() {
               </p>
             </div>
 
-            {/* Heading */}
             <h1 className="font-display text-[clamp(2.4rem,6.5vw,5.2rem)] font-normal leading-[1.02] tracking-[-0.02em] text-[hsl(var(--foreground))]">
               Meet the{" "}
-              <em className="italic font-medium text-[hsl(var(--accent))]">Minds</em>
+              <em className="font-medium italic text-[hsl(var(--accent))]">Minds</em>
               <br />
               Behind FINLEVER
             </h1>
@@ -164,16 +166,18 @@ export function TeamClient() {
         </div>
       </section>
 
-      {/* ── TEAM GRID ──────────────────────────────────────────── */}
+      {/* ── TEAM GRID ────────────────────────────────────────────── */}
       <section className="section-pad">
         <div className="site-container">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {teamMembers.map((member, idx) => (
               <Reveal key={member.name} delay={idx * 0.07}>
                 <article
-                  className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.8)] bg-[hsl(var(--card))] transition-all duration-380 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:border-[hsl(var(--accent)/0.75)] hover:bg-[hsl(var(--card-hover))] hover:shadow-[0_24px_60px_hsl(var(--shadow)/0.22),0_0_0_1px_hsl(var(--accent)/0.25)] dark:hover:shadow-[0_24px_60px_hsl(var(--shadow)/0.5),0_0_0_1px_hsl(var(--accent)/0.25)]"
+                  className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.8)] bg-[hsl(var(--card))] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:border-[hsl(var(--accent)/0.72)] hover:bg-[hsl(var(--card-hover))] hover:shadow-[0_24px_60px_hsl(var(--shadow)/0.22),0_0_0_1px_hsl(var(--accent)/0.22)] dark:hover:shadow-[0_24px_60px_hsl(var(--shadow)/0.5),0_0_0_1px_hsl(var(--accent)/0.22)]"
                   onClick={() => openModal(idx)}
-                  onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && openModal(idx)}
+                  onKeyDown={(e) =>
+                    (e.key === "Enter" || e.key === " ") && openModal(idx)
+                  }
                   tabIndex={0}
                   role="button"
                   aria-label={`View profile: ${member.name}`}
@@ -186,12 +190,12 @@ export function TeamClient() {
                       fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                       priority={idx < 2}
-                      className="object-cover object-top grayscale contrast-[1.05] transition-all duration-600 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04] group-hover:grayscale-0"
+                      className="object-cover object-top grayscale contrast-[1.05] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04] group-hover:grayscale-0"
                     />
                     {/* Bottom gradient */}
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-[hsl(var(--card)/0.95)] to-transparent" />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-[hsl(var(--card)/0.96)] to-transparent" />
                     {/* Role badge */}
-                    <div className="absolute left-4 top-4 z-10 rounded-full border border-[hsl(var(--accent)/0.55)] bg-[hsl(var(--accent)/0.14)] px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-[hsl(var(--accent))] backdrop-blur-md">
+                    <div className="absolute left-4 top-4 z-10 rounded-full border border-[hsl(var(--accent)/0.52)] bg-[hsl(var(--accent)/0.14)] px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-[hsl(var(--accent))] backdrop-blur-md">
                       {member.role}
                     </div>
                   </div>
@@ -212,7 +216,7 @@ export function TeamClient() {
                       {member.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--border)/0.45)] px-2.5 py-1 text-[0.62rem] font-medium text-[hsl(var(--muted-foreground))] transition duration-200 group-hover:border-[hsl(var(--accent)/0.5)] group-hover:text-[hsl(var(--accent))]"
+                          className="rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--border)/0.4)] px-2.5 py-1 text-[0.62rem] font-medium text-[hsl(var(--muted-foreground))] transition duration-200 group-hover:border-[hsl(var(--accent)/0.48)] group-hover:text-[hsl(var(--accent))]"
                         >
                           {tag}
                         </span>
@@ -251,15 +255,18 @@ export function TeamClient() {
         </div>
       </section>
 
-      {/* ── CTA BAND ───────────────────────────────────────────── */}
+      {/* ── CTA BAND ─────────────────────────────────────────────── */}
       <section className="section-pad-sm">
         <div className="site-container">
           <div className="relative overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.8)] bg-[hsl(var(--card))] px-8 py-14 sm:px-16 dark:bg-[hsl(var(--card)/0.78)]">
             {/* Glow orb */}
             <div
-              className="pointer-events-none absolute -right-20 -top-20 h-75 w-75 rounded-full bg-[hsl(var(--glow)/0.12)] blur-[80px]"
+              className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[hsl(var(--glow)/0.11)] blur-[80px]"
               aria-hidden="true"
             />
+            {/* Accent top line */}
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,hsl(var(--accent)/0.38),transparent)]" />
+
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <p className="mb-3 text-[0.68rem] font-bold uppercase tracking-[0.27em] text-[hsl(var(--accent))]">
@@ -274,17 +281,18 @@ export function TeamClient() {
                   your organisation achieve financial clarity and growth.
                 </p>
               </div>
+
               <div className="flex flex-col items-start gap-3 lg:items-end">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-xl bg-[hsl(var(--cta))] px-8 py-3.5 text-sm font-bold tracking-[0.02em] text-[hsl(var(--cta-foreground))] shadow-[0_12px_32px_hsl(var(--glow)/0.24)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_44px_hsl(var(--glow)/0.32)]"
+                  className="inline-flex items-center gap-2 rounded-full bg-[hsl(var(--cta))] px-8 py-3.5 text-sm font-bold tracking-[0.02em] text-[hsl(var(--cta-foreground))] shadow-[0_12px_32px_hsl(var(--glow)/0.22)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_44px_hsl(var(--glow)/0.3)]"
                 >
                   Book a Consultation
                   <FiArrowRight className="size-4" />
                 </Link>
                 <a
                   href="mailto:info@finlever.co"
-                  className="inline-flex items-center gap-2 rounded-xl border border-[hsl(var(--border)/0.9)] px-7 py-3.5 text-sm font-medium text-[hsl(var(--muted-foreground))] transition duration-200 hover:border-[hsl(var(--accent)/0.7)] hover:text-[hsl(var(--accent))]"
+                  className="inline-flex items-center gap-2 rounded-full border border-[hsl(var(--border)/0.9)] px-7 py-3.5 text-sm font-medium text-[hsl(var(--muted-foreground))] transition duration-200 hover:border-[hsl(var(--accent)/0.68)] hover:text-[hsl(var(--accent))]"
                 >
                   <FiMail className="size-4" />
                   info@finlever.co
@@ -295,11 +303,14 @@ export function TeamClient() {
         </div>
       </section>
 
-      {/* ── PROFILE MODAL ──────────────────────────────────────── */}
+      {/* ── PROFILE MODAL ────────────────────────────────────────── */}
       {activeIdx !== null && activeMember && (
         <div
           className="fixed inset-0 z-200 flex items-center justify-center p-4 sm:p-6"
-          style={{ backgroundColor: "rgba(0,0,0,0.72)", backdropFilter: "blur(12px)" }}
+          style={{
+            backgroundColor: "rgba(0,0,0,0.72)",
+            backdropFilter: "blur(14px)",
+          }}
           role="dialog"
           aria-modal="true"
           aria-label={`Profile: ${activeMember.name}`}
@@ -309,21 +320,24 @@ export function TeamClient() {
             className="relative flex max-h-[88vh] w-full max-w-205 flex-col overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.9)] bg-[hsl(var(--card))] shadow-[0_40px_120px_hsl(var(--shadow)/0.5)] dark:border-[hsl(var(--border)/0.8)] dark:shadow-[0_40px_120px_hsl(var(--shadow)/0.72)]"
             role="document"
           >
-            {/* Close */}
+            {/* Accent top line */}
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,hsl(var(--accent)/0.5),transparent)]" />
+
+            {/* Close button */}
             <button
               type="button"
               onClick={closeModal}
               aria-label="Close profile"
-              className="absolute right-4 top-4 z-10 flex size-9 items-center justify-center rounded-full border border-[hsl(var(--border)/0.9)] bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] transition duration-200 hover:border-[hsl(var(--accent)/0.7)] hover:bg-[hsl(var(--accent)/0.1)] hover:text-[hsl(var(--accent))]"
+              className="absolute right-4 top-4 z-10 flex size-9 items-center justify-center rounded-full border border-[hsl(var(--border)/0.9)] bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] transition duration-200 hover:border-[hsl(var(--accent)/0.68)] hover:bg-[hsl(var(--accent)/0.1)] hover:text-[hsl(var(--accent))]"
             >
               <FiX className="size-4" />
             </button>
 
-            {/* Scrollable area */}
+            {/* Scrollable content */}
             <div className="overflow-y-auto">
               {/* Modal header */}
               <div className="flex flex-col gap-6 border-b border-[hsl(var(--border)/0.55)] p-6 sm:flex-row sm:gap-8 sm:p-8">
-                <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-xl border-2 border-[hsl(var(--border)/0.8)]">
+                <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-2xl border-2 border-[hsl(var(--border)/0.8)]">
                   <Image
                     src={activeMember.image}
                     alt={activeMember.name}
@@ -332,7 +346,7 @@ export function TeamClient() {
                   />
                 </div>
                 <div className="flex-1">
-                  <span className="mb-2.5 inline-block rounded-full border border-[hsl(var(--accent)/0.5)] bg-[hsl(var(--accent)/0.12)] px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-[hsl(var(--accent))]">
+                  <span className="mb-3 inline-block rounded-full border border-[hsl(var(--accent)/0.48)] bg-[hsl(var(--accent)/0.12)] px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-[hsl(var(--accent))]">
                     {activeMember.role}
                   </span>
                   <h2 className="font-display text-[1.9rem] font-bold leading-[1.1] tracking-[-0.01em] text-[hsl(var(--foreground))] sm:text-[2rem]">
@@ -345,7 +359,7 @@ export function TeamClient() {
                     {activeMember.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--border)/0.45)] px-2.5 py-1 text-[0.62rem] font-medium text-[hsl(var(--muted-foreground))]"
+                        className="rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--border)/0.4)] px-2.5 py-1 text-[0.62rem] font-medium text-[hsl(var(--muted-foreground))]"
                       >
                         {tag}
                       </span>
@@ -400,7 +414,7 @@ export function TeamClient() {
                 <div className="flex flex-wrap items-center gap-3 border-t border-[hsl(var(--border)/0.55)] pt-6">
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-2 rounded-xl bg-[hsl(var(--cta))] px-7 py-3 text-sm font-bold tracking-[0.02em] text-[hsl(var(--cta-foreground))] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_hsl(var(--glow)/0.28)]"
+                    className="inline-flex items-center gap-2 rounded-full bg-[hsl(var(--cta))] px-7 py-3 text-sm font-bold tracking-[0.02em] text-[hsl(var(--cta-foreground))] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_hsl(var(--glow)/0.26)]"
                     onClick={closeModal}
                   >
                     Book a Consultation
@@ -410,7 +424,7 @@ export function TeamClient() {
                     href={activeMember.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl border border-[hsl(var(--border)/0.9)] px-6 py-3 text-sm font-medium text-[hsl(var(--muted-foreground))] transition duration-200 hover:border-[hsl(var(--accent)/0.7)] hover:text-[hsl(var(--accent))]"
+                    className="inline-flex items-center gap-2 rounded-full border border-[hsl(var(--border)/0.9)] px-6 py-3 text-sm font-medium text-[hsl(var(--muted-foreground))] transition duration-200 hover:border-[hsl(var(--accent)/0.68)] hover:text-[hsl(var(--accent))]"
                   >
                     <LinkedInIcon className="size-4" />
                     LinkedIn Profile
