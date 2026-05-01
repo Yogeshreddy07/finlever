@@ -12,16 +12,16 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <main>
-      <section className="px-5 py-24 sm:px-8 lg:py-32">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+      <section className="section-pad">
+        <div className="site-container grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
           <Reveal>
-            <p className="text-xs font-bold uppercase tracking-[0.24em] text-cyan-300">
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[hsl(var(--accent))]">
               About Us
             </p>
-            <h1 className="mt-5 text-balance text-5xl font-semibold leading-[1.02] text-white sm:text-6xl lg:text-7xl">
+            <h1 className="mt-5 text-balance text-4xl font-semibold leading-[1.04] text-[hsl(var(--foreground))] sm:text-6xl lg:text-7xl">
               FINLEVER! Redefining Finance for Modern Businesses.
             </h1>
-            <p className="mt-7 max-w-2xl text-xl leading-8 text-slate-300">
+            <p className="mt-7 max-w-2xl text-xl leading-8 text-[hsl(var(--muted-foreground))]">
               Engineering financial clarity for the borderless economy.
             </p>
           </Reveal>
@@ -31,15 +31,15 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="px-5 py-20 sm:px-8">
-        <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-2">
+      <section className="section-pad-sm">
+        <div className="site-container grid gap-6 lg:grid-cols-2">
           <Reveal>
             <GlassCard className="h-full p-8">
               <SectionHeader
                 eyebrow="Core Philosophy"
                 title="Beyond Accounting. Built for Strategic Finance."
               />
-              <p className="mt-7 text-base leading-8 text-slate-300">
+              <p className="mt-7 text-base leading-8 text-[hsl(var(--muted-foreground))]">
                 FinLever Consulting was founded to bridge the gap between
                 traditional accounting and modern, technology-driven finance. We
                 go beyond reporting—delivering financial planning, cash flow
@@ -57,14 +57,14 @@ export default function AboutPage() {
                 eyebrow="The Virtual CFO Model"
                 title="CFO Expertise, Without Full-Time Cost"
               />
-              <p className="mt-7 text-base leading-8 text-slate-300">
+              <p className="mt-7 text-base leading-8 text-[hsl(var(--muted-foreground))]">
                 Our Virtual CFO model gives you access to experienced finance
                 leaders, structured processes, and AI-powered insights—without
                 the overhead of a full-time CFO. From strategy and fundraising to
                 compliance and performance tracking, we act as your extended
                 finance team.
               </p>
-              <p className="mt-5 text-base leading-8 text-slate-300">
+              <p className="mt-5 text-base leading-8 text-[hsl(var(--muted-foreground))]">
                 This scalable approach ensures you get the right level of
                 financial expertise at every stage of your growth.
               </p>
@@ -73,10 +73,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="px-5 py-24 sm:px-8">
+      <section className="pb-24">
         <Reveal>
-          <div className="mx-auto max-w-7xl rounded-[2rem] border border-cyan-300/20 bg-white/[0.055] p-8 backdrop-blur-xl sm:p-12">
-            <p className="max-w-3xl text-2xl font-semibold leading-snug text-white sm:text-4xl">
+          <div className="site-container surface-panel rounded-lg p-8 sm:p-12">
+            <p className="max-w-3xl text-2xl font-semibold leading-snug text-[hsl(var(--foreground))] sm:text-4xl">
               {site.taglines[1]}
             </p>
             <div className="mt-8">

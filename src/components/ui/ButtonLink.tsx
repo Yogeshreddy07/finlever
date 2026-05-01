@@ -19,14 +19,15 @@ export function ButtonLink({
     <Link
       href={href}
       className={cn(
-        "group inline-flex min-h-12 items-center justify-center gap-3 rounded-xl px-5 text-sm font-semibold transition duration-300",
-        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300",
+        "group inline-flex min-h-12 items-center justify-center gap-3 rounded-lg px-5 text-sm font-semibold",
+        "shadow-sm transition duration-300 hover:-translate-y-0.5 active:translate-y-0",
+        "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring",
         variant === "primary" &&
-          "bg-white text-slate-950 shadow-[0_0_30px_rgba(45,212,191,0.25)] hover:bg-cyan-100 hover:shadow-[0_0_45px_rgba(45,212,191,0.42)]",
+          "bg-[hsl(var(--cta))] text-[hsl(var(--cta-foreground))] shadow-[0_16px_34px_hsl(var(--shadow)/0.16)] hover:shadow-[0_20px_42px_hsl(var(--glow)/0.18)]",
         variant === "secondary" &&
-          "border border-white/15 bg-white/8 text-white backdrop-blur-xl hover:border-cyan-300/55 hover:bg-cyan-300/10",
+          "border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] hover:border-[hsl(var(--accent)/0.7)] hover:bg-[hsl(var(--accent-soft)/0.7)]",
         variant === "ghost" &&
-          "border border-cyan-300/25 bg-cyan-300/5 text-cyan-100 hover:border-cyan-200/60 hover:bg-cyan-300/12",
+          "border border-[hsl(var(--accent)/0.38)] bg-[hsl(var(--accent-soft)/0.42)] text-[hsl(var(--foreground))] hover:border-[hsl(var(--accent)/0.74)] hover:bg-[hsl(var(--accent-soft)/0.72)]",
         className,
       )}
     >

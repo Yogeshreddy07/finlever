@@ -1,16 +1,31 @@
+import Image from "next/image";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
-export function Logo() {
+type LogoProps = {
+  className?: string;
+  imageClassName?: string;
+};
+
+export function Logo({ className, imageClassName }: LogoProps) {
   return (
-    <Link href="/" className="group flex items-center gap-3" aria-label="FinLever home">
-      <span className="grid size-8 grid-cols-2 gap-1">
-        <span className="rounded-[6px] bg-cyan-300 shadow-[0_0_18px_rgba(103,232,249,0.7)]" />
-        <span className="rounded-[6px] bg-cyan-500/75" />
-        <span className="rounded-[6px] bg-cyan-500/75" />
-        <span className="rounded-[6px] border border-cyan-200/40 bg-white/10" />
-      </span>
-      <span className="text-xl font-bold tracking-[0.08em] text-white">
-        FINLEVER
+    <Link
+      href="/#top"
+      aria-label="FinLever home"
+      className={cn(
+        "inline-flex shrink-0 items-center rounded-lg p-1 transition duration-200 hover:opacity-95",
+        className,
+      )}
+    >
+      <span className="inline-flex items-center rounded px-4 py-3 bg-[hsl(222_47%_10%)] dark:bg-transparent dark:px-0 dark:py-0">
+        <Image
+          src="/image/Finlever-Trans.png"
+          alt="FinLever Consulting"
+          width={320}
+          height={88}
+          className={cn("h-12 w-auto sm:h-14", imageClassName)}
+          priority
+        />
       </span>
     </Link>
   );

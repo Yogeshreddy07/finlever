@@ -10,35 +10,38 @@ type Service = (typeof services)[number];
 export function ServicePage({ service }: { service: Service }) {
   return (
     <main>
-      <section className="relative overflow-hidden px-5 py-24 sm:px-8 lg:py-32">
-        <div className="absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_50%_0%,rgba(34,211,238,0.18),transparent_55%)]" />
-        <div className="relative mx-auto max-w-7xl">
+      <section className="relative overflow-hidden section-pad">
+        <div className="absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_50%_0%,hsl(var(--glow)/0.18),transparent_58%)]" />
+        <div className="site-container relative">
           <Reveal>
-            <p className="text-xs font-bold uppercase tracking-[0.24em] text-cyan-300">
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[hsl(var(--accent))]">
               {service.eyebrow}
             </p>
-            <h1 className="mt-5 max-w-5xl text-balance text-5xl font-semibold leading-[1.02] text-white sm:text-6xl lg:text-7xl">
+            <h1 className="mt-5 max-w-5xl text-balance text-4xl font-semibold leading-[1.04] text-[hsl(var(--foreground))] sm:text-6xl lg:text-7xl">
               {service.title}
             </h1>
-            <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-300">
+            <p className="mt-7 max-w-3xl text-lg leading-8 text-[hsl(var(--muted-foreground))]">
               {service.summary}
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section className="px-5 pb-24 sm:px-8">
-        <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-2">
+      <section className="pb-20 sm:pb-24">
+        <div className="site-container grid gap-6 lg:grid-cols-2">
           {service.sections.map((section, index) => (
             <Reveal key={section.title} delay={index * 0.06}>
-              <GlassCard className="h-full">
-                <h2 className="text-2xl font-semibold text-white">
+              <GlassCard className="h-full p-7">
+                <h2 className="text-2xl font-semibold text-[hsl(var(--foreground))]">
                   {section.title}
                 </h2>
                 <ul className="mt-6 grid gap-4">
                   {section.items.map((item) => (
-                    <li key={item} className="flex gap-3 text-sm leading-7 text-slate-300">
-                      <FiCheckCircle className="mt-1 size-5 shrink-0 text-cyan-300" />
+                    <li
+                      key={item}
+                      className="flex gap-3 text-sm leading-7 text-[hsl(var(--muted-foreground))]"
+                    >
+                      <FiCheckCircle className="mt-1 size-5 shrink-0 text-[hsl(var(--accent))]" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -49,9 +52,9 @@ export function ServicePage({ service }: { service: Service }) {
         </div>
       </section>
 
-      <section className="px-5 pb-24 sm:px-8">
+      <section className="pb-24">
         <Reveal>
-          <div className="mx-auto max-w-7xl rounded-[2rem] border border-cyan-300/20 bg-[linear-gradient(135deg,rgba(34,211,238,0.16),rgba(255,255,255,0.04))] p-8 shadow-[0_0_80px_rgba(8,145,178,0.12)] sm:p-12">
+          <div className="site-container surface-panel rounded-lg p-8 sm:p-12">
             <SectionHeader
               title="Discuss Your Specific Requirements."
               body={site.taglines[2]}

@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Meet the Team — FINLEVER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ── TOKENS ───────────────────────────────────────────────── */
+  :root {
+    --accent:        oklch(0.72 0.12 185);
+    --accent-dim:    oklch(0.60 0.10 185);
+    --accent-glow:   oklch(0.72 0.12 185 / 0.18);
+
+    --font-serif:    'Playfair Display', Georgia, serif;
+    --font-sans:     'DM Sans', Helvetica Neue, sans-serif;
+
+    --radius-card:   16px;
+    --transition:    0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* DARK */
+  [data-theme="dark"] {
+    --bg:            oklch(0.10 0.008 240);
+    --bg-card:       oklch(0.13 0.008 240);
+    --bg-card-hover: oklch(0.16 0.010 240);
+    --border:        oklch(1 0 0 / 0.08);
+    --border-strong: oklch(1 0 0 / 0.14);
+    --text-primary:  oklch(0.96 0.004 240);
+    --text-secondary:oklch(0.70 0.008 240);
+    --text-muted:    oklch(0.50 0.006 240);
+    --badge-bg:      oklch(0.72 0.12 185 / 0.14);
+    --badge-text:    var(--accent);
+    --overlay-start: oklch(0.10 0.008 240 / 0);
+    --overlay-end:   oklch(0.10 0.008 240 / 0.96);
+    --photo-filter:  grayscale(30%) contrast(1.05);
+    --nav-bg:        oklch(0.10 0.008 240 / 0.85);
+    --divider:       oklch(1 0 0 / 0.06);
+    --footer-bg:     oklch(0.08 0.008 240);
+  }
+
+  /* LIGHT */
+  [data-theme="light"] {
+    --bg:            oklch(0.97 0.004 220);
+    --bg-card:       oklch(1 0 0);
+    --bg-card-hover: oklch(0.98 0.005 220);
+    --border:        oklch(0 0 0 / 0.07);
+    --border-strong: oklch(0 0 0 / 0.12);
+    --text-primary:  oklch(0.15 0.010 240);
+    --text-secondary:oklch(0.38 0.010 240);
+    --text-muted:    oklch(0.56 0.008 240);
+    --badge-bg:      oklch(0.72 0.12 185 / 0.10);
+    --badge-text:    oklch(0.45 0.12 185);
+    --overlay-start: oklch(1 0 0 / 0);
+    --overlay-end:   oklch(1 0 0 / 0.92);
+    --photo-filter:  grayscale(20%) contrast(1.02);
+    --nav-bg:        oklch(0.97 0.004 220 / 0.88);
+    --divider:       oklch(0 0 0 / 0.06);
+    --footer-bg:     oklch(0.13 0.010 240);
+  }
+
+  /* ── RESET ───────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    transition: background var(--transition), color var(--transition);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ──────────────────────────────────────────────────── */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 68px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: background var(--transition);
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 36px; height: 36px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-logo-mark svg { width: 20px; height: 20px; }
+  .nav-logo-text {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--text-primary); }
+  .nav-links a.active { color: var(--accent); }
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1.5px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .theme-toggle {
+    width: 38px; height: 38px;
+    border: 1px solid var(--border-strong);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-secondary);
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+  .btn-cta {
+    padding: 10px 22px;
+    background: var(--accent);
+    color: oklch(0.10 0.008 240);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .btn-cta:hover {
+    background: oklch(0.78 0.12 185);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px var(--accent-glow);
+  }
+
+  /* ── HERO SECTION ─────────────────────────────────────────── */
+  .hero {
+    padding: 148px 48px 80px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .eyebrow-line {
+    width: 32px; height: 1.5px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .eyebrow-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .hero-title {
+    font-family: var(--font-serif);
+    font-size: clamp(52px, 7vw, 88px);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 28px;
+    text-wrap: balance;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-subtitle {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 560px;
+    text-wrap: pretty;
+  }
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    margin-top: 56px;
+    padding-top: 40px;
+    border-top: 1px solid var(--divider);
+  }
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num {
+    font-family: var(--font-serif);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+  .stat-num span { color: var(--accent); }
+  .stat-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .stat-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--divider);
+  }
+
+  /* ── TEAM GRID ────────────────────────────────────────────── */
+  .team-section {
+    padding: 0 48px 100px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  /* ── CARD ─────────────────────────────────────────────────── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    position: relative;
+    transition:
+      background var(--transition),
+      border-color var(--transition),
+      transform var(--transition),
+      box-shadow var(--transition);
+    will-change: transform;
+  }
+  .card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent);
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px oklch(0 0 0 / 0.3), 0 0 0 1px var(--accent);
+  }
+  [data-theme="light"] .card:hover {
+    box-shadow: 0 20px 50px oklch(0 0 0 / 0.12), 0 0 0 1px var(--accent);
+  }
+
+  /* Photo wrapper */
+  .card-photo {
+    position: relative;
+    height: 320px;
+    overflow: hidden;
+    background: var(--bg-card);
+    flex-shrink: 0;
+  }
+  .card-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: var(--photo-filter);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s;
+  }
+  .card:hover .card-photo-img {
+    transform: scale(1.04);
+    filter: grayscale(0%) contrast(1.05);
+  }
+
+  /* Photo placeholder */
+  .card-photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px;
+    background: repeating-linear-gradient(
+      45deg,
+      var(--bg-card) 0px,
+      var(--bg-card) 8px,
+      var(--border) 8px,
+      var(--border) 9px
+    );
+  }
+  .card-photo-placeholder-icon {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-photo-placeholder span {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: monospace;
+    letter-spacing: 0.05em;
+  }
+
+  /* Gradient overlay over photo bottom */
+  .card-photo::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to top, var(--bg-card), transparent);
+    pointer-events: none;
+  }
+
+  /* Badge on photo */
+  .card-badge {
+    position: absolute;
+    top: 16px; left: 16px;
+    padding: 5px 12px;
+    background: var(--badge-bg);
+    border: 1px solid var(--accent-dim);
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--badge-text);
+    backdrop-filter: blur(8px);
+    z-index: 2;
+  }
+
+  /* Card body */
+  .card-body {
+    padding: 24px 28px 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-name {
+    font-family: var(--font-serif);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .card-title-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .card-bio-short {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    text-wrap: pretty;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: opacity 0.3s;
+  }
+
+  /* Tags */
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+  }
+  .tag {
+    padding: 4px 10px;
+    background: var(--divider);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .card:hover .tag {
+    border-color: var(--accent-dim);
+    color: var(--accent);
+  }
+
+  /* Card footer */
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 28px 24px;
+    margin-top: auto;
+  }
+  .card-linkedin {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .card-linkedin:hover { color: var(--accent); }
+  .card-expand-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    padding: 6px 0;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .card-expand-btn:hover { color: var(--accent); }
+  .expand-arrow {
+    width: 18px; height: 18px;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.3s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .card-expand-btn:hover .expand-arrow {
+    background: var(--accent-glow);
+    border-color: var(--accent);
+  }
+
+  /* ── MODAL OVERLAY ────────────────────────────────────────── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: oklch(0 0 0 / 0.72);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .modal {
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-radius: 20px;
+    max-width: 820px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+  }
+  .modal-overlay.open .modal {
+    transform: translateY(0) scale(1);
+  }
+  .modal-header {
+    display: flex;
+    gap: 32px;
+    padding: 40px 40px 32px;
+    border-bottom: 1px solid var(--divider);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .modal-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 14px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid var(--border-strong);
+  }
+  .modal-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: var(--photo-filter);
+  }
+  .modal-photo-placeholder {
+    width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+      45deg,
+      var(--bg-card) 0px, var(--bg-card) 8px,
+      var(--border) 8px, var(--border) 9px
+    );
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-info { flex: 1; }
+  .modal-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--badge-bg);
+    border: 1px solid var(--accent-dim);
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--badge-text);
+    margin-bottom: 10px;
+  }
+  .modal-name {
+    font-family: var(--font-serif);
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.1;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .modal-role {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
+  }
+  .modal-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .modal-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border-strong);
+    background: transparent;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted);
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .modal-close:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+  .modal-body {
+    padding: 32px 40px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .modal-section-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .modal-para {
+    font-size: 15px;
+    line-height: 1.78;
+    color: var(--text-secondary);
+    text-wrap: pretty;
+  }
+  .modal-para + .modal-para { margin-top: 10px; }
+  .modal-highlights {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .highlight-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .highlight-text {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+  .modal-cta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 8px;
+    border-top: 1px solid var(--divider);
+  }
+  .btn-consult {
+    padding: 12px 28px;
+    background: var(--accent);
+    color: oklch(0.10 0.008 240);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .btn-consult:hover {
+    background: oklch(0.78 0.12 185);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px var(--accent-glow);
+  }
+  .btn-linkedin-modal {
+    padding: 12px 20px;
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-linkedin-modal:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ── BOTTOM CTA BAND ──────────────────────────────────────── */
+  .cta-band {
+    margin: 0 48px 100px;
+    max-width: 1184px;
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 56px 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-band::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: var(--accent-glow);
+    pointer-events: none;
+  }
+  .cta-band-left { position: relative; z-index: 1; }
+  .cta-band-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .cta-band-title {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+    text-wrap: balance;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .cta-band-sub {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 440px;
+    text-wrap: pretty;
+  }
+  .cta-band-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .btn-large {
+    padding: 14px 32px;
+    background: var(--accent);
+    color: oklch(0.10 0.008 240);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .btn-large:hover {
+    background: oklch(0.78 0.12 185);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 32px var(--accent-glow);
+  }
+  .btn-outline {
+    padding: 12px 28px;
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── FOOTER ───────────────────────────────────────────────── */
+  .footer {
+    background: var(--footer-bg);
+    border-top: 1px solid var(--border);
+    padding: 60px 48px 36px;
+  }
+  .footer-inner {
+    max-width: 1184px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 48px;
+  }
+  .footer-brand-tagline {
+    font-size: 14px;
+    color: oklch(0.55 0.006 240);
+    line-height: 1.7;
+    margin-top: 14px;
+    max-width: 260px;
+  }
+  .footer-location {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 20px;
+  }
+  .footer-col-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: oklch(0.65 0.006 240);
+    margin-bottom: 18px;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a {
+    font-size: 14px;
+    color: oklch(0.55 0.006 240);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+  .footer-bottom {
+    max-width: 1184px;
+    margin: 48px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid oklch(1 0 0 / 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-copy {
+    font-size: 12px;
+    color: oklch(0.40 0.006 240);
+  }
+  .footer-socials { display: flex; align-items: center; gap: 12px; }
+  .social-btn {
+    width: 34px; height: 34px;
+    border: 1px solid oklch(1 0 0 / 0.10);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: oklch(0.50 0.006 240);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .social-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── UTILITIES ────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .hero { padding-left: 24px; padding-right: 24px; }
+    .team-section { padding-left: 24px; padding-right: 24px; }
+    .cta-band { flex-direction: column; padding: 36px 28px; }
+    .cta-band-actions { align-items: flex-start; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .modal-highlights { grid-template-columns: 1fr; }
+    .modal-header { flex-direction: column; }
+  }
+  @media (max-width: 600px) {
+    .team-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 20 20" fill="none">
+        <path d="M4 16 L4 8 L10 4 L16 8 L16 16" stroke="oklch(0.10 0.008 240)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M8 16 L8 12 L12 12 L12 16" stroke="oklch(0.10 0.008 240)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <span class="nav-logo-text">FINLEVER</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#" class="active">Team</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg id="themeIcon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.88 11.88l1.07 1.07M11.88 4.12l1.07-1.07M3.05 12.95l1.06-1.06" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <a href="/cdn-cgi/l/email-protection#b2dbdcd4ddf2d4dbdcded7c4d7c09cd1dd" class="btn-cta">
+      Get Started
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+</nav>
+
+<!-- ── HERO ───────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-label">Leadership Team</span>
+  </div>
+  <h1 class="hero-title">Meet the <em>Minds</em><br>Behind FINLEVER</h1>
+  <p class="hero-subtitle">
+    Our leadership brings together decades of institutional finance, deep domain expertise, and a technology-first approach — partnering with businesses to unlock sustainable growth and strategic financial clarity.
+  </p>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">50<span>+</span></span>
+      <span class="stat-label">Years Combined Exp.</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-num">₹2,500<span>Cr+</span></span>
+      <span class="stat-label">Capital Managed</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-num">3</span>
+      <span class="stat-label">Practice Verticals</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-num">2</span>
+      <span class="stat-label">Cities Served</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── TEAM GRID ──────────────────────────────────────────────── -->
+<section class="team-section">
+  <div class="team-grid" id="teamGrid">
+
+    <!-- Card 1: Senthilkumar -->
+    <article class="card" data-member="0" tabindex="0" role="button" aria-label="View profile: Senthilkumar Thirumalaisamy">
+      <div class="card-photo">
+        <div class="card-photo-placeholder">
+          <div class="card-photo-placeholder-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="10" r="5" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+              <path d="M5 24c0-4.97 4.03-9 9-9s9 4.03 9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+            </svg>
+          </div>
+          <span>portrait photo</span>
+        </div>
+        <div class="card-badge">Director</div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-name">Senthilkumar<br>Thirumalaisamy</h3>
+        <p class="card-title-label">Director &amp; CFO Advisory Lead</p>
+        <p class="card-bio-short">A seasoned finance professional with 16+ years in corporate finance, treasury, capital structuring, and SME growth advisory across India's leading conglomerates.</p>
+        <div class="card-tags">
+          <span class="tag">CFO Advisory</span>
+          <span class="tag">Treasury</span>
+          <span class="tag">Capital Markets</span>
+          <span class="tag">IPO Readiness</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://linkedin.com" target="_blank" class="card-linkedin" onclick="event.stopPropagation()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <button class="card-expand-btn" aria-label="View full profile">
+          View Profile
+          <span class="expand-arrow">
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+              <path d="M1.5 6.5L6.5 1.5M6.5 1.5H2.5M6.5 1.5V5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </article>
+
+    <!-- Card 2: Balamurugan -->
+    <article class="card" data-member="1" tabindex="0" role="button" aria-label="View profile: Balamurugan R">
+      <div class="card-photo">
+        <div class="card-photo-placeholder">
+          <div class="card-photo-placeholder-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="10" r="5" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+              <path d="M5 24c0-4.97 4.03-9 9-9s9 4.03 9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+            </svg>
+          </div>
+          <span>portrait photo</span>
+        </div>
+        <div class="card-badge">Director</div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-name">Balamurugan R</h3>
+        <p class="card-title-label">Director &amp; Corporate Finance Lead</p>
+        <p class="card-bio-short">An accomplished finance professional with 18+ years across corporate finance, treasury management, and strategic financial planning — MBA in Finance with deep multi-entity expertise.</p>
+        <div class="card-tags">
+          <span class="tag">Corporate Finance</span>
+          <span class="tag">Treasury Mgmt</span>
+          <span class="tag">MIS</span>
+          <span class="tag">Tata Group Alumni</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://linkedin.com" target="_blank" class="card-linkedin" onclick="event.stopPropagation()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <button class="card-expand-btn" aria-label="View full profile">
+          View Profile
+          <span class="expand-arrow">
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+              <path d="M1.5 6.5L6.5 1.5M6.5 1.5H2.5M6.5 1.5V5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </article>
+
+    <!-- Card 3: Ganesh -->
+    <article class="card" data-member="2" tabindex="0" role="button" aria-label="View profile: Ganesh Vaidyanathan">
+      <div class="card-photo">
+        <div class="card-photo-placeholder">
+          <div class="card-photo-placeholder-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="10" r="5" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+              <path d="M5 24c0-4.97 4.03-9 9-9s9 4.03 9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+            </svg>
+          </div>
+          <span>portrait photo</span>
+        </div>
+        <div class="card-badge">Associate</div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-name">Ganesh<br>Vaidyanathan</h3>
+        <p class="card-title-label">Associate — Global Accounting &amp; Reporting</p>
+        <p class="card-bio-short">A dynamic Chartered Accountant with 5+ years of post-qualification experience in financial reporting, IND AS, US GAAP, taxation, internal controls, and compliance governance.</p>
+        <div class="card-tags">
+          <span class="tag">IND AS / GAAP</span>
+          <span class="tag">Internal Audit</span>
+          <span class="tag">Compliance</span>
+          <span class="tag">Direct Tax</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://linkedin.com" target="_blank" class="card-linkedin" onclick="event.stopPropagation()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <button class="card-expand-btn" aria-label="View full profile">
+          View Profile
+          <span class="expand-arrow">
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+              <path d="M1.5 6.5L6.5 1.5M6.5 1.5H2.5M6.5 1.5V5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ── BOTTOM CTA BAND ─────────────────────────────────────────── -->
+<div class="cta-band">
+  <div class="cta-band-left">
+    <p class="cta-band-eyebrow">Work With Us</p>
+    <h2 class="cta-band-title">Ready to Build Your<br>Financial Strategy?</h2>
+    <p class="cta-band-sub">Speak directly with our leadership team to explore how FINLEVER can help your organisation achieve financial clarity and growth.</p>
+  </div>
+  <div class="cta-band-actions">
+    <a href="/cdn-cgi/l/email-protection#bdd4d3dbd2fddbd4d3d1d8cbd8cf93ded2" class="btn-large">
+      Book a Consultation
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <a href="/cdn-cgi/l/email-protection#d3babdb5bc93b5babdbfb6a5b6a1fdb0bc" class="btn-outline">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <rect x="1" y="3" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M1 5.5l6 3.5 6-3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <span class="__cf_email__" data-cfemail="84edeae2ebc4e2edeae8e1f2e1f6aae7eb">[email&#160;protected]</span>
+    </a>
+  </div>
+</div>
+
+<!-- ── FOOTER ──────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="nav-logo-mark">
+          <svg viewBox="0 0 20 20" fill="none" width="20" height="20">
+            <path d="M4 16 L4 8 L10 4 L16 8 L16 16" stroke="oklch(0.10 0.008 240)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 16 L8 12 L12 12 L12 16" stroke="oklch(0.10 0.008 240)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span style="font-family:var(--font-serif);font-size:17px;font-weight:600;color:oklch(0.92 0.004 240);">FINLEVER</span>
+      </div>
+      <p class="footer-brand-tagline">Driving growth with structured finance, optimised capital, and readiness for investors and markets.</p>
+      <p class="footer-location">Chennai &amp; Coimbatore</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Quick Links</p>
+      <ul class="footer-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Team</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Services</p>
+      <ul class="footer-links">
+        <li><a href="#">Virtual CFO</a></li>
+        <li><a href="#">Fundraising</a></li>
+        <li><a href="#">Treasury</a></li>
+        <li><a href="#">Accounting</a></li>
+        <li><a href="#">Compliance</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Contact</p>
+      <ul class="footer-links">
+        <li><a href="/cdn-cgi/l/email-protection#b0d9ded6dff0d6d9dedcd5c6d5c29ed3df"><span class="__cf_email__" data-cfemail="88e1e6eee7c8eee1e6e4edfeedfaa6ebe7">[email&#160;protected]</span></a></li>
+        <li><a href="#">Chennai Office</a></li>
+        <li><a href="#">Coimbatore Office</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2024 FINLEVER Consulting. All rights reserved.</span>
+    <div class="footer-socials">
+      <a href="#" class="social-btn" aria-label="LinkedIn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="#" class="social-btn" aria-label="Instagram">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="#" class="social-btn" aria-label="Twitter">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── MODAL ───────────────────────────────────────────────────── -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalName">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-photo" id="modalPhoto">
+        <div class="modal-photo-placeholder">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <circle cx="18" cy="13" r="6" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+            <path d="M6 32c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+          </svg>
+        </div>
+      </div>
+      <div class="modal-info">
+        <span class="modal-badge" id="modalBadge"></span>
+        <h2 class="modal-name" id="modalName"></h2>
+        <p class="modal-role" id="modalRole"></p>
+        <div class="modal-tags" id="modalTags"></div>
+      </div>
+      <button class="modal-close" id="modalClose" aria-label="Close">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── MEMBER DATA ───────────────────────────────────────────────
+const members = [
+  {
+    name: "Senthilkumar\nThirumalaisamy",
+    badge: "Director",
+    role: "Director & CFO Advisory Lead",
+    tags: ["CFO Advisory", "Treasury", "Capital Markets", "IPO Readiness", "Debt Syndication"],
+    highlights: [
+      "16+ years in corporate finance, treasury & capital structuring",
+      "Led ₹2,530 Cr+ in debt syndication & investment transactions",
+      "Guided companies through IPO readiness for valuations exceeding ₹500 Cr",
+      "Prior experience at Murugappa Group & TVS Group"
+    ],
+    bio: [
+      "Senthilkumar Thirumalaisamy is a seasoned finance professional with over 16 years of experience in corporate finance, treasury, and capital structuring. With prior experience at leading conglomerates including the Murugappa Group and TVS Group, he brings institutional financial discipline to growing businesses.",
+      "He has successfully managed over ₹2,530 Crores in debt syndication and investment transactions, and guided companies through IPO readiness processes for valuations exceeding ₹500 Crores.",
+      "As Director at FINLEVER, he specialises in helping SMEs and mid-market companies become investment-ready through strategic financial transformation. He currently leads FINLEVER's Consulting, Virtual CFO Services, and Digital Finance verticals."
+    ]
+  },
+  {
+    name: "Balamurugan R",
+    badge: "Director",
+    role: "Director & Corporate Finance Lead",
+    tags: ["Corporate Finance", "Treasury Mgmt", "MIS", "Financial Planning", "Tata Group Alumni"],
+    highlights: [
+      "18+ years across corporate finance & treasury management",
+      "MBA in Finance with strategic financial planning expertise",
+      "Worked with Alstom, Ramco Group, Tata Group & Murugappa Group",
+      "Specialises in large-scale multi-entity financial ecosystems"
+    ],
+    bio: [
+      "Balamurugan R is an accomplished finance professional with over 18 years of experience across corporate finance, treasury management, and strategic financial planning, backed by an MBA in Finance.",
+      "He has worked with globally reputed organisations and large conglomerates, including Alstom, Ramco Group, Tata Group, and the Murugappa Group — gaining deep exposure to complex financial ecosystems, multi-entity structures, and large-scale financial operations.",
+      "He specialises in CFO advisory, financial markets, and technology-driven MIS transformation, enabling organisations to enhance financial visibility, control, and data-driven decision-making. At FINLEVER, he currently leads the Corporate Treasury and Capital Allocation practice."
+    ]
+  },
+  {
+    name: "Ganesh\nVaidyanathan",
+    badge: "Associate",
+    role: "Associate — Global Accounting & Reporting",
+    tags: ["IND AS / US GAAP", "Internal Audit", "Compliance", "Direct Tax", "Transfer Pricing"],
+    highlights: [
+      "5+ years post-qualification experience as Chartered Accountant",
+      "Previously Manager – Finance at F.I.L.-Parry (India) Limited",
+      "Expert in IND AS, US GAAP, IFRS reporting & direct taxation",
+      "Leads FINLEVER's Global Accounting and Internal Controls functions"
+    ],
+    bio: [
+      "Ganesh Vaidyanathan is a dynamic Chartered Accountant with over 5 years of post-qualification experience across financial reporting, taxation, and internal controls, with a strong focus on compliance and accuracy.",
+      "Previously served as Manager – Finance at F.I.L.-Parry (India) Limited, where he managed corporate finance and taxation functions, ensuring high standards of financial discipline and regulatory adherence.",
+      "He brings expertise in IND AS and GAAP reporting, direct taxation, internal financial controls (IFC), and internal audits. Currently, he leads FINLEVER's Global Accounting, Financial Reporting, and Internal Controls functions."
+    ]
+  }
+];
+
+// ── MODAL LOGIC ───────────────────────────────────────────────
+const overlay = document.getElementById('modalOverlay');
+const modalClose = document.getElementById('modalClose');
+
+function openModal(idx) {
+  const m = members[idx];
+
+  document.getElementById('modalBadge').textContent = m.badge;
+  document.getElementById('modalName').textContent = m.name.replace('\n', ' ');
+  document.getElementById('modalRole').textContent = m.role;
+
+  const tagsEl = document.getElementById('modalTags');
+  tagsEl.innerHTML = m.tags.map(t => `<span class="tag">${t}</span>`).join('');
+
+  const bodyEl = document.getElementById('modalBody');
+  bodyEl.innerHTML = `
+    <div>
+      <p class="modal-section-title">Background</p>
+      ${m.bio.map(p => `<p class="modal-para">${p}</p>`).join('')}
+    </div>
+    <div>
+      <p class="modal-section-title">Key Highlights</p>
+      <div class="modal-highlights">
+        ${m.highlights.map(h => `
+          <div class="highlight-item">
+            <span class="highlight-dot"></span>
+            <span class="highlight-text">${h}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div class="modal-cta">
+      <a href="mailto:info@finlever.co" class="btn-consult">
+        Book a Consultation
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+          <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="https://linkedin.com" target="_blank" class="btn-linkedin-modal">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        View on LinkedIn
+      </a>
+    </div>
+  `;
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Card clicks
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('click', () => {
+    openModal(parseInt(card.dataset.member));
+  });
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openModal(parseInt(card.dataset.member));
+    }
+  });
+});
+
+modalClose.addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── THEME TOGGLE ──────────────────────────────────────────────
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+const html = document.documentElement;
+
+function setTheme(t) {
+  html.setAttribute('data-theme', t);
+  localStorage.setItem('finlever-theme', t);
+  themeIcon.innerHTML = t === 'dark'
+    ? '<circle cx="8" cy="8" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.88 11.88l1.07 1.07M11.88 4.12l1.07-1.07M3.05 12.95l1.06-1.06" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>'
+    : '<path d="M13.5 8a5.5 5.5 0 01-7.07-7.07A6.5 6.5 0 108.5 15 6.5 6.5 0 0013.5 8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>';
+}
+
+// Load saved theme
+const saved = localStorage.getItem('finlever-theme') || 'dark';
+setTheme(saved);
+
+themeToggle.addEventListener('click', () => {
+  const current = html.getAttribute('data-theme');
+  setTheme(current === 'dark' ? 'light' : 'dark');
+});
+
+// ── CARD ENTRANCE ANIMATION ───────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      entry.target.style.animationDelay = `${entry.target.dataset.delay}ms`;
+      entry.target.classList.add('card-visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.card').forEach((card, i) => {
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(32px)';
+  card.dataset.delay = i * 120;
+  observer.observe(card);
+});
+</script>
+
+<style>
+.card-visible {
+  animation: cardIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes cardIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+
+</body>
+</html>

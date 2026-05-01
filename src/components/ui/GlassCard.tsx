@@ -9,12 +9,13 @@ export function GlassCard({ children, className }: GlassCardProps) {
   return (
     <div
       className={cn(
-        "rounded-2xl border border-white/10 bg-white/[0.055] p-6 shadow-2xl shadow-black/25 backdrop-blur-xl transition duration-300",
-        "hover:border-cyan-300/45 hover:bg-cyan-300/[0.075] hover:shadow-[0_0_45px_rgba(34,211,238,0.13)]",
+        "premium-card p-6 transition duration-300",
+        "hover:-translate-y-1 hover:border-[hsl(var(--accent)/0.55)] hover:bg-[hsl(var(--card-hover)/0.92)]",
+        "dark:hover:shadow-[0_24px_70px_hsl(var(--glow)/0.13)]",
         className,
       )}
     >
-      {children}
+      <div className="card-content">{children}</div>
     </div>
   );
 }

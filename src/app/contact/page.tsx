@@ -9,11 +9,14 @@ export const metadata = {
   title: "Contact | FinLever Consulting",
 };
 
+const inputClass =
+  "min-h-12 rounded-lg border border-[hsl(var(--input))] bg-[hsl(var(--background)/0.72)] px-4 text-sm text-[hsl(var(--foreground))] outline-none transition placeholder:text-[hsl(var(--muted-foreground)/0.68)] focus:border-[hsl(var(--accent)/0.72)] focus:bg-[hsl(var(--card))]";
+
 export default function ContactPage() {
   return (
     <main>
-      <section className="px-5 py-24 sm:px-8 lg:py-32">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+      <section className="section-pad">
+        <div className="site-container grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
             <SectionHeader
               eyebrow="Contact Us"
@@ -23,27 +26,27 @@ export default function ContactPage() {
             <div className="mt-10 grid gap-4">
               <GlassCard>
                 <div className="flex gap-4">
-                  <FiMapPin className="mt-1 size-5 shrink-0 text-cyan-300" />
-                  <p className="text-sm leading-7 text-slate-300">
-                    <span className="font-semibold text-white">Address: </span>
+                  <FiMapPin className="mt-1 size-5 shrink-0 text-[hsl(var(--accent))]" />
+                  <p className="text-sm leading-7 text-[hsl(var(--muted-foreground))]">
+                    <span className="font-semibold text-[hsl(var(--foreground))]">Address: </span>
                     {contact.address}
                   </p>
                 </div>
               </GlassCard>
               <GlassCard>
                 <div className="flex gap-4">
-                  <FiPhone className="mt-1 size-5 shrink-0 text-cyan-300" />
-                  <p className="text-sm leading-7 text-slate-300">
-                    <span className="font-semibold text-white">Contact: </span>
+                  <FiPhone className="mt-1 size-5 shrink-0 text-[hsl(var(--accent))]" />
+                  <p className="text-sm leading-7 text-[hsl(var(--muted-foreground))]">
+                    <span className="font-semibold text-[hsl(var(--foreground))]">Contact: </span>
                     {contact.phones.join(" | ")}
                   </p>
                 </div>
               </GlassCard>
               <GlassCard>
                 <div className="flex gap-4">
-                  <FiMail className="mt-1 size-5 shrink-0 text-cyan-300" />
-                  <p className="text-sm leading-7 text-slate-300">
-                    <span className="font-semibold text-white">Email ID: </span>
+                  <FiMail className="mt-1 size-5 shrink-0 text-[hsl(var(--accent))]" />
+                  <p className="text-sm leading-7 text-[hsl(var(--muted-foreground))]">
+                    <span className="font-semibold text-[hsl(var(--foreground))]">Email ID: </span>
                     {contact.email}
                   </p>
                 </div>
@@ -52,35 +55,29 @@ export default function ContactPage() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <form className="rounded-[2rem] border border-white/10 bg-white/[0.055] p-6 shadow-2xl shadow-black/25 backdrop-blur-xl sm:p-8">
+            <form className="surface-panel rounded-lg p-6 sm:p-8">
               <div className="grid gap-5 sm:grid-cols-2">
-                <label className="grid gap-2 text-sm font-semibold text-white">
+                <label className="grid gap-2 text-sm font-semibold text-[hsl(var(--foreground))]">
                   Name
-                  <input
-                    className="min-h-12 rounded-xl border border-white/10 bg-slate-950/70 px-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60"
-                    placeholder="Your name"
-                  />
+                  <input className={inputClass} placeholder="Your name" />
                 </label>
-                <label className="grid gap-2 text-sm font-semibold text-white">
+                <label className="grid gap-2 text-sm font-semibold text-[hsl(var(--foreground))]">
                   Email
                   <input
                     type="email"
-                    className="min-h-12 rounded-xl border border-white/10 bg-slate-950/70 px-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60"
+                    className={inputClass}
                     placeholder="you@company.com"
                   />
                 </label>
               </div>
-              <label className="mt-5 grid gap-2 text-sm font-semibold text-white">
+              <label className="mt-5 grid gap-2 text-sm font-semibold text-[hsl(var(--foreground))]">
                 Company
-                <input
-                  className="min-h-12 rounded-xl border border-white/10 bg-slate-950/70 px-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60"
-                  placeholder="Company name"
-                />
+                <input className={inputClass} placeholder="Company name" />
               </label>
-              <label className="mt-5 grid gap-2 text-sm font-semibold text-white">
+              <label className="mt-5 grid gap-2 text-sm font-semibold text-[hsl(var(--foreground))]">
                 Requirement
                 <textarea
-                  className="min-h-40 resize-none rounded-xl border border-white/10 bg-slate-950/70 px-4 py-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60"
+                  className={`${inputClass} min-h-40 resize-none py-4`}
                   placeholder="Virtual CFO, treasury, fundraising, accounting, compliance..."
                 />
               </label>
