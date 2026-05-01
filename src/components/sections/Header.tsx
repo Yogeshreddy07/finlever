@@ -30,7 +30,7 @@ const serviceLinks = [
 ];
 
 const navItemClass =
-  "relative inline-flex h-11 items-center px-2 text-sm font-semibold text-[hsl(var(--muted-foreground))] transition duration-200 hover:text-[hsl(var(--foreground))] after:absolute after:inset-x-2 after:bottom-1 after:h-0.5 after:origin-center after:scale-x-0 after:rounded-full after:bg-gradient-to-r after:from-[hsl(var(--accent)/0.18)] after:via-[hsl(var(--accent))] after:to-[hsl(var(--glow))] after:opacity-0 after:shadow-[0_0_14px_hsl(var(--glow)/0.32)] after:transition after:duration-300 hover:after:scale-x-75 hover:after:opacity-70";
+  "relative inline-flex h-11 items-center px-2.5 text-sm font-semibold text-[hsl(var(--muted-foreground))] transition duration-200 hover:text-[hsl(var(--foreground))] after:absolute after:inset-x-2 after:bottom-1 after:h-0.5 after:origin-center after:scale-x-0 after:rounded-full after:bg-gradient-to-r after:from-[hsl(var(--accent)/0.18)] after:via-[hsl(var(--accent))] after:to-[hsl(var(--glow))] after:opacity-0 after:shadow-[0_0_14px_hsl(var(--glow)/0.32)] after:transition after:duration-300 hover:after:scale-x-75 hover:after:opacity-70";
 
 const activeNavItemClass =
   "text-[hsl(var(--foreground))] after:scale-x-100 after:opacity-100";
@@ -49,12 +49,17 @@ export function Header() {
 
   return (
     <header className="sticky top-3 z-50 px-3 py-3 sm:px-5">
-      <div className="relative mx-auto flex min-h-20 w-full max-w-352 items-center rounded-full border border-[hsl(var(--border)/0.72)] bg-[hsl(var(--card)/0.84)] px-3 shadow-[0_18px_55px_hsl(var(--shadow)/0.14),0_1px_0_hsl(0_0%_100%/0.54)_inset] backdrop-blur-2xl dark:border-[hsl(var(--border)/0.82)] dark:bg-[hsl(var(--card)/0.72)] dark:shadow-[0_20px_70px_hsl(var(--shadow)/0.46),0_1px_0_hsl(0_0%_100%/0.08)_inset] sm:px-5">
+      {/* Main pill nav bar */}
+      <div className="relative mx-auto flex min-h-20 w-full max-w-352 items-center rounded-full border border-[hsl(var(--border)/0.72)] bg-[hsl(var(--card)/0.86)] px-3 shadow-[0_18px_55px_hsl(var(--shadow)/0.13),0_1px_0_hsl(0_0%_100%/0.56)_inset] backdrop-blur-2xl dark:border-[hsl(var(--border)/0.82)] dark:bg-[hsl(var(--card)/0.74)] dark:shadow-[0_20px_70px_hsl(var(--shadow)/0.46),0_1px_0_hsl(0_0%_100%/0.08)_inset] sm:px-5">
+        {/* Subtle top gradient accent */}
+        <div className="pointer-events-none absolute inset-x-6 top-0 h-px rounded-full bg-[linear-gradient(90deg,transparent,hsl(var(--accent)/0.3),transparent)]" />
+
         <Logo />
 
+        {/* Desktop navigation — centered */}
         <nav
           aria-label="Primary navigation"
-          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 xl:flex"
+          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 xl:flex"
         >
           {navLinks.slice(0, 2).map((link) => {
             const isActive = pathname === link.href;
@@ -72,6 +77,7 @@ export function Header() {
             );
           })}
 
+          {/* Services dropdown */}
           <DropdownMenu modal={false} open={isServicesOpen} onOpenChange={setServicesOpen}>
             <DropdownMenuTrigger asChild>
               <button
@@ -95,8 +101,8 @@ export function Header() {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="center"
-              sideOffset={8}
-              className="w-84 rounded-3xl border border-[hsl(var(--border)/0.78)] bg-[hsl(var(--popover)/0.9)] p-2.5 text-[hsl(var(--popover-foreground))] shadow-[0_24px_80px_hsl(var(--shadow)/0.24),0_1px_0_hsl(0_0%_100%/0.5)_inset] backdrop-blur-2xl dark:bg-[hsl(var(--popover)/0.86)] dark:shadow-[0_28px_90px_hsl(var(--shadow)/0.5),0_1px_0_hsl(0_0%_100%/0.08)_inset]"
+              sideOffset={10}
+              className="w-84 rounded-3xl border border-[hsl(var(--border)/0.78)] bg-[hsl(var(--popover)/0.92)] p-2.5 text-[hsl(var(--popover-foreground))] shadow-[0_24px_80px_hsl(var(--shadow)/0.24),0_1px_0_hsl(0_0%_100%/0.52)_inset] backdrop-blur-2xl dark:bg-[hsl(var(--popover)/0.88)] dark:shadow-[0_28px_90px_hsl(var(--shadow)/0.5),0_1px_0_hsl(0_0%_100%/0.08)_inset]"
             >
               {serviceLinks.map((link) => {
                 const isActive = pathname === link.href;
@@ -139,17 +145,19 @@ export function Header() {
           })}
         </nav>
 
+        {/* Desktop right: theme toggle + CTA */}
         <div className="ml-auto hidden items-center gap-3 xl:flex">
           <ThemeToggle />
           <Link
             href="/contact"
             onClick={() => setServicesOpen(false)}
-            className="inline-flex h-11 items-center rounded-full bg-[hsl(var(--cta))] px-6 text-sm font-semibold text-[hsl(var(--cta-foreground))] shadow-[0_16px_34px_hsl(var(--shadow)/0.17)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_44px_hsl(var(--shadow)/0.2)]"
+            className="relative inline-flex h-11 items-center overflow-hidden rounded-full bg-[hsl(var(--cta))] px-6 text-sm font-semibold text-[hsl(var(--cta-foreground))] shadow-[0_14px_32px_hsl(var(--shadow)/0.18)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_42px_hsl(var(--glow)/0.22)]"
           >
             Get Started
           </Link>
         </div>
 
+        {/* Mobile right: theme toggle + hamburger */}
         <div className="ml-auto flex items-center gap-2 xl:hidden">
           <div className="hidden sm:inline-flex">
             <ThemeToggle />
@@ -166,12 +174,17 @@ export function Header() {
         </div>
       </div>
 
+      {/* Mobile menu panel */}
       {isMobileOpen ? (
-        <div className="mx-auto mt-3 w-full max-w-352 rounded-4xl border border-[hsl(var(--border)/0.76)] bg-[hsl(var(--card)/0.92)] px-3 py-4 shadow-[0_22px_70px_hsl(var(--shadow)/0.18)] backdrop-blur-2xl dark:bg-[hsl(var(--card)/0.84)] dark:shadow-[0_26px_80px_hsl(var(--shadow)/0.46)] xl:hidden">
+        <div className="mx-auto mt-3 w-full max-w-352 rounded-4xl border border-[hsl(var(--border)/0.76)] bg-[hsl(var(--card)/0.94)] px-3 py-4 shadow-[0_24px_72px_hsl(var(--shadow)/0.18)] backdrop-blur-2xl dark:bg-[hsl(var(--card)/0.86)] dark:shadow-[0_28px_82px_hsl(var(--shadow)/0.46)] xl:hidden">
+          {/* Gradient top accent */}
+          <div className="mb-3 h-px rounded-full bg-[linear-gradient(90deg,transparent,hsl(var(--accent)/0.28),transparent)]" />
+
           <nav aria-label="Mobile navigation" className="grid gap-1">
             <div className="mb-2 flex justify-end sm:hidden">
               <ThemeToggle />
             </div>
+
             {navLinks.slice(0, 2).map((link) => {
               const isActive = pathname === link.href;
 
@@ -187,9 +200,11 @@ export function Header() {
                 </Link>
               );
             })}
-            <p className="mt-2 px-4 text-xs font-bold uppercase tracking-[0.2em] text-[hsl(var(--accent))]">
+
+            <p className="mt-3 px-4 text-[0.62rem] font-bold uppercase tracking-[0.22em] text-[hsl(var(--accent))]">
               Services
             </p>
+
             {serviceLinks.map((link) => {
               const isActive = pathname === link.href;
 
@@ -199,9 +214,9 @@ export function Header() {
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "relative rounded-2xl px-5 py-2.5 text-sm font-medium text-[hsl(var(--muted-foreground))] transition hover:bg-[hsl(var(--accent-soft)/0.54)] hover:text-[hsl(var(--foreground))] after:absolute after:inset-x-5 after:bottom-1.5 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-[hsl(var(--accent))] after:opacity-0 after:transition",
+                    "relative rounded-2xl px-5 py-2.5 text-sm font-medium text-[hsl(var(--muted-foreground))] transition hover:bg-[hsl(var(--accent-soft)/0.54)] hover:text-[hsl(var(--foreground))]",
                     isActive &&
-                      "bg-[hsl(var(--accent-soft)/0.38)] text-[hsl(var(--foreground))] after:scale-x-100 after:opacity-100",
+                      "bg-[hsl(var(--accent-soft)/0.38)] text-[hsl(var(--foreground))]",
                   )}
                   aria-current={isActive ? "page" : undefined}
                 >
@@ -209,7 +224,9 @@ export function Header() {
                 </Link>
               );
             })}
-            <div className="my-2 h-px bg-[hsl(var(--border)/0.68)]" />
+
+            <div className="my-2 h-px bg-[hsl(var(--border)/0.62)]" />
+
             {navLinks.slice(2).map((link) => {
               const isActive = pathname === link.href;
 
@@ -225,10 +242,11 @@ export function Header() {
                 </Link>
               );
             })}
+
             <Link
               href="/contact"
               onClick={() => setMobileOpen(false)}
-              className="mt-3 rounded-full bg-[hsl(var(--cta))] px-4 py-3 text-center text-sm font-semibold text-[hsl(var(--cta-foreground))] shadow-[0_16px_34px_hsl(var(--shadow)/0.16)]"
+              className="mt-3 rounded-full bg-[hsl(var(--cta))] px-4 py-3 text-center text-sm font-semibold text-[hsl(var(--cta-foreground))] shadow-[0_14px_32px_hsl(var(--shadow)/0.16)] transition hover:-translate-y-0.5"
             >
               Get Started
             </Link>

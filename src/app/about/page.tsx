@@ -12,29 +12,35 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <main>
-      <section className="section-pad">
-        <div className="site-container grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+      {/* ── HERO ─────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden section-pad">
+        {/* Background treatments */}
+        <div className="absolute inset-0 ai-grid opacity-[0.04]" />
+        <div className="absolute inset-x-0 top-0 h-80 bg-[radial-gradient(ellipse_72%_60%_at_50%_0%,hsl(var(--glow)/0.14),transparent_68%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(to_bottom,transparent,hsl(var(--background)/0.6))]" />
+
+        <div className="site-container relative grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
           <Reveal>
-            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[hsl(var(--accent))]">
-              About Us
-            </p>
-            <h1 className="mt-5 text-balance text-4xl font-semibold leading-[1.04] text-[hsl(var(--foreground))] sm:text-6xl lg:text-7xl">
+            <div className="capsule-badge mb-6">About Us</div>
+            <h1 className="mt-2 text-balance font-display text-4xl font-normal leading-[1.04] tracking-[-0.01em] text-[hsl(var(--foreground))] sm:text-6xl lg:text-7xl">
               FINLEVER! Redefining Finance for Modern Businesses.
             </h1>
             <p className="mt-7 max-w-2xl text-xl leading-8 text-[hsl(var(--muted-foreground))]">
               Engineering financial clarity for the borderless economy.
             </p>
           </Reveal>
+
           <Reveal delay={0.1}>
             <AbstractFinanceGraphic />
           </Reveal>
         </div>
       </section>
 
+      {/* ── PHILOSOPHY CARDS ─────────────────────────────────────── */}
       <section className="section-pad-sm">
         <div className="site-container grid gap-6 lg:grid-cols-2">
           <Reveal>
-            <GlassCard className="h-full p-8">
+            <GlassCard className="h-full p-8 lg:p-10">
               <SectionHeader
                 eyebrow="Core Philosophy"
                 title="Beyond Accounting. Built for Strategic Finance."
@@ -51,8 +57,9 @@ export default function AboutPage() {
               </p>
             </GlassCard>
           </Reveal>
+
           <Reveal delay={0.08}>
-            <GlassCard className="h-full p-8">
+            <GlassCard className="h-full p-8 lg:p-10">
               <SectionHeader
                 eyebrow="The Virtual CFO Model"
                 title="CFO Expertise, Without Full-Time Cost"
@@ -73,14 +80,21 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="pb-24">
+      {/* ── CTA PANEL ────────────────────────────────────────────── */}
+      <section className="pb-24 sm:pb-32">
         <Reveal>
-          <div className="site-container surface-panel rounded-lg p-8 sm:p-12">
-            <p className="max-w-3xl text-2xl font-semibold leading-snug text-[hsl(var(--foreground))] sm:text-4xl">
-              {site.taglines[1]}
-            </p>
-            <div className="mt-8">
-              <ButtonLink href="/contact">Book a Professional Evaluation</ButtonLink>
+          <div className="site-container">
+            <div className="surface-panel rounded-2xl p-8 sm:p-12 lg:p-14">
+              {/* Subtle dot background */}
+              <div className="pointer-events-none absolute inset-0 dot-pattern opacity-[0.3] rounded-2xl" />
+              <div className="relative">
+                <p className="max-w-3xl font-display text-2xl font-semibold leading-snug text-[hsl(var(--foreground))] sm:text-4xl">
+                  {site.taglines[1]}
+                </p>
+                <div className="mt-8">
+                  <ButtonLink href="/contact">Book a Professional Evaluation</ButtonLink>
+                </div>
+              </div>
             </div>
           </div>
         </Reveal>

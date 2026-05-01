@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import {
   FiArrowRight,
   FiBarChart2,
+  FiCheck,
   FiCheckSquare,
   FiLayers,
   FiShield,
@@ -18,10 +19,23 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { services, site } from "@/data/site";
 
 const shift = [
-  { title: "Domain Expertise", body: "Finance industry veterans", icon: FiShield },
-  { title: "Future-ready solutions", body: "Interactive AI dashboards", icon: FiBarChart2 },
-  { title: "Partnership approach", body: "Strategic, scalable impact", icon: FiUsers },
+  {
+    title: "Domain Expertise",
+    body: "Finance industry veterans with institutional track records",
+    icon: FiShield,
+  },
+  {
+    title: "Future-ready Solutions",
+    body: "Interactive AI dashboards and predictive analytics",
+    icon: FiBarChart2,
+  },
+  {
+    title: "Partnership Approach",
+    body: "Strategic, scalable impact aligned to your growth stage",
+    icon: FiUsers,
+  },
 ];
+
 const edgeCards = [
   {
     title: "Deep Financial Expertise",
@@ -49,65 +63,108 @@ const edgeCards = [
     dir: "right" as const,
   },
 ];
+
+const heroStats = [
+  { value: "₹2,500Cr+", label: "Transactions Managed" },
+  { value: "16+", label: "Years Domain Expertise" },
+  { value: "5", label: "Service Verticals" },
+];
+
+const advantagePoints = [
+  "CFO-level expertise without full-time overhead",
+  "AI-powered dashboards and real-time analytics",
+  "End-to-end financial lifecycle management",
+  "Investor-ready frameworks and IPO advisory",
+  "Deep domain expertise across SME to enterprise",
+];
+
 const heroButtonClass =
-  "group inline-flex min-h-12 items-center justify-center gap-3 rounded-full border px-5 text-sm font-semibold backdrop-blur-xl transition duration-300 hover:-translate-y-1 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring sm:px-6";
+  "group inline-flex min-h-12 items-center justify-center gap-3 rounded-full border px-6 text-sm font-semibold backdrop-blur-xl transition duration-300 hover:-translate-y-1 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring sm:px-7";
 
 export default function Home() {
   const prefersReducedMotion = useReducedMotion();
   const previewServices = services.filter((service) =>
-    ["Virtual CFO", "Treasury", "Accounting", "Compliance"].includes(service.shortTitle),
+    ["Virtual CFO", "Treasury", "Accounting", "Compliance"].includes(
+      service.shortTitle,
+    ),
   );
 
   return (
     <main>
-      {/* 1 - HERO */}
+      {/* ── 1  HERO ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-8 sm:py-10 lg:min-h-[clamp(32rem,calc(100svh-5rem),52rem)] lg:py-[clamp(2.5rem,4vh,4rem)]">
-        <div className="absolute left-1/2 top-0 h-136 w-248 -translate-x-1/2 rounded-full bg-[hsl(var(--glow)/0.13)] blur-[108px]" />
-        <div className="absolute -right-24 top-16 h-72 w-72 rounded-full bg-[hsl(var(--warm)/0.12)] blur-[98px]" />
-        <div className="site-container relative grid items-center gap-6 sm:gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-10 xl:gap-12">
+        {/* Background glows */}
+        <div className="absolute left-1/2 top-0 h-136 w-248 -translate-x-1/2 rounded-full bg-[hsl(var(--glow)/0.11)] blur-[108px]" />
+        <div className="absolute -right-24 top-16 h-72 w-72 rounded-full bg-[hsl(var(--warm)/0.10)] blur-[98px]" />
+        {/* Subtle background grid */}
+        <div className="absolute inset-0 ai-grid opacity-[0.035]" />
+
+        <div className="site-container relative grid items-center gap-8 sm:gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-12 xl:gap-16">
+          {/* ── Left: copy ── */}
           <Reveal className="order-2 lg:order-1">
-            <p className="text-[0.68rem] font-bold uppercase tracking-[0.27em] text-[hsl(var(--accent))]">
-              {site.kicker}
-            </p>
-            <h1 className="mt-3 font-display text-[clamp(1.9rem,5.4vw,4rem)] font-normal leading-[1.08] tracking-[-0.01em] text-[hsl(var(--foreground))]">
-              <span className="block lg:whitespace-nowrap">
+            <div className="capsule-badge mb-5">{site.shortName}</div>
+
+            <h1 className="font-display text-[clamp(2rem,5.4vw,4rem)] font-normal leading-[1.06] tracking-[-0.015em] text-[hsl(var(--foreground))]">
+              <span className="block">
                 The{" "}
-                <em className="italic font-medium">Intelligence</em>
+                <em className="font-medium italic">Intelligence</em>
                 {" "}of{" "}
                 <span className="text-gradient filter-[drop-shadow(0_0_14px_hsl(var(--glow)/0.52))]">
                   AI.
                 </span>
               </span>
-              <span className="mt-1.5 block text-[clamp(1.55rem,4.3vw,3.3rem)] leading-[1.12] tracking-normal text-[hsl(var(--foreground)/0.82)]">
+              <span className="mt-2 block text-[clamp(1.6rem,4.3vw,3.3rem)] leading-[1.12] tracking-normal text-[hsl(var(--foreground)/0.78)]">
                 The <em className="italic">Rigor</em> of Global Finance.
               </span>
             </h1>
-            <p className="mt-5 hidden max-w-2xl text-justify text-base leading-8 text-[hsl(var(--muted-foreground))] sm:block sm:text-lg">
+
+            <p className="mt-5 hidden max-w-xl text-base leading-8 text-[hsl(var(--muted-foreground))] sm:block sm:text-[1.05rem]">
               {site.description}
             </p>
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link
                 href="/contact"
-                className={`${heroButtonClass} border-[hsl(var(--accent)/0.6)] bg-[linear-gradient(135deg,hsl(var(--accent)),hsl(190_96%_54%))] text-[hsl(var(--primary-foreground))] shadow-[0_18px_46px_hsl(var(--glow)/0.28)] hover:border-[hsl(var(--border)/0.9)] hover:bg-[linear-gradient(135deg,hsl(var(--cta)),hsl(222_47%_18%))] hover:shadow-[0_20px_52px_hsl(var(--shadow)/0.26)]`}
+                className={`${heroButtonClass} border-[hsl(var(--accent)/0.5)] bg-[linear-gradient(135deg,hsl(var(--accent)),hsl(190_96%_54%))] text-white shadow-[0_16px_44px_hsl(var(--glow)/0.3)] hover:border-transparent hover:bg-[linear-gradient(135deg,hsl(var(--cta)),hsl(222_47%_18%))] hover:shadow-[0_20px_52px_hsl(var(--shadow)/0.26)]`}
               >
                 <span>Schedule a Consultation</span>
                 <FiArrowRight className="size-4 transition duration-300 group-hover:translate-x-1.5 group-hover:-translate-y-0.5" />
               </Link>
               <Link
                 href="/services"
-                className={`${heroButtonClass} border-[hsl(var(--border)/0.82)] bg-[hsl(var(--card)/0.46)] text-[hsl(var(--foreground))] shadow-[0_16px_38px_hsl(var(--shadow)/0.11)] hover:border-[hsl(var(--accent)/0.72)] hover:bg-[linear-gradient(135deg,hsl(var(--accent-soft)/0.92),hsl(var(--accent)/0.22))] hover:shadow-[0_22px_54px_hsl(var(--glow)/0.24)]`}
+                className={`${heroButtonClass} border-[hsl(var(--border)/0.82)] bg-[hsl(var(--card)/0.5)] text-[hsl(var(--foreground))] shadow-[0_8px_24px_hsl(var(--shadow)/0.08)] hover:border-[hsl(var(--accent)/0.6)] hover:bg-[hsl(var(--accent-soft)/0.72)]`}
               >
                 <span>Our Capabilities</span>
                 <FiArrowRight className="size-4 transition duration-300 group-hover:translate-x-1.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
+
+            {/* Stat strip */}
+            <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3 border-t border-[hsl(var(--border)/0.5)] pt-8">
+              {heroStats.map((stat, i) => (
+                <div key={stat.label} className="flex items-center gap-7">
+                  <div>
+                    <p className="font-display text-2xl font-semibold tracking-tight text-[hsl(var(--foreground))]">
+                      {stat.value}
+                    </p>
+                    <p className="mt-0.5 text-[0.7rem] text-[hsl(var(--muted-foreground))]">
+                      {stat.label}
+                    </p>
+                  </div>
+                  {i < heroStats.length - 1 && (
+                    <div className="h-8 w-px bg-[hsl(var(--border)/0.62)]" />
+                  )}
+                </div>
+              ))}
+            </div>
           </Reveal>
 
+          {/* ── Right: video card ── */}
           <Reveal delay={0.06} className="order-1 lg:order-2 lg:justify-self-end">
-            <div className="group relative w-full overflow-hidden rounded-4xl border border-[hsl(var(--border)/0.72)] bg-[linear-gradient(145deg,hsl(var(--card)/0.82),hsl(var(--card-hover)/0.52))] p-2 shadow-[0_26px_84px_hsl(var(--shadow)/0.16),0_1px_0_hsl(0_0%_100%/0.55)_inset] backdrop-blur-2xl transition duration-500 hover:scale-[1.015] hover:border-[hsl(var(--accent)/0.58)] hover:shadow-[0_32px_104px_hsl(var(--glow)/0.25),0_1px_0_hsl(0_0%_100%/0.55)_inset] dark:bg-[linear-gradient(145deg,hsl(var(--card)/0.76),hsl(var(--card-hover)/0.48))] dark:shadow-[0_30px_96px_hsl(var(--shadow)/0.52),0_1px_0_hsl(0_0%_100%/0.08)_inset]">
-                <div className="relative aspect-16/10 overflow-hidden rounded-3xl bg-[hsl(var(--primary)/0.22)] lg:aspect-6/5">
+            <div className="group relative w-full overflow-hidden rounded-3xl border border-[hsl(var(--border)/0.72)] bg-[linear-gradient(145deg,hsl(var(--card)/0.84),hsl(var(--card-hover)/0.56))] p-2 shadow-[0_26px_84px_hsl(var(--shadow)/0.16),0_1px_0_hsl(0_0%_100%/0.55)_inset] backdrop-blur-2xl transition duration-500 hover:scale-[1.015] hover:border-[hsl(var(--accent)/0.5)] hover:shadow-[0_32px_104px_hsl(var(--glow)/0.24),0_1px_0_hsl(0_0%_100%/0.55)_inset] dark:bg-[linear-gradient(145deg,hsl(var(--card)/0.76),hsl(var(--card-hover)/0.48))] dark:shadow-[0_30px_96px_hsl(var(--shadow)/0.52),0_1px_0_hsl(0_0%_100%/0.08)_inset]">
+              <div className="relative aspect-16/10 overflow-hidden rounded-[1.25rem] bg-[hsl(var(--primary)/0.22)] lg:aspect-6/5">
                 <video
-                  className="h-full w-full object-cover brightness-110 saturate-[1.06] transition duration-700 group-hover:scale-[1.03] group-hover:brightness-[1.16]"
+                  className="h-full w-full object-cover brightness-110 saturate-[1.06] transition duration-700 group-hover:scale-[1.03] group-hover:brightness-[1.14]"
                   src="/Video/video.mp4"
                   autoPlay
                   muted
@@ -116,25 +173,27 @@ export default function Home() {
                   preload="metadata"
                   aria-label="FinLever AI finance intelligence preview"
                 />
-                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,hsl(var(--foreground)/0.15),transparent_42%,hsl(var(--background)/0.35)),linear-gradient(180deg,transparent_53%,hsl(var(--background)/0.52))]" />
-                <div className="ai-grid pointer-events-none absolute inset-0 opacity-[0.12]" />
+                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,hsl(var(--foreground)/0.14),transparent_42%,hsl(var(--background)/0.34)),linear-gradient(180deg,transparent_52%,hsl(var(--background)/0.5))]" />
+                <div className="ai-grid pointer-events-none absolute inset-0 opacity-[0.10]" />
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-linear-to-b from-[hsl(var(--card)/0.36)] to-transparent" />
-                <div className="pointer-events-none absolute left-0 top-0 h-full w-1/2 translate-x-[-180%] -skew-x-12 bg-linear-to-r from-transparent via-white/35 to-transparent opacity-0 transition duration-700 group-hover:translate-x-[240%] group-hover:opacity-85" />
+                {/* Shimmer sweep on hover */}
+                <div className="pointer-events-none absolute left-0 top-0 h-full w-1/2 translate-x-[-180%] -skew-x-12 bg-linear-to-r from-transparent via-white/28 to-transparent opacity-0 transition duration-700 group-hover:translate-x-[240%] group-hover:opacity-80" />
 
-                <div className="soft-float pointer-events-none absolute left-4 top-4 rounded-full border border-white/24 bg-black/28 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_10px_30px_rgb(0_0_0/0.24)] backdrop-blur-md transition duration-500 group-hover:-translate-y-1 group-hover:scale-105 sm:left-6 sm:top-6">
+                {/* Floating badges */}
+                <div className="soft-float pointer-events-none absolute left-4 top-4 rounded-full border border-white/22 bg-black/28 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_10px_30px_rgb(0_0_0/0.24)] backdrop-blur-md transition duration-500 group-hover:-translate-y-1 group-hover:scale-105 sm:left-6 sm:top-6">
                   AI Insights
                 </div>
                 <div
-                  className="soft-float pointer-events-none absolute right-4 top-[36%] rounded-full border border-white/22 bg-white/16 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_10px_30px_rgb(0_0_0/0.2)] backdrop-blur-md transition duration-500 group-hover:-translate-y-1 group-hover:scale-[1.04] sm:right-6"
+                  className="soft-float pointer-events-none absolute right-4 top-[36%] rounded-full border border-white/20 bg-white/14 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_10px_30px_rgb(0_0_0/0.2)] backdrop-blur-md transition duration-500 group-hover:-translate-y-1 group-hover:scale-[1.04] sm:right-6"
                   style={{ animationDelay: "1.2s" }}
                 >
                   Live Data
                 </div>
                 <div
-                  className="soft-float pointer-events-none absolute bottom-5 left-5 rounded-2xl border border-white/20 bg-black/30 px-4 py-3 text-white shadow-[0_16px_36px_rgb(0_0_0/0.24)] backdrop-blur-md transition duration-500 group-hover:-translate-y-1 group-hover:scale-[1.03] sm:bottom-7 sm:left-7"
+                  className="soft-float pointer-events-none absolute bottom-5 left-5 rounded-2xl border border-white/18 bg-black/30 px-4 py-3 text-white shadow-[0_16px_36px_rgb(0_0_0/0.24)] backdrop-blur-md transition duration-500 group-hover:-translate-y-1 group-hover:scale-[1.03] sm:bottom-7 sm:left-7"
                   style={{ animationDelay: "2s" }}
                 >
-                  <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-white/74">
+                  <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-white/72">
                     Risk
                   </p>
                   <p className="mt-1 text-sm font-semibold">Capital clarity</p>
@@ -144,22 +203,38 @@ export default function Home() {
           </Reveal>
         </div>
 
+        {/* Bottom wave decoration */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-2">
-          <svg viewBox="0 0 1440 120" className="h-14 w-full sm:h-16 lg:h-[4.4rem]" preserveAspectRatio="none">
+          <svg
+            viewBox="0 0 1440 120"
+            className="h-14 w-full sm:h-16 lg:h-[4.4rem]"
+            preserveAspectRatio="none"
+          >
             <motion.path
               d="M0 72 C220 16 430 108 720 72 C1010 36 1220 104 1440 52"
               fill="none"
-              stroke="hsl(var(--accent) / 0.48)"
-              strokeWidth="2"
+              stroke="hsl(var(--accent) / 0.42)"
+              strokeWidth="1.5"
               strokeLinecap="round"
-              initial={prefersReducedMotion ? false : { pathLength: 0.78, opacity: 0.3 }}
-              animate={prefersReducedMotion ? undefined : { pathLength: [0.72, 1, 0.72], opacity: [0.24, 0.56, 0.24] }}
+              initial={
+                prefersReducedMotion
+                  ? false
+                  : { pathLength: 0.78, opacity: 0.3 }
+              }
+              animate={
+                prefersReducedMotion
+                  ? undefined
+                  : {
+                      pathLength: [0.72, 1, 0.72],
+                      opacity: [0.22, 0.52, 0.22],
+                    }
+              }
               transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
             />
             <path
               d="M0 84 C260 34 510 116 720 84 C930 52 1210 112 1440 70"
               fill="none"
-              stroke="hsl(var(--border) / 0.46)"
+              stroke="hsl(var(--border) / 0.4)"
               strokeWidth="1"
               strokeLinecap="round"
             />
@@ -167,46 +242,64 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2 - SHIFT: Reactive to Proactive */}
+      {/* ── 2  SHIFT ─────────────────────────────────────────────── */}
       <section className="section-alt section-pad-sm">
-        <div className="site-container grid gap-14 lg:grid-cols-[1fr_1fr]">
+        <div className="site-container grid gap-14 lg:grid-cols-2">
           <Reveal>
-            <h2 className="text-balance text-3xl font-semibold leading-tight text-[hsl(var(--foreground))] sm:text-4xl lg:text-[2.6rem]">
+            <h2 className="text-balance text-3xl font-semibold leading-tight text-[hsl(var(--foreground))] sm:text-4xl">
               Shift from Reactive Reporting to{" "}
               <span className="text-gradient">Proactive Foresight.</span>
             </h2>
             <p className="mt-5 text-base leading-8 text-[hsl(var(--muted-foreground))]">
-              Real-time intelligence, AI-driven forecasting, and structured controls built for founders, boards, and finance leaders.
+              Real-time intelligence, AI-driven forecasting, and structured
+              controls built for founders, boards, and finance leaders.
             </p>
+            {/* Three pillar cards */}
             <div className="mt-10 grid gap-4 sm:grid-cols-3">
               {shift.map((item) => (
-                <div key={item.title} className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 shadow-sm">
-                  <item.icon className="size-6 text-[hsl(var(--accent))]" />
-                  <h3 className="mt-4 text-base font-semibold text-[hsl(var(--foreground))]">{item.title}</h3>
-                  <p className="mt-1.5 text-sm leading-6 text-[hsl(var(--muted-foreground))]">{item.body}</p>
+                <div
+                  key={item.title}
+                  className="relative overflow-hidden rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 shadow-sm"
+                >
+                  {/* Left accent bar */}
+                  <div className="absolute inset-y-0 left-0 w-0.5 rounded-r-full bg-[hsl(var(--accent)/0.5)]" />
+                  <item.icon className="size-5 text-[hsl(var(--accent))]" />
+                  <h3 className="mt-4 text-sm font-semibold text-[hsl(var(--foreground))]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-xs leading-6 text-[hsl(var(--muted-foreground))]">
+                    {item.body}
+                  </p>
                 </div>
               ))}
             </div>
           </Reveal>
+
           <Reveal delay={0.1}>
-            <h2 className="text-2xl font-semibold text-[hsl(var(--foreground))]">
+            <h2 className="text-xl font-semibold text-[hsl(var(--foreground))] sm:text-2xl">
               Comprehensive Financial & Strategic Command.
             </h2>
             <p className="mt-3 text-sm leading-7 text-[hsl(var(--muted-foreground))]">
-              Explore the service areas designed to cover your entire financial lifecycle.
+              Explore the service areas designed to cover your entire financial
+              lifecycle.
             </p>
             <div className="mt-7 grid gap-4 sm:grid-cols-2">
-              {previewServices.map((service) => (
+              {previewServices.map((service, i) => (
                 <Link
                   key={service.href}
                   href={service.href}
                   className="group premium-card block h-full p-5 transition duration-300 hover:-translate-y-0.5 hover:border-[hsl(var(--accent)/0.55)]"
                 >
-                  <div className="card-content">
-                    <FiCheckSquare className="size-5 text-[hsl(var(--accent))]" />
-                    <h3 className="mt-4 text-base font-semibold text-[hsl(var(--foreground))]">
-                      {service.title}
-                    </h3>
+                  <div className="card-content flex items-start justify-between gap-3">
+                    <div>
+                      <span className="text-[0.62rem] font-bold text-[hsl(var(--accent)/0.65)]">
+                        0{i + 1}
+                      </span>
+                      <h3 className="mt-1 text-sm font-semibold text-[hsl(var(--foreground))]">
+                        {service.title}
+                      </h3>
+                    </div>
+                    <FiArrowRight className="size-3.5 shrink-0 text-[hsl(var(--accent)/0.55)] transition duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[hsl(var(--accent))]" />
                   </div>
                 </Link>
               ))}
@@ -215,20 +308,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3 - ADVANTAGE */}
+      {/* ── 3  ADVANTAGE ─────────────────────────────────────────── */}
       <section className="section-pad-sm">
         <div className="site-container grid items-center gap-14 lg:grid-cols-2">
           <Reveal>
-            <p className="text-[0.7rem] font-bold uppercase tracking-[0.26em] text-[hsl(var(--accent))]">The FinLever Advantage</p>
-            <h2 className="mt-4 text-balance text-4xl font-bold leading-[1.1] tracking-tight text-[hsl(var(--foreground))] sm:text-5xl">
+            <div className="capsule-badge mb-5">The FinLever Advantage</div>
+            <h2 className="text-balance text-4xl font-bold leading-[1.1] tracking-tight text-[hsl(var(--foreground))] sm:text-5xl">
               Clarity, Control, and Strategic Financial Growth
             </h2>
             <p className="mt-6 max-w-prose text-justify text-base leading-8 text-[hsl(var(--muted-foreground))]">
-              We work as your extended finance team delivering CFO-level expertise without the cost of a full-time hire. From financial strategy and cash flow management to fundraising and IPO readiness, we combine deep domain knowledge with future-ready FinTech solutions to help you make faster, smarter decisions.
+              We work as your extended finance team delivering CFO-level
+              expertise without the cost of a full-time hire. From financial
+              strategy and cash flow management to fundraising and IPO
+              readiness, we combine deep domain knowledge with future-ready
+              FinTech solutions to help you make faster, smarter decisions.
             </p>
+            {/* Supporting bullet list */}
+            <ul className="mt-7 grid gap-3">
+              {advantagePoints.map((point) => (
+                <li
+                  key={point}
+                  className="flex items-start gap-3 text-sm leading-7 text-[hsl(var(--muted-foreground))]"
+                >
+                  <span className="mt-1.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-[hsl(var(--accent)/0.14)] text-[hsl(var(--accent))]">
+                    <FiCheck className="size-3" />
+                  </span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
           </Reveal>
+
           <Reveal delay={0.1} className="flex items-center justify-center">
-            <div className="w-full overflow-hidden rounded-2xl shadow-[0_8px_40px_hsl(var(--shadow)/0.14)] dark:shadow-[0_8px_50px_hsl(var(--glow)/0.18)]">
+            <div className="w-full overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.6)] shadow-[0_12px_48px_hsl(var(--shadow)/0.12)] dark:shadow-[0_12px_56px_hsl(var(--glow)/0.18)]">
               <Image
                 src="/image/FinLever Advantage.png"
                 alt="FinLever Advantage"
@@ -242,7 +354,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4 - SERVICES */}
+      {/* ── 4  SERVICES ──────────────────────────────────────────── */}
       <section className="section-alt section-pad-sm">
         <div className="site-container">
           <Reveal>
@@ -253,21 +365,32 @@ export default function Home() {
               align="center"
             />
           </Reveal>
-          <div className="mt-10 grid gap-5 lg:grid-cols-4">
+
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {previewServices.map((service, index) => (
-              <Reveal key={service.href} delay={index * 0.06}>
+              <Reveal key={service.href} delay={index * 0.07}>
                 <Link
                   href={service.href}
-                  className="group premium-card block h-full p-6 transition duration-300 hover:-translate-y-1 hover:border-[hsl(var(--accent)/0.55)]"
+                  className="group premium-card flex h-full flex-col p-6 transition duration-300 hover:-translate-y-1 hover:border-[hsl(var(--accent)/0.55)]"
                 >
-                  <div className="card-content">
-                    <FiLayers className="size-6 text-[hsl(var(--accent))]" />
-                    <h3 className="mt-6 text-xl font-semibold text-[hsl(var(--foreground))]">
+                  <div className="card-content flex flex-1 flex-col">
+                    {/* Card index + icon row */}
+                    <div className="mb-5 flex items-center justify-between">
+                      <span className="font-display text-3xl font-normal text-[hsl(var(--accent)/0.22)] transition duration-300 group-hover:text-[hsl(var(--accent)/0.4)]">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <FiLayers className="size-5 text-[hsl(var(--accent)/0.65)] transition duration-300 group-hover:text-[hsl(var(--accent))]" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-[hsl(var(--foreground))]">
                       {service.shortTitle}
                     </h3>
-                    <p className="mt-3 text-sm leading-7 text-[hsl(var(--muted-foreground))]">
+                    <p className="mt-3 flex-1 text-sm leading-7 text-[hsl(var(--muted-foreground))]">
                       {service.summary}
                     </p>
+                    <div className="mt-5 flex items-center gap-2 text-xs font-semibold text-[hsl(var(--accent)/0.68)] transition duration-200 group-hover:text-[hsl(var(--accent))]">
+                      <span>Explore</span>
+                      <FiArrowRight className="size-3 transition duration-200 group-hover:translate-x-0.5" />
+                    </div>
                   </div>
                 </Link>
               </Reveal>
@@ -276,7 +399,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5 - OUR EDGE */}
+      {/* ── 5  OUR EDGE ──────────────────────────────────────────── */}
       <section className="section-pad-sm">
         <div className="site-container">
           <Reveal>
@@ -285,47 +408,82 @@ export default function Home() {
               title="Driving growth with structured finance, optimized capital, and readiness for investors and markets."
             />
           </Reveal>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {edgeCards.slice(0, 3).map((card, index) => (
               <motion.div
                 key={card.title}
-                initial={prefersReducedMotion ? false : {
-                  opacity: 0,
-                  x: card.dir === "left" ? -40 : card.dir === "right" ? 40 : 0,
-                  y: card.dir === "up" ? 28 : 0,
-                }}
-                whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0, y: 0 }}
+                initial={
+                  prefersReducedMotion
+                    ? false
+                    : {
+                        opacity: 0,
+                        x:
+                          card.dir === "left"
+                            ? -36
+                            : card.dir === "right"
+                              ? 36
+                              : 0,
+                        y: card.dir === "up" ? 26 : 0,
+                      }
+                }
+                whileInView={
+                  prefersReducedMotion ? undefined : { opacity: 1, x: 0, y: 0 }
+                }
                 viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm"
+                transition={{
+                  duration: 0.65,
+                  delay: index * 0.08,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="relative overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm"
               >
-                <h3 className="text-lg font-semibold text-[hsl(var(--foreground))]">{card.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[hsl(var(--muted-foreground))]">{card.body}</p>
+                {/* Left accent bar */}
+                <div className="absolute inset-y-4 left-0 w-0.5 rounded-r-full bg-[hsl(var(--accent)/0.44)]" />
+                <h3 className="pl-4 text-base font-semibold text-[hsl(var(--foreground))]">
+                  {card.title}
+                </h3>
+                <p className="mt-3 pl-4 text-sm leading-7 text-[hsl(var(--muted-foreground))]">
+                  {card.body}
+                </p>
               </motion.div>
             ))}
           </div>
-          <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:mx-auto lg:w-2/3">
+
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:mx-auto lg:w-2/3">
             {edgeCards.slice(3).map((card, index) => (
               <motion.div
                 key={card.title}
-                initial={prefersReducedMotion ? false : {
-                  opacity: 0,
-                  x: card.dir === "left" ? -40 : 40,
-                }}
-                whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+                initial={
+                  prefersReducedMotion
+                    ? false
+                    : { opacity: 0, x: card.dir === "left" ? -36 : 36 }
+                }
+                whileInView={
+                  prefersReducedMotion ? undefined : { opacity: 1, x: 0 }
+                }
                 viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm"
+                transition={{
+                  duration: 0.65,
+                  delay: index * 0.1,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="relative overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm"
               >
-                <h3 className="text-lg font-semibold text-[hsl(var(--foreground))]">{card.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[hsl(var(--muted-foreground))]">{card.body}</p>
+                <div className="absolute inset-y-4 left-0 w-0.5 rounded-r-full bg-[hsl(var(--accent)/0.44)]" />
+                <h3 className="pl-4 text-base font-semibold text-[hsl(var(--foreground))]">
+                  {card.title}
+                </h3>
+                <p className="mt-3 pl-4 text-sm leading-7 text-[hsl(var(--muted-foreground))]">
+                  {card.body}
+                </p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 8 - TESTIMONIALS */}
+      {/* ── 6  TESTIMONIALS ──────────────────────────────────────── */}
       <section className="section-alt section-pad-sm">
         <div className="site-container">
           <Reveal>
@@ -334,19 +492,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 9 - CTA */}
+      {/* ── 7  CTA ───────────────────────────────────────────────── */}
       <section className="section-pad-sm pb-28">
         <Reveal>
-          <div className="site-container surface-panel rounded-xl p-10 text-center sm:p-16">
-            <h2 className="text-balance text-3xl font-semibold text-[hsl(var(--foreground))] sm:text-5xl">
-              Let&apos;s Build Smarter Finance Together
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-lg leading-8 text-[hsl(var(--muted-foreground))]">
-              {site.taglines[1]}
-            </p>
-            <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
-              <ButtonLink href="/contact">Schedule a call</ButtonLink>
-              <ButtonLink href="/contact" variant="secondary">Talk to an expert</ButtonLink>
+          <div className="site-container">
+            {/* Gradient border wrapper */}
+            <div className="relative overflow-hidden rounded-2xl p-px">
+              <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[linear-gradient(135deg,hsl(var(--accent)/0.5),hsl(var(--border)/0.28),hsl(var(--accent)/0.18))]" />
+              <div className="surface-panel relative rounded-[calc(1rem-1px)] p-10 text-center sm:p-16 lg:p-20">
+                {/* Background dot pattern */}
+                <div className="pointer-events-none absolute inset-0 dot-pattern opacity-[0.35]" />
+                {/* Glow orb */}
+                <div className="pointer-events-none absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[hsl(var(--glow)/0.14)] blur-[72px]" />
+
+                <div className="relative">
+                  <div className="capsule-badge mx-auto mb-7">Ready to grow?</div>
+                  <h2 className="text-balance font-display text-3xl font-normal leading-[1.1] text-[hsl(var(--foreground))] sm:text-5xl lg:text-[3.2rem]">
+                    Let&apos;s Build Smarter Finance Together
+                  </h2>
+                  <p className="mx-auto mt-5 max-w-xl text-lg leading-8 text-[hsl(var(--muted-foreground))]">
+                    {site.taglines[1]}
+                  </p>
+                  <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
+                    <ButtonLink href="/contact">Schedule a call</ButtonLink>
+                    <ButtonLink href="/contact" variant="secondary">
+                      Talk to an expert
+                    </ButtonLink>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </Reveal>

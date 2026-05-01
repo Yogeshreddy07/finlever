@@ -17,53 +17,96 @@ export function TestimonialSlider() {
   }
 
   return (
-    <div className="surface-panel overflow-hidden rounded-lg p-6 sm:p-8">
-      <div className="flex items-center justify-between gap-4">
-        <p className="text-xs font-bold uppercase tracking-[0.22em] text-[hsl(var(--accent))]">
-          Client Signal
-        </p>
-        <div className="flex gap-2">
-          <button
-            type="button"
-            aria-label="Previous testimonial"
-            onClick={() => move(-1)}
-            className="inline-flex size-10 items-center justify-center rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card)/0.82)] text-[hsl(var(--foreground))] transition hover:-translate-y-0.5 hover:border-[hsl(var(--accent)/0.58)]"
-          >
-            <FiArrowLeft />
-          </button>
-          <button
-            type="button"
-            aria-label="Next testimonial"
-            onClick={() => move(1)}
-            className="inline-flex size-10 items-center justify-center rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card)/0.82)] text-[hsl(var(--foreground))] transition hover:-translate-y-0.5 hover:border-[hsl(var(--accent)/0.58)]"
-          >
-            <FiArrowRight />
-          </button>
-        </div>
+    <div>
+      {/* Header row */}
+      <div className="mb-10 flex flex-col items-center gap-4 text-center sm:mb-14">
+        <div className="capsule-badge">Client Signal</div>
+        <h2 className="text-2xl font-semibold text-[hsl(var(--foreground))] sm:text-3xl">
+          What Our Clients Say
+        </h2>
       </div>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={testimonial.quote}
-          initial={shouldReduceMotion ? false : { opacity: 0, x: 24 }}
-          animate={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
-          exit={shouldReduceMotion ? undefined : { opacity: 0, x: -24 }}
-          transition={{ duration: 0.32 }}
-          className="mt-10 grid gap-8 md:grid-cols-[180px_1fr]"
+
+      {/* Testimonial card */}
+      <div className="surface-panel relative overflow-hidden rounded-2xl p-8 sm:p-12 lg:p-16">
+        {/* Decorative large quote mark */}
+        <div
+          className="pointer-events-none absolute -top-3 left-8 select-none font-display text-[8rem] leading-none text-[hsl(var(--accent)/0.14)] sm:text-[10rem]"
+          aria-hidden="true"
         >
-          <div className="flex aspect-square items-center justify-center rounded-lg border border-[hsl(var(--accent)/0.25)] bg-[radial-gradient(circle_at_50%_35%,hsl(var(--glow)/0.24),hsl(var(--card-hover)/0.86))] text-5xl font-black text-[hsl(var(--foreground))] shadow-[inset_0_1px_0_hsl(0_0%_100%/0.12)]">
-            {active + 1}
-          </div>
-          <div>
-            <blockquote className="text-2xl font-semibold leading-snug text-[hsl(var(--foreground))] sm:text-3xl">
-              “{testimonial.quote}”
+          &ldquo;
+        </div>
+
+        {/* Dot pattern background */}
+        <div className="pointer-events-none absolute inset-0 dot-pattern opacity-[0.4]" />
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={testimonial.quote}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+            animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+            exit={shouldReduceMotion ? undefined : { opacity: 0, y: -14 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="relative"
+          >
+            <blockquote className="max-w-4xl text-xl font-medium leading-relaxed text-[hsl(var(--foreground))] sm:text-2xl lg:text-[1.65rem] lg:leading-[1.55]">
+              {testimonial.quote}
             </blockquote>
-            <div className="mt-8">
-              <p className="font-semibold text-[hsl(var(--foreground))]">{testimonial.name}</p>
-              <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">{testimonial.role}</p>
+
+            <div className="mt-9 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+              {/* Attribution */}
+              <div className="flex items-center gap-4">
+                <div className="h-10 w-0.5 rounded-full bg-[hsl(var(--accent)/0.7)]" />
+                <div>
+                  <p className="font-semibold text-[hsl(var(--foreground))]">
+                    {testimonial.name}
+                  </p>
+                  <p className="mt-0.5 text-sm text-[hsl(var(--muted-foreground))]">
+                    {testimonial.role}
+                  </p>
+                </div>
+              </div>
+
+              {/* Navigation controls */}
+              <div className="flex items-center gap-4">
+                {/* Dot progress indicators */}
+                <div className="flex items-center gap-2">
+                  {testimonials.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setActive(i)}
+                      aria-label={`Go to testimonial ${i + 1}`}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        i === active
+                          ? "w-6 bg-[hsl(var(--accent))]"
+                          : "w-1.5 bg-[hsl(var(--border))] hover:bg-[hsl(var(--accent)/0.48)]"
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                {/* Arrow buttons */}
+                <button
+                  type="button"
+                  aria-label="Previous testimonial"
+                  onClick={() => move(-1)}
+                  className="inline-flex size-11 items-center justify-center rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card)/0.82)] text-[hsl(var(--foreground))] transition duration-200 hover:-translate-y-0.5 hover:border-[hsl(var(--accent)/0.56)] hover:text-[hsl(var(--accent))]"
+                >
+                  <FiArrowLeft className="size-4" />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Next testimonial"
+                  onClick={() => move(1)}
+                  className="inline-flex size-11 items-center justify-center rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card)/0.82)] text-[hsl(var(--foreground))] transition duration-200 hover:-translate-y-0.5 hover:border-[hsl(var(--accent)/0.56)] hover:text-[hsl(var(--accent))]"
+                >
+                  <FiArrowRight className="size-4" />
+                </button>
+              </div>
             </div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
