@@ -137,7 +137,7 @@ export function TeamClient() {
   return (
     <main>
       {/* ── HERO ─────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden section-pad pb-0">
+      <section className="relative overflow-hidden section-pad pb-8">
         <div className="absolute inset-0 ai-grid opacity-[0.04]" />
         <div className="absolute inset-x-0 top-0 h-72 bg-[radial-gradient(ellipse_72%_52%_at_50%_0%,hsl(var(--glow)/0.14),transparent_62%)]" />
 
@@ -151,14 +151,13 @@ export function TeamClient() {
               </p>
             </div>
 
-            <h1 className="font-display text-[clamp(2.4rem,6.5vw,5.2rem)] font-normal leading-[1.02] tracking-[-0.02em] text-[hsl(var(--foreground))]">
+            <h1 className="max-w-[16ch] font-display text-[clamp(2.4rem,6.5vw,5.2rem)] font-normal leading-[1.05] tracking-[-0.02em] text-pretty text-[hsl(var(--foreground))]">
               Meet the{" "}
-              <em className="font-medium italic text-[hsl(var(--accent))]">Minds</em>
-              <br />
+              <em className="font-medium italic text-[hsl(var(--accent))]">Minds</em>{" "}
               Behind FINLEVER
             </h1>
 
-            <p className="mt-6 max-w-140 text-[clamp(0.95rem,2vw,1.06rem)] leading-[1.75] text-[hsl(var(--muted-foreground))]">
+            <p className="mt-5 max-w-xl text-[clamp(0.92rem,1.8vw,1rem)] leading-[1.72] text-[hsl(var(--muted-foreground))]">
               Our leadership brings together decades of institutional finance, deep domain
               expertise, and a technology-first approach — partnering with businesses to
               unlock sustainable growth and strategic financial clarity.
@@ -168,13 +167,13 @@ export function TeamClient() {
       </section>
 
       {/* ── TEAM GRID ────────────────────────────────────────────── */}
-      <section className="section-pad">
+      <section className="pt-10 pb-[clamp(5rem,9vw,8.5rem)]">
         <div className="site-container">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {teamMembers.map((member, idx) => (
               <Reveal key={member.name} delay={idx * 0.1} variant="scale">
                 <article
-                  className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.8)] bg-[hsl(var(--card))] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:border-[hsl(var(--accent)/0.72)] hover:bg-[hsl(var(--card-hover))] hover:shadow-[0_24px_60px_hsl(var(--shadow)/0.22),0_0_0_1px_hsl(var(--accent)/0.22)] dark:hover:shadow-[0_24px_60px_hsl(var(--shadow)/0.5),0_0_0_1px_hsl(var(--accent)/0.22)]"
+                  className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.65)] bg-[hsl(var(--card))] shadow-[0_2px_14px_hsl(var(--shadow)/0.09)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.25 hover:border-[hsl(var(--accent)/0.72)] hover:bg-[hsl(var(--card-hover))] hover:shadow-[0_28px_64px_hsl(var(--shadow)/0.26),0_0_0_1px_hsl(var(--accent)/0.22)] dark:hover:shadow-[0_28px_72px_hsl(var(--shadow)/0.56),0_0_0_1px_hsl(var(--accent)/0.22)]"
                   onClick={() => openModal(idx)}
                   onKeyDown={(e) =>
                     (e.key === "Enter" || e.key === " ") && openModal(idx)
@@ -191,7 +190,7 @@ export function TeamClient() {
                       fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                       priority={idx < 2}
-                      className="object-cover object-top grayscale contrast-[1.05] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04] group-hover:grayscale-0"
+                      className="object-cover object-top transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                     />
                     {/* Bottom gradient */}
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-[hsl(var(--card)/0.96)] to-transparent" />
@@ -203,9 +202,21 @@ export function TeamClient() {
 
                   {/* Body */}
                   <div className="flex flex-1 flex-col p-6 pb-0">
-                    <h3 className="font-display text-[1.55rem] font-bold leading-[1.15] tracking-[-0.01em] text-[hsl(var(--foreground))]">
-                      {member.name}
-                    </h3>
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="font-display text-[1.55rem] font-bold leading-[1.15] tracking-[-0.01em] text-[hsl(var(--foreground))]">
+                        {member.name}
+                      </h3>
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-1 shrink-0 rounded-full border border-[hsl(var(--border)/0.8)] p-1.5 text-[hsl(var(--muted-foreground))] transition duration-200 hover:border-[hsl(var(--accent)/0.68)] hover:text-[hsl(var(--accent))]"
+                        onClick={(e) => e.stopPropagation()}
+                        aria-label={`${member.name} on LinkedIn`}
+                      >
+                        <LinkedInIcon className="size-4" />
+                      </a>
+                    </div>
                     <p className="mt-1.5 text-[0.68rem] font-semibold uppercase tracking-widest text-[hsl(var(--accent))]">
                       {member.subtitle}
                     </p>
@@ -226,17 +237,7 @@ export function TeamClient() {
                   </div>
 
                   {/* Card footer */}
-                  <div className="mt-auto flex items-center justify-between px-6 py-5">
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-xs font-semibold tracking-[0.04em] text-[hsl(var(--muted-foreground))] transition duration-200 hover:text-[hsl(var(--accent))]"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <LinkedInIcon className="size-3.5" />
-                      LinkedIn
-                    </a>
+                  <div className="mt-auto flex items-center justify-end px-6 py-5">
                     <button
                       type="button"
                       className="flex items-center gap-1.5 text-xs font-semibold tracking-[0.04em] text-[hsl(var(--muted-foreground))] transition duration-200 hover:text-[hsl(var(--accent))]"
@@ -259,7 +260,7 @@ export function TeamClient() {
       {/* ── CTA BAND ─────────────────────────────────────────────── */}
       <section className="section-pad-sm">
         <div className="site-container">
-          <div className="relative overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.8)] bg-[hsl(var(--card))] px-8 py-14 sm:px-16 dark:bg-[hsl(var(--card)/0.78)]">
+          <div className="relative overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.65)] bg-[linear-gradient(135deg,hsl(var(--card)),hsl(var(--section)))] px-8 py-14 shadow-[0_4px_32px_hsl(var(--shadow)/0.1)] sm:px-16 dark:bg-[linear-gradient(135deg,hsl(var(--card)/0.9),hsl(var(--accent-soft)/0.18))]">
             {/* Glow orb */}
             <div
               className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[hsl(var(--glow)/0.11)] blur-[80px]"
@@ -355,7 +356,7 @@ export function TeamClient() {
                     alt={activeMember.name}
                     fill
                     sizes="112px"
-                    className="object-cover object-top grayscale contrast-[1.05]"
+                    className="object-cover object-top"
                   />
                 </div>
                 <div className="flex-1">

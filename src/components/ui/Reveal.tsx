@@ -25,12 +25,12 @@ const variantMap = {
     visible: { opacity: 1, x: 0 },
   },
   scale: {
-    hidden: { opacity: 0, scale: 0.94 },
+    hidden: { opacity: 0, scale: 0.96 },
     visible: { opacity: 1, scale: 1 },
   },
   "blur-up": {
-    hidden: { opacity: 0, y: 18, filter: "blur(5px)" },
-    visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+    hidden: { opacity: 0, y: 18, scale: 0.98, filter: "blur(5px)" },
+    visible: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
   },
 } satisfies Record<RevealVariant, { hidden: object; visible: object }>;
 

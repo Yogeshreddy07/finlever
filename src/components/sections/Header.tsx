@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { FiChevronDown, FiMenu, FiX } from "react-icons/fi";
 import {
   DropdownMenu,
@@ -30,17 +30,18 @@ const serviceLinks = [
   { label: "Fund Raising & Advisory", href: "/services/fund-raising" },
 ];
 
+// Nav pill — glassmorphism header, high-contrast readable text
 const navItemClass =
-  "relative inline-flex h-11 items-center px-2.5 text-sm font-semibold text-[hsl(var(--muted-foreground))] transition duration-200 hover:text-[hsl(var(--foreground))] after:absolute after:inset-x-2 after:bottom-1 after:h-0.5 after:origin-center after:scale-x-0 after:rounded-full after:bg-gradient-to-r after:from-[hsl(var(--accent)/0.18)] after:via-[hsl(var(--accent))] after:to-[hsl(var(--glow))] after:opacity-0 after:shadow-[0_0_14px_hsl(var(--glow)/0.32)] after:transition after:duration-300 hover:after:scale-x-75 hover:after:opacity-70";
+  "relative inline-flex h-9 items-center rounded-full px-3.5 text-sm font-semibold text-[rgba(255,255,255,0.9)] transition-all duration-200 hover:bg-white/12 hover:text-white";
 
 const activeNavItemClass =
-  "text-[hsl(var(--foreground))] after:scale-x-100 after:opacity-100";
+  "bg-[rgba(255,255,255,0.1)] text-white";
 
 const mobileLinkClass =
-  "relative rounded-2xl px-4 py-3 text-sm font-semibold text-[hsl(var(--muted-foreground))] transition hover:bg-[hsl(var(--accent-soft)/0.54)] hover:text-[hsl(var(--foreground))] after:absolute after:inset-x-4 after:bottom-2 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-[hsl(var(--accent))] after:opacity-0 after:transition";
+  "block rounded-xl px-4 py-3 text-sm font-semibold text-[rgba(255,255,255,0.9)] transition-all duration-200 hover:bg-white/12 hover:text-white";
 
 const activeMobileLinkClass =
-  "bg-[hsl(var(--accent-soft)/0.42)] text-[hsl(var(--foreground))] after:scale-x-100 after:opacity-100";
+  "bg-[rgba(255,255,255,0.1)] text-white";
 
 export function Header() {
   const [isMobileOpen, setMobileOpen] = useState(false);
@@ -48,25 +49,43 @@ export function Header() {
   const pathname = usePathname();
   const servicesActive = pathname.startsWith("/services");
   const shouldReduceMotion = useReducedMotion();
+  const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Lock body scroll when mobile panel is open
+  useEffect(() => {
+    document.body.style.overflow = isMobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [isMobileOpen]);
+
+  // Desktop hover handlers for services dropdown
+  const openServices = () => {
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    hoverTimerRef.current = setTimeout(() => setServicesOpen(true), 180);
+  };
+  const closeServices = () => {
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    hoverTimerRef.current = setTimeout(() => setServicesOpen(false), 180);
+  };
 
   return (
-    <motion.header
-      className="sticky top-3 z-50 px-3 py-3 sm:px-5"
-      initial={shouldReduceMotion ? false : { y: -14, opacity: 0 }}
-      animate={shouldReduceMotion ? undefined : { y: 0, opacity: 1 }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-    >
+    <>
+      <motion.header
+        className="sticky top-3 z-50 px-3 py-3 sm:px-5"
+        initial={shouldReduceMotion ? false : { y: -14, opacity: 0 }}
+        animate={shouldReduceMotion ? undefined : { y: 0, opacity: 1 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      >
       {/* Main pill nav bar */}
-      <div className="relative mx-auto flex min-h-20 w-full max-w-352 items-center rounded-full border border-[hsl(var(--border)/0.72)] bg-[hsl(var(--card)/0.86)] px-3 shadow-[0_18px_55px_hsl(var(--shadow)/0.13),0_1px_0_hsl(0_0%_100%/0.56)_inset] backdrop-blur-2xl dark:border-[hsl(var(--border)/0.82)] dark:bg-[hsl(var(--card)/0.74)] dark:shadow-[0_20px_70px_hsl(var(--shadow)/0.46),0_1px_0_hsl(0_0%_100%/0.08)_inset] sm:px-5">
+      <div className="relative mx-auto flex min-h-15 sm:min-h-19 w-full max-w-352 items-center rounded-full border border-[rgba(255,255,255,0.08)] bg-[linear-gradient(135deg,var(--primary-dark),var(--primary-mid))] px-3 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-md sm:px-5">
         {/* Subtle top gradient accent */}
-        <div className="pointer-events-none absolute inset-x-6 top-0 h-px rounded-full bg-[linear-gradient(90deg,transparent,hsl(var(--accent)/0.3),transparent)]" />
+        <div className="pointer-events-none absolute inset-x-6 top-0 h-px rounded-full bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.14),transparent)]" />
 
-        <Logo />
+        <Logo imageClassName="filter brightness-0 invert" />
 
         {/* Desktop navigation — centered */}
         <nav
           aria-label="Primary navigation"
-          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 xl:flex"
+          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 xl:flex"
         >
           {navLinks.slice(0, 2).map((link) => {
             const isActive = pathname === link.href;
@@ -84,14 +103,15 @@ export function Header() {
             );
           })}
 
-          {/* Services dropdown */}
+          {/* Services dropdown — hover on desktop, click-controlled */}
+          <div onPointerEnter={openServices} onPointerLeave={closeServices}>
           <DropdownMenu modal={false} open={isServicesOpen} onOpenChange={setServicesOpen}>
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className={cn(
-                  navItemClass,
-                  "gap-1.5",
+              className={cn(
+                navItemClass,
+                "gap-1.5",
                   servicesActive && activeNavItemClass,
                 )}
                 aria-label="Open services menu"
@@ -108,8 +128,10 @@ export function Header() {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="center"
-              sideOffset={10}
-              className="finlever-nav-dropdown w-84 rounded-3xl border border-[hsl(var(--border)/0.78)] bg-[hsl(var(--popover)/0.92)] p-2.5 text-[hsl(var(--popover-foreground))] shadow-[0_24px_80px_hsl(var(--shadow)/0.24),0_1px_0_hsl(0_0%_100%/0.52)_inset] backdrop-blur-2xl dark:bg-[hsl(var(--popover)/0.88)] dark:shadow-[0_28px_90px_hsl(var(--shadow)/0.5),0_1px_0_hsl(0_0%_100%/0.08)_inset]"
+              sideOffset={6}
+              onPointerEnter={openServices}
+              onPointerLeave={closeServices}
+              className="finlever-nav-dropdown w-84 rounded-3xl border border-[rgba(255,255,255,0.08)] bg-(--primary-mid) p-2.5 text-[rgba(255,255,255,0.85)] shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-md"
             >
               {serviceLinks.map((link) => {
                 const isActive = pathname === link.href;
@@ -120,9 +142,8 @@ export function Header() {
                       href={link.href}
                       onClick={() => setServicesOpen(false)}
                       className={cn(
-                        "group flex cursor-pointer items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold text-[hsl(var(--muted-foreground))] outline-none transition duration-200 hover:bg-[hsl(var(--accent-soft)/0.56)] hover:text-[hsl(var(--foreground))] focus:bg-[hsl(var(--accent-soft)/0.56)] focus:text-[hsl(var(--foreground))]",
-                        isActive &&
-                          "bg-[hsl(var(--accent-soft)/0.5)] text-[hsl(var(--foreground))]",
+                        "group flex cursor-pointer items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold text-[rgba(255,255,255,0.85)] outline-none transition duration-200 hover:bg-white/8 hover:text-white focus:bg-white/8 focus:text-white",
+                        isActive && "bg-[rgba(255,255,255,0.1)] text-white",
                       )}
                       aria-current={isActive ? "page" : undefined}
                     >
@@ -134,7 +155,7 @@ export function Header() {
               })}
             </DropdownMenuContent>
           </DropdownMenu>
-
+          </div>
           {navLinks.slice(2).map((link) => {
             const isActive = pathname === link.href;
 
@@ -158,7 +179,7 @@ export function Header() {
           <Link
             href="/contact"
             onClick={() => setServicesOpen(false)}
-            className="relative inline-flex h-11 items-center overflow-hidden rounded-full bg-[hsl(var(--cta))] px-6 text-sm font-semibold text-[hsl(var(--cta-foreground))] shadow-[0_14px_32px_hsl(var(--shadow)/0.18)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_42px_hsl(var(--glow)/0.22)]"
+            className="relative inline-flex h-11 items-center overflow-hidden rounded-full bg-[#2bb6a3] px-6 text-sm font-semibold text-[#0f2f3a] shadow-[0_14px_32px_rgba(0,0,0,0.18)] transition duration-200 hover:bg-[#2de0b6]"
           >
             Get Started
           </Link>
@@ -174,92 +195,140 @@ export function Header() {
             aria-label={isMobileOpen ? "Close navigation" : "Open navigation"}
             aria-expanded={isMobileOpen}
             onClick={() => setMobileOpen((value) => !value)}
-            className="inline-flex size-10 items-center justify-center rounded-full border border-[hsl(var(--border)/0.84)] bg-[hsl(var(--card)/0.76)] text-[hsl(var(--foreground))] shadow-sm transition hover:border-[hsl(var(--accent)/0.55)] hover:text-[hsl(var(--accent))]"
+            className="inline-flex size-10 items-center justify-center rounded-full border border-white/14 bg-white/9 text-white/80 shadow-sm transition hover:border-white/24 hover:bg-white/14 hover:text-white"
           >
-            {isMobileOpen ? <FiX className="size-5" /> : <FiMenu className="size-5" />}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={isMobileOpen ? "close" : "open"}
+                initial={{ opacity: 0, rotate: -90, scale: 0.7 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={{ opacity: 0, rotate: 90, scale: 0.7 }}
+                transition={{ duration: 0.18, ease: "easeInOut" }}
+                className="inline-flex"
+              >
+                {isMobileOpen ? <FiX className="size-5" /> : <FiMenu className="size-5" />}
+              </motion.span>
+            </AnimatePresence>
           </button>
         </div>
       </div>
 
-      {/* Mobile menu panel */}
-      {isMobileOpen ? (
-        <div className="mx-auto mt-3 w-full max-w-352 rounded-4xl border border-[hsl(var(--border)/0.76)] bg-[hsl(var(--card)/0.94)] px-3 py-4 shadow-[0_24px_72px_hsl(var(--shadow)/0.18)] backdrop-blur-2xl dark:bg-[hsl(var(--card)/0.86)] dark:shadow-[0_28px_82px_hsl(var(--shadow)/0.46)] xl:hidden">
-          {/* Gradient top accent */}
-          <div className="mb-3 h-px rounded-full bg-[linear-gradient(90deg,transparent,hsl(var(--accent)/0.28),transparent)]" />
+      </motion.header>
 
-          <nav aria-label="Mobile navigation" className="grid gap-1">
-            <div className="mb-2 flex justify-end sm:hidden">
-              <ThemeToggle />
-            </div>
-
-            {navLinks.slice(0, 2).map((link) => {
-              const isActive = pathname === link.href;
-
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={cn(mobileLinkClass, isActive && activeMobileLinkClass)}
-                  aria-current={isActive ? "page" : undefined}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-
-            <p className="mt-3 px-4 text-[0.62rem] font-bold uppercase tracking-[0.22em] text-[hsl(var(--accent))]">
-              Services
-            </p>
-
-            {serviceLinks.map((link) => {
-              const isActive = pathname === link.href;
-
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={cn(
-                    "relative rounded-2xl px-5 py-2.5 text-sm font-medium text-[hsl(var(--muted-foreground))] transition hover:bg-[hsl(var(--accent-soft)/0.54)] hover:text-[hsl(var(--foreground))]",
-                    isActive &&
-                      "bg-[hsl(var(--accent-soft)/0.38)] text-[hsl(var(--foreground))]",
-                  )}
-                  aria-current={isActive ? "page" : undefined}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-
-            <div className="my-2 h-px bg-[hsl(var(--border)/0.62)]" />
-
-            {navLinks.slice(2).map((link) => {
-              const isActive = pathname === link.href;
-
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={cn(mobileLinkClass, isActive && activeMobileLinkClass)}
-                  aria-current={isActive ? "page" : undefined}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-
-            <Link
-              href="/contact"
+      {/* ── Mobile menu: full-screen slide-in panel from right ── */}
+      <AnimatePresence>
+        {isMobileOpen && (
+          <motion.div
+            className="fixed inset-0 z-55 xl:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22 }}
+          >
+            {/* Backdrop */}
+            <div
+              className="absolute inset-0 bg-black/45 backdrop-blur-[3px]"
               onClick={() => setMobileOpen(false)}
-              className="mt-3 rounded-full bg-[hsl(var(--cta))] px-4 py-3 text-center text-sm font-semibold text-[hsl(var(--cta-foreground))] shadow-[0_14px_32px_hsl(var(--shadow)/0.16)] transition hover:-translate-y-0.5"
+              aria-hidden="true"
+            />
+
+            {/* Slide-in panel */}
+            <motion.div
+              className="absolute right-0 top-0 flex h-full w-[min(82vw,340px)] flex-col overflow-y-auto border-l border-[rgba(255,255,255,0.08)] bg-[linear-gradient(160deg,var(--primary-dark),var(--primary-mid))] shadow-[-28px_0_72px_rgba(0,0,0,0.44)] backdrop-blur-md"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
             >
-              Get Started
-            </Link>
-          </nav>
-        </div>
-      ) : null}
-    </motion.header>
+              {/* Panel header */}
+              <div className="flex shrink-0 items-center justify-between border-b border-white/10 px-4 py-4">
+                <Logo />
+                <div className="flex items-center gap-2">
+                  <ThemeToggle />
+                  <button
+                    type="button"
+                    aria-label="Close navigation"
+                    onClick={() => setMobileOpen(false)}
+                    className="inline-flex size-9 items-center justify-center rounded-full border border-white/14 bg-white/9 text-white/80 transition hover:border-white/24 hover:bg-white/14 hover:text-white"
+                  >
+                    <FiX className="size-4.5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Nav links */}
+              <nav aria-label="Mobile navigation" className="flex-1 overflow-y-auto px-3 py-3">
+                <div className="grid gap-0.5">
+                  {navLinks.slice(0, 2).map((link) => {
+                    const isActive = pathname === link.href;
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setMobileOpen(false)}
+                        className={cn(mobileLinkClass, isActive && activeMobileLinkClass)}
+                        aria-current={isActive ? "page" : undefined}
+                      >
+                        {link.label}
+                      </Link>
+                    );
+                  })}
+
+                  <p className="mt-3 px-4 pb-1 text-[0.62rem] font-bold uppercase tracking-[0.22em] text-[hsl(var(--accent))]">
+                    Services
+                  </p>
+
+                  {serviceLinks.map((link) => {
+                    const isActive = pathname === link.href;
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setMobileOpen(false)}
+                        className={cn(
+                          "block rounded-xl px-5 py-2.5 text-sm font-medium text-white/65 transition-all duration-200 hover:bg-white/9 hover:text-white",
+                          isActive && "bg-white/12 text-white",
+                        )}
+                        aria-current={isActive ? "page" : undefined}
+                      >
+                        {link.label}
+                      </Link>
+                    );
+                  })}
+
+                  <div className="my-3 h-px bg-white/10" />
+
+                  {navLinks.slice(2).map((link) => {
+                    const isActive = pathname === link.href;
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setMobileOpen(false)}
+                        className={cn(mobileLinkClass, isActive && activeMobileLinkClass)}
+                        aria-current={isActive ? "page" : undefined}
+                      >
+                        {link.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </nav>
+
+              {/* CTA */}
+              <div className="shrink-0 px-4 pb-8 pt-2">
+                <Link
+                  href="/contact"
+                  onClick={() => setMobileOpen(false)}
+                  className="block rounded-full bg-[hsl(var(--accent))] px-4 py-3.5 text-center text-sm font-semibold text-white shadow-[0_14px_32px_hsl(var(--glow)/0.28)] transition duration-200 hover:-translate-y-0.5"
+                >
+                  Get Started
+                </Link>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
