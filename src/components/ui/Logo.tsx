@@ -17,7 +17,7 @@ export function Logo({ className, imageClassName }: LogoProps) {
         className,
       )}
     >
-      <span className="inline-flex items-center rounded px-4 py-3 bg-[hsl(222_47%_10%)] dark:bg-transparent dark:px-0 dark:py-0">
+      <span className="inline-flex items-center">
         <Image
           src="/image/Finlever-Trans.png"
           alt="FinLever Consulting"

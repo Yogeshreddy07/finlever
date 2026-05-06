@@ -80,7 +80,7 @@ export function Header() {
         {/* Subtle top gradient accent */}
         <div className="pointer-events-none absolute inset-x-6 top-0 h-px rounded-full bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.14),transparent)]" />
 
-        <Logo imageClassName="filter brightness-0 invert" />
+        <Logo imageClassName="dark:filter dark:brightness-0 dark:invert h-12 sm:h-14" />
 
         {/* Desktop navigation — centered */}
         <nav
@@ -179,7 +179,7 @@ export function Header() {
           <Link
             href="/contact"
             onClick={() => setServicesOpen(false)}
-            className="relative inline-flex h-11 items-center overflow-hidden rounded-full bg-[#2bb6a3] px-6 text-sm font-semibold text-[#0f2f3a] shadow-[0_14px_32px_rgba(0,0,0,0.18)] transition duration-200 hover:bg-[#2de0b6]"
+            className="relative inline-flex h-11 items-center overflow-hidden rounded-full bg-[hsl(var(--nav-cta-bg))] px-6 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(0,0,0,0.18)] transition duration-200 hover:bg-[hsl(var(--nav-cta-hover))]"
           >
             Get Started
           </Link>

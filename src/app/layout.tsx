@@ -1,3 +1,4 @@
+import { ScrollToTop } from "@/components/providers/ScrollToTop";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Footer } from "@/components/sections/Footer";
 import { Header } from "@/components/sections/Header";
@@ -46,6 +47,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="relative flex min-h-dvh flex-col">
+            <ScrollToTop />
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />

@@ -173,7 +173,7 @@ export default function Home() {
             >
               <Link
                 href="/contact"
-                className={`${heroButtonClass} border-[hsl(var(--accent)/0.5)] bg-[linear-gradient(135deg,hsl(var(--accent)),hsl(190_96%_54%))] text-white shadow-[0_16px_44px_hsl(var(--glow)/0.3)] hover:border-transparent hover:bg-[linear-gradient(135deg,hsl(var(--cta)),hsl(222_47%_18%))] hover:shadow-[0_20px_52px_hsl(var(--shadow)/0.26)]`}
+                className={`${heroButtonClass} border-[hsl(var(--accent)/0.5)] bg-[linear-gradient(135deg,hsl(var(--accent)),hsl(var(--cta-gradient-end)))] text-white shadow-[0_16px_44px_hsl(var(--glow)/0.3)] hover:border-transparent hover:bg-[linear-gradient(135deg,hsl(var(--accent)),hsl(var(--cta-gradient-end)))] dark:hover:bg-[linear-gradient(135deg,hsl(218_84%_52%),hsl(218_62%_34%))] hover:shadow-[0_20px_52px_hsl(var(--shadow)/0.26)]`}
               >
                 <span>Schedule a Consultation</span>
                 <FiArrowRight className="size-4 transition duration-300 group-hover:translate-x-1.5 group-hover:-translate-y-0.5" />
