@@ -2,7 +2,7 @@ import { ServicePage } from "@/components/sections/ServicePage";
 import { services } from "@/data/site";
 
 export const metadata = {
-  title: "Global Accounting & Financial Reporting | FinLever Consulting",
+  title: "Global Accounting & Reporting | FinLever Consulting",
 };
 
 export default function AccountingPage() {

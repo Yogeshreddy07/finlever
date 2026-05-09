@@ -4,7 +4,7 @@ export const site = {
   kicker: "FINLEVER CONSULTING | A Trusted partner for your Endeavour",
   tagline: "The Intelligence of AI. The Rigor of Global Finance.",
   description:
-    "We partner with ambitious businesses across Consulting & Virtual CFO Services, Transaction and Deal Advisory, Corporate Treasury & Capital Allocation, Global Accounting & Financial Reporting, and Risk Management & Statutory Compliance—offering end-to-end financial leadership backed by deep domain expertise and AI-enabled intelligence.",
+    "We partner with ambitious businesses across Consulting & Virtual CFO Services, Transaction and Deal Advisory, Corporate Treasury & Capital Allocation, Global Accounting & Reporting, and Risk Management & Compliance—offering end-to-end financial leadership backed by deep domain expertise and AI-enabled intelligence.",
   taglines: [
     "From incorporation to exit — we manage your entire financial lifecycle.",
     "Building investor-ready businesses.",
@@ -135,10 +135,10 @@ export const services = [
     ],
   },
   {
-    title: "Global Accounting & Financial Reporting",
-    shortTitle: "Global Accounting & Financial Reporting",
+    title: "Global Accounting & Reporting",
+    shortTitle: "Global Accounting & Reporting",
     href: "/services/accounting",
-    eyebrow: "Global Accounting & Financial Reporting",
+    eyebrow: "Global Accounting & Reporting",
     summary:
       "Book closure, financial statements, consolidation, GAAP conversions, technical advisory, and audit alignment.",
     sections: [
@@ -150,7 +150,7 @@ export const services = [
         ],
       },
       {
-        title: "Global Financial Reporting",
+        title: "Global Reporting",
         items: [
           "Preparation and consolidation of financial statements in compliance with Ind AS, IFRS, and US GAAP",
           "Ensuring accuracy, consistency, and regulatory alignment across reporting frameworks",
@@ -168,12 +168,12 @@ export const services = [
     ],
   },
   {
-    title: "Risk Management & Statutory Compliance",
-    shortTitle: "Risk Management & Statutory Compliance",
+    title: "Risk Management & Compliance",
+    shortTitle: "Risk Management & Compliance",
     href: "/services/compliance",
-    eyebrow: "Risk Management & Statutory Compliance",
+    eyebrow: "Risk Management & Compliance",
     summary:
-      "Governance, controls, BCP, SOPs, statutory filings, corporate compliance, and litigation support.",
+      "Governance, controls, BCP, SOPs, regulatory filings, corporate compliance, and litigation support.",
     sections: [
       {
         title: "Governance, Risk & Internal Controls",
@@ -208,7 +208,7 @@ export const services = [
         ],
       },
       {
-        title: "Regulatory & Statutory Compliance",
+        title: "Regulatory Compliance",
         items: [
           "End-to-end management of Income Tax, TDS, GST, RBI and MCA filings.",
           "Advance tax computation and compliance planning to ensure timely and accurate adherence.",
@@ -220,7 +220,7 @@ export const services = [
         items: [
           "Companies Act compliance including board meetings, filings, and governance",
           "Advisory on share issuance, private placements, and restructuring",
-          "Maintenance of statutory registers, Minutes, Shareholding and cap tables",
+          "Maintenance of corporate registers, minutes, shareholding, and cap tables",
           "Support in due diligence and regulatory filings.",
           "Assist in Corporate restructuring filings with MCA/NCLT",
         ],
@@ -291,7 +291,7 @@ export const team = [
       "A dynamic Chartered Accountant with over 5 years of post-qualification experience across financial reporting, taxation, and internal controls with a strong focus on compliance and accuracy.",
       "Previously served as Manager – Finance at E.I.D.-Parry (India) Limited, where he managed corporate finance and taxation functions ensuring high standards of financial discipline and regulatory adherence.",
       "Brings Expertise in Ind AS and GAAP reporting, direct taxation, Internal Financial Controls (IFC), and internal audits, ensuring robust compliance and governance frameworks.",
-      "Currently leads FINLEVER’s Global Accounting, Financial Reporting, and Internal Controls functions, ensuring accuracy, compliance, and consistency across financial operations.",
+      "Currently leads FINLEVER’s Global Accounting, Reporting, and Internal Controls functions, ensuring accuracy, compliance, and consistency across financial operations.",
     ],
   },
 ];

@@ -848,6 +848,60 @@
     overscroll-behavior: contain;
   }
 
+  /* Contact service selector: viewport-aware premium scroll surface */
+  .services-interest-dropdown {
+    max-height: min(26rem, calc(var(--radix-dropdown-menu-content-available-height) - 0.25rem));
+    overflow: hidden;
+    transform-origin: var(--radix-dropdown-menu-content-transform-origin);
+  }
+
+  .services-interest-scroll {
+    max-height: inherit;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--accent) / 0.34) transparent;
+  }
+
+  .services-interest-scroll::-webkit-scrollbar {
+    width: 0.45rem;
+  }
+
+  .services-interest-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .services-interest-scroll::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background: hsl(var(--accent) / 0.26);
+    background-clip: padding-box;
+  }
+
+  .services-interest-scroll::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--accent) / 0.42);
+    background-clip: padding-box;
+  }
+
+  .services-interest-category {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background:
+      linear-gradient(180deg, hsl(var(--card) / 0.98), hsl(var(--card) / 0.9));
+    border-radius: 0.75rem;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .dark .services-interest-category {
+    background:
+      linear-gradient(180deg, hsl(var(--card) / 0.96), hsl(var(--card) / 0.86));
+  }
+
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -866,6 +920,11 @@
 }
 
 @media (max-width: 639px) {
+  .services-interest-dropdown {
+    width: min(var(--radix-dropdown-menu-trigger-width), calc(100vw - 1.5rem));
+    max-height: min(22rem, calc(var(--radix-dropdown-menu-content-available-height) - 0.25rem));
+  }
+
   .strategic-insight-card {
     border-radius: calc(var(--radius) + 6px);
     padding: 1rem 1.05rem;

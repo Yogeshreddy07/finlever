@@ -65,7 +65,7 @@ const edgeCards = [
 ];
 
 const heroDescription =
-  "FinLever brings Consulting & Virtual CFO Services, Transaction and Deal Advisory, Corporate Treasury & Capital Allocation, Global Accounting & Financial Reporting, and Risk Management & Statutory Compliance into one long-term partnership, strengthened by AI-enabled intelligence.";
+  "We partner with ambitious businesses to deliver Virtual CFO services, strategic finance, treasury excellence, and fundraising support — offering end-to-end financial leadership backed by deep domain expertise and AI-enabled intelligence.";
 
 const advantagePoints = [
   "CFO-level expertise without full-time overhead",
@@ -225,7 +225,7 @@ export default function Home() {
 
             {/* Supporting paragraph — constrained width for comfortable reading */}
             <motion.p
-              className="mt-6 max-w-[58ch] text-[0.93rem] leading-[1.86] text-white/60 sm:mt-7 sm:text-[1rem] sm:leading-[1.9] lg:mt-8 lg:text-[1.02rem]"
+              className="mt-6 max-w-[56ch] text-pretty text-[0.94rem] leading-[1.82] text-white/64 sm:mt-7 sm:text-[1rem] sm:leading-[1.86] lg:mt-8 lg:text-[1.03rem] lg:leading-[1.88]"
               variants={{
                 hidden: { opacity: 0, y: 14 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.68, ease: [0.22, 1, 0.36, 1] } },
@@ -387,7 +387,7 @@ export default function Home() {
             <SectionHeader
               eyebrow="Services"
               title="Strategic finance systems for every growth inflection."
-              body="A focused operating layer across advisory, transactions, treasury, reporting, and statutory confidence."
+              body="A focused operating layer across advisory, transactions, treasury, reporting, and regulatory confidence."
               align="center"
             />
           </Reveal>

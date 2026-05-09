@@ -40,20 +40,20 @@ const serviceGroups = [
     ],
   },
   {
-    category: "Global Accounting & Financial Reporting",
+    category: "Global Accounting & Reporting",
     items: [
       "Accounting & Book Closure",
-      "Global Financial Reporting",
+      "Global Reporting",
       "Accounting Standards & Technical Advisory",
     ],
   },
   {
-    category: "Risk Management & Statutory Compliance",
+    category: "Risk Management & Compliance",
     items: [
       "Governance, Risk & Internal Controls",
       "Business Continuity & Resilience Planning",
       "SOP Design & Implementation",
-      "Regulatory & Statutory Compliance",
+      "Regulatory Compliance",
       "Secretarial & Corporate Compliance",
       "Litigation Support",
     ],
@@ -110,38 +110,47 @@ export function ContactForm() {
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="start"
-            sideOffset={8}
-            className="z-[70] max-h-[min(30rem,calc(100vh-7rem))] w-[var(--radix-dropdown-menu-trigger-width)] overflow-y-auto rounded-2xl border border-[hsl(var(--border)/0.82)] bg-[hsl(var(--card)/0.96)] p-2.5 text-[hsl(var(--foreground))] shadow-[0_24px_70px_hsl(var(--shadow)/0.24),0_1px_0_hsl(0_0%_100%/0.08)_inset] backdrop-blur-2xl dark:bg-[hsl(var(--card)/0.9)] dark:shadow-[0_24px_80px_hsl(var(--shadow)/0.62),0_1px_0_hsl(0_0%_100%/0.06)_inset]"
+            sideOffset={10}
+            collisionPadding={16}
+            className="services-interest-dropdown z-[70] w-[min(var(--radix-dropdown-menu-trigger-width),calc(100vw-2rem))] rounded-2xl border border-[hsl(var(--border)/0.82)] bg-[hsl(var(--card)/0.97)] p-0 text-[hsl(var(--foreground))] shadow-[0_24px_70px_hsl(var(--shadow)/0.24),0_1px_0_hsl(0_0%_100%/0.08)_inset] backdrop-blur-2xl dark:bg-[hsl(var(--card)/0.92)] dark:shadow-[0_24px_80px_hsl(var(--shadow)/0.62),0_1px_0_hsl(0_0%_100%/0.06)_inset]"
           >
-            {serviceGroups.map((group) => (
-              <div key={group.category} className="py-1 first:pt-0">
-                <div className="px-3 pb-1.5 pt-2 text-[0.58rem] font-bold uppercase tracking-[0.22em] text-[hsl(var(--accent)/0.82)]">
-                  {group.category}
-                </div>
-                <div className="grid gap-1">
-                  {group.items.map((item) => {
-                    const isSelected = selectedService === item;
+            <div className="services-interest-scroll">
+              {serviceGroups.map((group, groupIndex) => (
+                <div
+                  key={group.category}
+                  className={cn(
+                    "px-2.5 pb-2.5",
+                    groupIndex === 0 ? "pt-2.5" : "border-t border-[hsl(var(--border)/0.46)] pt-3",
+                  )}
+                >
+                  <div className="services-interest-category px-2 pb-2 pt-1 text-[0.58rem] font-bold uppercase tracking-[0.22em] text-[hsl(var(--accent)/0.82)]">
+                    {group.category}
+                  </div>
+                  <div className="grid gap-1">
+                    {group.items.map((item) => {
+                      const isSelected = selectedService === item;
 
-                    return (
-                      <DropdownMenuItem
-                        key={item}
-                        onSelect={() => setSelectedService(item)}
-                        className={cn(
-                          "group/item flex min-h-10 cursor-pointer items-center justify-between gap-3 rounded-xl border border-transparent px-3 py-2.5 text-[0.82rem] font-medium leading-snug text-[hsl(var(--muted-foreground))] outline-none transition duration-200 hover:border-[hsl(var(--accent)/0.28)] hover:bg-[hsl(var(--accent)/0.08)] hover:text-[hsl(var(--foreground))] focus:border-[hsl(var(--accent)/0.38)] focus:bg-[hsl(var(--accent)/0.1)] focus:text-[hsl(var(--foreground))]",
-                          isSelected &&
-                            "border-[hsl(var(--accent)/0.38)] bg-[hsl(var(--accent)/0.12)] text-[hsl(var(--foreground))]",
-                        )}
-                      >
-                        <span>{item}</span>
-                        {isSelected && (
-                          <FiCheck className="size-3.5 shrink-0 text-[hsl(var(--accent))]" />
-                        )}
-                      </DropdownMenuItem>
-                    );
-                  })}
+                      return (
+                        <DropdownMenuItem
+                          key={item}
+                          onSelect={() => setSelectedService(item)}
+                          className={cn(
+                            "group/item flex min-h-10 cursor-pointer items-center justify-between gap-3 rounded-xl border border-transparent px-3 py-2.5 text-[0.82rem] font-medium leading-snug text-[hsl(var(--muted-foreground))] outline-none transition duration-200 hover:border-[hsl(var(--accent)/0.28)] hover:bg-[hsl(var(--accent)/0.08)] hover:text-[hsl(var(--foreground))] focus:border-[hsl(var(--accent)/0.38)] focus:bg-[hsl(var(--accent)/0.1)] focus:text-[hsl(var(--foreground))] data-[highlighted]:border-[hsl(var(--accent)/0.32)] data-[highlighted]:bg-[hsl(var(--accent)/0.09)] data-[highlighted]:text-[hsl(var(--foreground))]",
+                            isSelected &&
+                              "border-[hsl(var(--accent)/0.38)] bg-[hsl(var(--accent)/0.12)] text-[hsl(var(--foreground))]",
+                          )}
+                        >
+                          <span className="min-w-0 text-pretty">{item}</span>
+                          {isSelected && (
+                            <FiCheck className="size-3.5 shrink-0 text-[hsl(var(--accent))]" />
+                          )}
+                        </DropdownMenuItem>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </DropdownMenuContent>
         </DropdownMenu>
         <input type="hidden" name="service" value={selectedService} />
