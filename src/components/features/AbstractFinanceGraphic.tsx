@@ -3,49 +3,6 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 
-const floatingLabels = [
-  {
-    text: "Forecast",
-    sub: "AI-driven",
-    top: "8%",
-    left: "4%",
-    delay: 0.2,
-    floatDuration: 6,
-  },
-  {
-    text: "Capital",
-    sub: "Optimised",
-    top: "12%",
-    right: "6%",
-    delay: 0.35,
-    floatDuration: 7.2,
-  },
-  {
-    text: "Compliance",
-    sub: "100% Covered",
-    top: "52%",
-    right: "4%",
-    delay: 0.5,
-    floatDuration: 6.6,
-  },
-  {
-    text: "Controls",
-    sub: "Real-time",
-    bottom: "14%",
-    left: "5%",
-    delay: 0.65,
-    floatDuration: 7.8,
-  },
-  {
-    text: "Liquidity",
-    sub: "Monitored",
-    bottom: "10%",
-    right: "7%",
-    delay: 0.8,
-    floatDuration: 6.2,
-  },
-];
-
 export function AbstractFinanceGraphic() {
   const shouldReduceMotion = useReducedMotion();
 

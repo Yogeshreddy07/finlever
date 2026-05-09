@@ -14,6 +14,8 @@ type TeamMember = {
   role: string;
   subtitle: string;
   image: string;
+  cardImageClass: string;
+  modalImageClass: string;
   shortBio: string;
   bio: string[];
   tags: string[];
@@ -27,6 +29,8 @@ const teamMembers: TeamMember[] = [
     role: "Director",
     subtitle: "CFO Advisory & Digital Finance Lead",
     image: "/image/SenthilkumarThirumalaisamy%20.jpeg",
+    cardImageClass: "object-[50%_15%] scale-[1.2] group-hover:scale-[1.24]",
+    modalImageClass: "object-[50%_14%] scale-[1.18]",
     shortBio:
       "A seasoned finance professional with 16+ years in corporate finance, treasury, capital structuring, and SME growth advisory across India's leading conglomerates.",
     bio: [
@@ -42,13 +46,15 @@ const teamMembers: TeamMember[] = [
       "Murugappa Group & TVS Group alumni",
       "Leads Consulting, Virtual CFO & Digital Finance verticals",
     ],
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/senthilkumar-thirumalaisamy-172aa7a/",
   },
   {
     name: "Balamurugan R",
     role: "Director",
     subtitle: "Corporate Treasury & Capital Allocation Lead",
     image: "/image/Balamurugan.jpeg",
+    cardImageClass: "object-[50%_29%] scale-[1.03] group-hover:scale-[1.07]",
+    modalImageClass: "object-[50%_28%] scale-[1.04]",
     shortBio:
       "An accomplished finance professional with 15+ years across corporate finance, treasury management, and strategic financial planning — backed by an MBA in Finance.",
     bio: [
@@ -64,13 +70,15 @@ const teamMembers: TeamMember[] = [
       "Multi-entity & cross-border finance operations",
       "Leads Corporate Treasury & Capital Allocation practice",
     ],
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/balamurugan-rathinasamy-860b7353/",
   },
   {
     name: "Ganesh Vaidyanathan",
     role: "Associate",
     subtitle: "Global Accounting & Internal Controls Lead",
     image: "/image/GaneshVaidyanathan.jpeg",
+    cardImageClass: "object-[50%_21%] scale-[1.14] group-hover:scale-[1.18]",
+    modalImageClass: "object-[50%_18%] scale-[1.12]",
     shortBio:
       "A dynamic Chartered Accountant with 5+ years of post-qualification experience in financial reporting, Ind AS, GAAP, internal controls, and compliance governance.",
     bio: [
@@ -86,7 +94,7 @@ const teamMembers: TeamMember[] = [
       "Internal Financial Controls (IFC) implementation",
       "Leads Global Accounting & Financial Reporting",
     ],
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/ganesh-kavassery-vaidyanathan-0640ba152/",
   },
 ];
 
@@ -127,7 +135,6 @@ export function TeamClient() {
       document.removeEventListener("keydown", handler);
       document.body.style.overflow = "";
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIdx]);
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -137,7 +144,7 @@ export function TeamClient() {
   return (
     <main>
       {/* ── HERO ─────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden section-pad pb-8">
+      <section className="relative overflow-hidden section-pad pb-4 sm:pb-6">
         <div className="absolute inset-0 ai-grid opacity-[0.04]" />
         <div className="absolute inset-x-0 top-0 h-72 bg-[radial-gradient(ellipse_72%_52%_at_50%_0%,hsl(var(--glow)/0.14),transparent_62%)]" />
 
@@ -167,13 +174,13 @@ export function TeamClient() {
       </section>
 
       {/* ── TEAM GRID ────────────────────────────────────────────── */}
-      <section className="pt-10 pb-[clamp(5rem,9vw,8.5rem)]">
+      <section className="pt-4 pb-[clamp(5rem,9vw,8.5rem)] sm:pt-6">
         <div className="site-container">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {teamMembers.map((member, idx) => (
-              <Reveal key={member.name} delay={idx * 0.1} variant="scale">
+              <Reveal key={member.name} delay={idx * 0.1} variant="scale" className="h-full">
                 <article
-                  className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.65)] bg-[hsl(var(--card))] shadow-[0_2px_14px_hsl(var(--shadow)/0.09)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.25 hover:border-[hsl(var(--accent)/0.72)] hover:bg-[hsl(var(--card-hover))] hover:shadow-[0_28px_64px_hsl(var(--shadow)/0.26),0_0_0_1px_hsl(var(--accent)/0.22)] dark:hover:shadow-[0_28px_72px_hsl(var(--shadow)/0.56),0_0_0_1px_hsl(var(--accent)/0.22)]"
+                  className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.65)] bg-[hsl(var(--card))] shadow-[0_2px_14px_hsl(var(--shadow)/0.09)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-[hsl(var(--accent)/0.68)] hover:bg-[hsl(var(--card-hover))] hover:shadow-[0_22px_54px_hsl(var(--shadow)/0.2),0_0_0_1px_hsl(var(--accent)/0.18)] dark:hover:shadow-[0_24px_62px_hsl(var(--shadow)/0.5),0_0_0_1px_hsl(var(--accent)/0.2)]"
                   onClick={() => openModal(idx)}
                   onKeyDown={(e) =>
                     (e.key === "Enter" || e.key === " ") && openModal(idx)
@@ -183,19 +190,17 @@ export function TeamClient() {
                   aria-label={`View profile: ${member.name}`}
                 >
                   {/* Photo */}
-                  <div className="relative h-75 shrink-0 overflow-hidden bg-[hsl(var(--secondary))]">
+                  <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-[hsl(var(--secondary))]">
                     <Image
                       src={member.image}
                       alt={member.name}
                       fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                      priority={idx < 2}
-                      className="object-cover object-top transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                      preload={idx < 2}
+                      className={`object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${member.cardImageClass}`}
                     />
-                    {/* Bottom gradient */}
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-[hsl(var(--card)/0.96)] to-transparent" />
                     {/* Role badge */}
-                    <div className="absolute left-4 top-4 z-10 rounded-full border border-[hsl(var(--accent)/0.52)] bg-[hsl(var(--accent)/0.14)] px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-[hsl(var(--accent))] backdrop-blur-md">
+                    <div className="absolute left-4 top-4 z-10 rounded-full border border-[hsl(218_84%_76%/0.42)] bg-[hsl(222_58%_8%/0.72)] px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-white/92 shadow-[0_8px_24px_hsl(222_70%_2%/0.28)] backdrop-blur-md">
                       {member.role}
                     </div>
                   </div>
@@ -210,21 +215,21 @@ export function TeamClient() {
                         href={member.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-1 shrink-0 rounded-full border border-[hsl(var(--border)/0.8)] p-1.5 text-[hsl(var(--muted-foreground))] transition duration-200 hover:border-[hsl(var(--accent)/0.68)] hover:text-[hsl(var(--accent))]"
+                        className="group/linkedin mt-1 shrink-0 rounded-full border border-[hsl(var(--border)/0.8)] p-1.5 text-[hsl(var(--muted-foreground))] transition duration-300 hover:-translate-y-0.5 hover:border-[hsl(var(--accent)/0.68)] hover:bg-[hsl(var(--accent)/0.1)] hover:text-[hsl(var(--accent))] hover:shadow-[0_10px_26px_hsl(var(--glow)/0.12)]"
                         onClick={(e) => e.stopPropagation()}
                         aria-label={`${member.name} on LinkedIn`}
                       >
-                        <LinkedInIcon className="size-4" />
+                        <LinkedInIcon className="size-4 transition duration-300 group-hover/linkedin:scale-105" />
                       </a>
                     </div>
-                    <p className="mt-1.5 text-[0.68rem] font-semibold uppercase tracking-widest text-[hsl(var(--accent))]">
+                    <p className="mt-1.5 min-h-[2.35rem] text-[0.68rem] font-semibold uppercase tracking-widest text-[hsl(var(--accent))]">
                       {member.subtitle}
                     </p>
                     <p className="mt-4 line-clamp-3 text-sm leading-[1.7] text-[hsl(var(--muted-foreground))]">
                       {member.shortBio}
                     </p>
                     {/* Tags */}
-                    <div className="mt-4 flex flex-wrap gap-1.5">
+                    <div className="mt-4 flex min-h-[4.65rem] flex-wrap content-start gap-1.5">
                       {member.tags.map((tag) => (
                         <span
                           key={tag}
@@ -330,7 +335,7 @@ export function TeamClient() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.97, y: 8 }}
               transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-              className="relative flex max-h-[88vh] w-full max-w-205 flex-col overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.9)] bg-[hsl(var(--card))] shadow-[0_40px_120px_hsl(var(--shadow)/0.5)] dark:border-[hsl(var(--border)/0.8)] dark:shadow-[0_40px_120px_hsl(var(--shadow)/0.72)]"
+              className="relative flex max-h-[88vh] w-full max-w-205 flex-col overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.9)] bg-[hsl(var(--card))] shadow-[0_34px_100px_hsl(var(--shadow)/0.42)] dark:border-[hsl(var(--border)/0.8)] dark:shadow-[0_34px_104px_hsl(var(--shadow)/0.66)]"
               role="document"
             >
             {/* Accent top line */}
@@ -349,26 +354,40 @@ export function TeamClient() {
             {/* Scrollable content */}
             <div className="overflow-y-auto">
               {/* Modal header */}
-              <div className="flex flex-col gap-6 border-b border-[hsl(var(--border)/0.55)] p-6 sm:flex-row sm:gap-8 sm:p-8">
-                <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-2xl border-2 border-[hsl(var(--border)/0.8)]">
+              <div className="flex flex-col gap-5 border-b border-[hsl(var(--border)/0.55)] p-6 sm:flex-row sm:gap-7 sm:p-7">
+                <div className="relative h-34 w-30 shrink-0 overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.8)] bg-[hsl(var(--secondary))] shadow-[0_12px_30px_hsl(var(--shadow)/0.12)] sm:h-38 sm:w-34">
                   <Image
                     src={activeMember.image}
                     alt={activeMember.name}
                     fill
-                    sizes="112px"
-                    className="object-cover object-top"
+                    sizes="136px"
+                    className={`object-cover ${activeMember.modalImageClass}`}
                   />
                 </div>
-                <div className="flex-1">
-                  <span className="mb-3 inline-block rounded-full border border-[hsl(var(--accent)/0.48)] bg-[hsl(var(--accent)/0.12)] px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-[hsl(var(--accent))]">
-                    {activeMember.role}
-                  </span>
-                  <h2 className="font-display text-[1.9rem] font-bold leading-[1.1] tracking-[-0.01em] text-[hsl(var(--foreground))] sm:text-[2rem]">
-                    {activeMember.name}
-                  </h2>
-                  <p className="mt-1.5 text-[0.75rem] font-medium tracking-[0.04em] text-[hsl(var(--muted-foreground))]">
-                    {activeMember.subtitle}
-                  </p>
+                <div className="flex-1 pr-8 sm:pr-10">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <span className="mb-3 inline-block rounded-full border border-[hsl(var(--accent)/0.48)] bg-[hsl(var(--accent)/0.12)] px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-[hsl(var(--accent))]">
+                        {activeMember.role}
+                      </span>
+                      <h2 className="font-display text-[1.75rem] font-bold leading-[1.1] tracking-[-0.01em] text-[hsl(var(--foreground))] sm:text-[2rem]">
+                        {activeMember.name}
+                      </h2>
+                      <p className="mt-1.5 text-[0.75rem] font-medium tracking-[0.04em] text-[hsl(var(--muted-foreground))]">
+                        {activeMember.subtitle}
+                      </p>
+                    </div>
+                    <a
+                      href={activeMember.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/linkedin inline-flex items-center gap-2 rounded-full border border-[hsl(var(--border)/0.9)] bg-[hsl(var(--background)/0.42)] px-4 py-2 text-xs font-semibold text-[hsl(var(--muted-foreground))] transition duration-300 hover:-translate-y-0.5 hover:border-[hsl(var(--accent)/0.68)] hover:bg-[hsl(var(--accent)/0.08)] hover:text-[hsl(var(--accent))]"
+                      aria-label={`${activeMember.name} on LinkedIn`}
+                    >
+                      <LinkedInIcon className="size-3.5 transition duration-300 group-hover/linkedin:scale-105" />
+                      LinkedIn
+                    </a>
+                  </div>
                   <div className="mt-4 flex flex-wrap gap-1.5">
                     {activeMember.tags.map((tag) => (
                       <span
@@ -383,7 +402,7 @@ export function TeamClient() {
               </div>
 
               {/* Modal body */}
-              <div className="flex flex-col gap-6 p-6 sm:p-8">
+              <div className="flex flex-col gap-6 p-6 sm:p-7">
                 {/* Full bio */}
                 <div>
                   <p className="mb-3 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-[hsl(var(--accent))]">
@@ -425,7 +444,7 @@ export function TeamClient() {
                 </div>
 
                 {/* Modal CTA */}
-                <div className="flex flex-wrap items-center gap-3 border-t border-[hsl(var(--border)/0.55)] pt-6">
+                <div className="flex flex-wrap items-center gap-3 border-t border-[hsl(var(--border)/0.55)] pt-5">
                   <Link
                     href="/contact"
                     className="inline-flex items-center gap-2 rounded-full bg-[hsl(var(--cta))] px-7 py-3 text-sm font-bold tracking-[0.02em] text-[hsl(var(--cta-foreground))] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_hsl(var(--glow)/0.26)]"
@@ -434,15 +453,6 @@ export function TeamClient() {
                     Book a Consultation
                     <FiArrowRight className="size-4" />
                   </Link>
-                  <a
-                    href={activeMember.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-[hsl(var(--border)/0.9)] px-6 py-3 text-sm font-medium text-[hsl(var(--muted-foreground))] transition duration-200 hover:border-[hsl(var(--accent)/0.68)] hover:text-[hsl(var(--accent))]"
-                  >
-                    <LinkedInIcon className="size-4" />
-                    LinkedIn Profile
-                  </a>
                 </div>
               </div>
             </div>

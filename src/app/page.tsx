@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
@@ -8,10 +8,10 @@ import {
   FiArrowRight,
   FiBarChart2,
   FiCheck,
-  FiLayers,
   FiShield,
   FiUsers,
 } from "react-icons/fi";
+import { ServiceCard } from "@/components/sections/ServiceCard";
 import { TestimonialSlider } from "@/components/sections/TestimonialSlider";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Reveal } from "@/components/ui/Reveal";
@@ -65,25 +65,54 @@ const edgeCards = [
 ];
 
 const heroDescription =
-  "FinLever brings Virtual CFO expertise, strategic finance leadership, treasury excellence, and fundraising support into one long-term partnership, strengthened by AI-enabled intelligence for clearer decisions at every stage of growth.";
+  "FinLever brings Consulting & Virtual CFO Services, Transaction and Deal Advisory, Corporate Treasury & Capital Allocation, Global Accounting & Financial Reporting, and Risk Management & Statutory Compliance into one long-term partnership, strengthened by AI-enabled intelligence.";
 
 const advantagePoints = [
   "CFO-level expertise without full-time overhead",
   "AI-powered dashboards and real-time analytics",
   "End-to-end financial lifecycle management",
-  "Investor-ready frameworks and IPO advisory",
+  "Transaction and Deal Advisory frameworks for investor readiness",
   "Deep domain expertise across SME to enterprise",
 ];
 
+const strategicInsight =
+  "Driving growth with structured finance, optimized capital, and readiness for investors and markets.";
+
+const heroVideoSrc = "/Video/video.mp4";
+const heroPosterSrc = "/image/about.jpg";
+
+function StrategicInsightCard() {
+  return (
+    <div className="strategic-insight-card">
+      <div className="strategic-insight-card__texture" aria-hidden="true" />
+      <p>{strategicInsight}</p>
+    </div>
+  );
+}
+
 export default function Home() {
   const prefersReducedMotion = useReducedMotion();
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
 
-  const previewServices = services.filter((service) =>
-    ["Virtual CFO", "Treasury", "Accounting", "Compliance"].includes(
-      service.shortTitle,
-    ),
-  );
+  const previewServices = services;
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+
+    const preloadLink = document.createElement("link");
+    preloadLink.rel = "preload";
+    preloadLink.as = "video";
+    preloadLink.href = heroVideoSrc;
+    preloadLink.type = "video/mp4";
+    document.head.appendChild(preloadLink);
+
+    videoRef.current?.load();
+
+    return () => {
+      preloadLink.remove();
+    };
+  }, [prefersReducedMotion]);
 
   return (
     <main>
@@ -96,25 +125,38 @@ export default function Home() {
           aria-hidden="true"
         />
 
-        {/*
-          Full-screen video — no per-frame CSS filters (brightness/contrast/saturate removed)
-          to prevent GPU composite overhead that causes stuttering. Fade-in accelerated to 900ms.
-        */}
+        {/* Immediate poster fallback keeps the hero from ever rendering blank. */}
+        <Image
+          src={heroPosterSrc}
+          alt=""
+          fill
+          sizes="100vw"
+          preload
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full object-cover object-center opacity-95"
+        />
+
+        {/* Full-screen video fades in only after a playable frame is ready. */}
         <video
-          className={`absolute inset-0 h-full w-full transform-gpu object-cover object-center transition-opacity duration-[900ms] ease-in will-change-[opacity] ${videoReady ? "opacity-100" : "opacity-0"}`}
-          src="/Video/video.mp4"
+          ref={videoRef}
+          className={`absolute inset-0 h-full w-full transform-gpu object-cover object-center transition-opacity duration-[900ms] ease-out will-change-[opacity] ${videoReady ? "opacity-100" : "opacity-0"}`}
           autoPlay={!prefersReducedMotion}
           muted
           loop
           playsInline
           preload="auto"
+          poster={heroPosterSrc}
           aria-hidden="true"
           disablePictureInPicture
           onCanPlay={() => setVideoReady(true)}
+          onCanPlayThrough={() => setVideoReady(true)}
           onLoadedMetadata={() => setVideoReady(true)}
           onLoadedData={() => setVideoReady(true)}
           onPlaying={() => setVideoReady(true)}
-        />
+          onError={() => setVideoReady(false)}
+        >
+          <source src={heroVideoSrc} type="video/mp4" />
+        </video>
 
         {/*
           Cinematic overlay — two composed layers:
@@ -266,7 +308,11 @@ export default function Home() {
                 <Link
                   key={service.href}
                   href={service.href}
-                  className="group premium-card block h-full p-5 transition duration-300 hover:-translate-y-0.5 hover:border-[hsl(var(--accent)/0.55)]"
+                  className={`group premium-card premium-service-card block h-full p-5 transition duration-300 hover:-translate-y-0.5 hover:border-[hsl(var(--accent)/0.55)] ${
+                    i === 4
+                      ? "sm:col-span-2 sm:mx-auto sm:w-[calc(50%-0.5rem)]"
+                      : ""
+                  }`}
                 >
                   <div className="card-content flex items-start justify-between gap-3">
                     <div>
@@ -277,7 +323,9 @@ export default function Home() {
                         {service.title}
                       </h3>
                     </div>
-                    <FiArrowRight className="size-3.5 shrink-0 text-[hsl(var(--accent)/0.55)] transition duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[hsl(var(--accent))]" />
+                    <span className="service-card-icon flex size-8 shrink-0 items-center justify-center rounded-full">
+                      <FiArrowRight className="size-3.5 text-[hsl(var(--accent)/0.65)] transition duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[hsl(var(--accent))]" />
+                    </span>
                   </div>
                 </Link>
               ))}
@@ -339,38 +387,20 @@ export default function Home() {
             <SectionHeader
               eyebrow="Services"
               title="Strategic finance systems for every growth inflection."
-              body="A focused operating layer for CFO advisory, treasury, accounting, and compliance."
+              body="A focused operating layer across advisory, transactions, treasury, reporting, and statutory confidence."
               align="center"
             />
           </Reveal>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-6">
             {previewServices.map((service, index) => (
-              <Reveal key={service.href} delay={index * 0.07} variant="scale">
-                <Link
-                  href={service.href}
-                  className="group premium-card flex h-full flex-col p-6 transition duration-300 hover:-translate-y-1 hover:border-[hsl(var(--accent)/0.55)]"
-                >
-                  <div className="card-content flex flex-1 flex-col">
-                    {/* Card index + icon row */}
-                    <div className="mb-5 flex items-center justify-between">
-                      <span className="font-display text-3xl font-normal text-[hsl(var(--accent)/0.22)] transition duration-300 group-hover:text-[hsl(var(--accent)/0.4)]">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <FiLayers className="size-5 text-[hsl(var(--accent)/0.65)] transition duration-300 group-hover:text-[hsl(var(--accent))]" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-[hsl(var(--foreground))]">
-                      {service.shortTitle}
-                    </h3>
-                    <p className="mt-3 flex-1 text-sm leading-7 text-[hsl(var(--muted-foreground))]">
-                      {service.summary}
-                    </p>
-                    <div className="mt-5 flex items-center gap-2 text-xs font-semibold text-[hsl(var(--accent)/0.68)] transition duration-200 group-hover:text-[hsl(var(--accent))]">
-                      <span>Explore</span>
-                      <FiArrowRight className="size-3 transition duration-200 group-hover:translate-x-0.5" />
-                    </div>
-                  </div>
-                </Link>
+              <Reveal
+                key={service.href}
+                delay={index * 0.07}
+                variant="scale"
+                className={index < 3 ? "lg:col-span-2" : "lg:col-span-3"}
+              >
+                <ServiceCard service={service} index={index} />
               </Reveal>
             ))}
           </div>
@@ -383,7 +413,7 @@ export default function Home() {
           <Reveal>
             <SectionHeader
               eyebrow="Our Edge"
-              title="Driving growth with structured finance, optimized capital, and readiness for investors and markets."
+              title="Executive finance discipline built for sharper decisions."
             />
           </Reveal>
 
@@ -470,16 +500,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 7  CTA ───────────────────────────────────────────────── */}
-      <section className="section-pad-sm pb-28">
+      {/* ── 8  CTA ───────────────────────────────────────────────── */}
+      <section className="section-pad-sm pb-28 pt-0">
         <Reveal>
           <div className="site-container">
             {/* Gradient border wrapper */}
             <div className="relative overflow-hidden rounded-2xl p-px">
               <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[linear-gradient(135deg,hsl(218_72%_52%/0.44),hsl(220_32%_22%/0.3),hsl(218_72%_52%/0.16))]" />
               <div className="surface-panel light-cta-panel relative rounded-[calc(1rem-1px)] p-10 text-center sm:p-16 lg:p-20">
-                {/* Soft glow orb — top center */}
-                <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 -translate-y-1/3 rounded-full bg-[hsl(218_84%_58%/0.10)] blur-[88px]" />
+                <div className="pointer-events-none absolute inset-x-10 top-0 h-28 -translate-y-1/2 bg-[linear-gradient(90deg,transparent,hsl(218_84%_58%/0.10),transparent)] blur-[72px]" />
 
                 <div className="relative">
                   <div className="capsule-badge mx-auto mb-7 border-[hsl(218_72%_52%/0.38)] bg-[hsl(218_72%_52%/0.14)] text-[hsl(218_80%_68%)]">
@@ -511,6 +540,15 @@ export default function Home() {
             </div>
           </div>
         </Reveal>
+      </section>
+
+      {/* ── 9  STRATEGIC INSIGHT ────────────────────────────────── */}
+      <section className="pb-[4.5rem] sm:pb-24">
+        <div className="site-container">
+          <Reveal variant="blur-up">
+            <StrategicInsightCard />
+          </Reveal>
+        </div>
       </section>
     </main>
   );

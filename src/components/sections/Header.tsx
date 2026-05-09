@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/DropdownMenu";
 import { Logo } from "@/components/ui/Logo";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { services } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -22,13 +23,7 @@ const navLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
-const serviceLinks = [
-  { label: "Consulting & Virtual CFO", href: "/services/consulting" },
-  { label: "Corporate Treasury", href: "/services/treasury" },
-  { label: "Global Accounting", href: "/services/accounting" },
-  { label: "Compliance & Secretarial", href: "/services/compliance" },
-  { label: "Fund Raising & Advisory", href: "/services/fund-raising" },
-];
+const serviceLinks = services.map(({ title, href }) => ({ label: title, href }));
 
 // Premium dark glassmorphism — always dark regardless of page theme
 const navItemClass =
@@ -126,7 +121,7 @@ export function Header() {
                   sideOffset={8}
                   onPointerEnter={openServices}
                   onPointerLeave={closeServices}
-                  className="finlever-nav-dropdown w-80 rounded-3xl border border-white/[0.09] bg-[rgba(7,11,22,0.90)] p-2.5 shadow-[0_24px_72px_rgba(0,0,0,0.52)] backdrop-blur-2xl"
+                  className="finlever-nav-dropdown w-[min(28rem,calc(100vw-2rem))] rounded-3xl border border-white/[0.09] bg-[rgba(7,11,22,0.90)] p-2.5 shadow-[0_24px_72px_rgba(0,0,0,0.52)] backdrop-blur-2xl"
                 >
                   {serviceLinks.map((link) => {
                     const isActive = pathname === link.href;

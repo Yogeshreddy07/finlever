@@ -1,10 +1,16 @@
 import Link from "next/link";
-import { FiInstagram, FiLinkedin, FiTwitter, FiYoutube } from "react-icons/fi";
+import { FiLinkedin } from "react-icons/fi";
 import { Logo } from "@/components/ui/Logo";
 import { Reveal } from "@/components/ui/Reveal";
 import { contact, navItems, services, site } from "@/data/site";
 
-const socialIcons = [FiLinkedin, FiInstagram, FiYoutube, FiTwitter];
+const socialLinks = [
+  {
+    label: "LinkedIn",
+    href: "/contact",
+    icon: FiLinkedin,
+  },
+];
 
 export function Footer() {
   return (
@@ -22,8 +28,8 @@ export function Footer() {
           <Reveal variant="fade-up">
             <Logo imageClassName="h-12 sm:h-14" />
             <p className="mt-5 max-w-xs text-sm leading-7 text-white/68">
-              Driving growth with structured finance, optimized capital, and
-              readiness for investors and markets.
+              Institutional-grade finance advisory for companies building
+              stronger control, sharper capital decisions, and durable growth.
             </p>
             <p className="mt-6 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[hsl(var(--accent))]">
               Chennai &amp; Coimbatore
@@ -63,7 +69,7 @@ export function Footer() {
                   href={service.href}
                   className="text-sm text-white/62 transition duration-200 hover:translate-x-1 hover:text-[hsl(var(--accent))]"
                 >
-                  {service.shortTitle}
+                  {service.title}
                 </Link>
               ))}
             </div>
@@ -76,15 +82,15 @@ export function Footer() {
             {site.name} &nbsp;·&nbsp; {contact.email}
           </p>
           <div className="flex items-center gap-2.5">
-            {socialIcons.map((Icon, index) => (
-              <a
-                key={contact.socials[index]}
-                href="/contact"
-                aria-label={contact.socials[index]}
+            {socialLinks.map(({ icon: Icon, href, label }) => (
+              <Link
+                key={label}
+                href={href}
+                aria-label={label}
                 className="inline-flex size-9 items-center justify-center rounded-full border border-white/14 bg-white/9 text-white/58 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-[hsl(var(--accent)/0.6)] hover:text-[hsl(var(--accent))]"
               >
                 <Icon className="size-3.5" />
-              </a>
+              </Link>
             ))}
           </div>
         </div>

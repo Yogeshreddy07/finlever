@@ -1,5 +1,5 @@
 import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
-import { ButtonLink } from "@/components/ui/ButtonLink";
+import { ContactForm } from "@/components/sections/ContactForm";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -8,9 +8,6 @@ import { contact } from "@/data/site";
 export const metadata = {
   title: "Contact | FinLever Consulting",
 };
-
-const inputClass =
-  "min-h-12 rounded-xl border border-[hsl(var(--input))] bg-[hsl(var(--background)/0.72)] px-4 text-sm text-[hsl(var(--foreground))] outline-none transition placeholder:text-[hsl(var(--muted-foreground)/0.6)] focus:border-[hsl(var(--accent)/0.72)] focus:bg-[hsl(var(--card))] focus:shadow-[0_0_0_3px_hsl(var(--accent)/0.12)]";
 
 const contactCards = [
   {
@@ -75,41 +72,7 @@ export default function ContactPage() {
 
           {/* ── Right: form ── */}
           <Reveal delay={0.1} variant="fade-right">
-            <form className="surface-panel rounded-2xl p-6 sm:p-8">
-              <h3 className="mb-6 text-lg font-semibold text-[hsl(var(--foreground))]">
-                Send us a message
-              </h3>
-              <div className="grid gap-5 sm:grid-cols-2">
-                <label className="grid gap-2 text-sm font-semibold text-[hsl(var(--foreground))]">
-                  Name
-                  <input className={inputClass} placeholder="Your name" />
-                </label>
-                <label className="grid gap-2 text-sm font-semibold text-[hsl(var(--foreground))]">
-                  Email
-                  <input
-                    type="email"
-                    className={inputClass}
-                    placeholder="you@company.com"
-                  />
-                </label>
-              </div>
-              <label className="mt-5 grid gap-2 text-sm font-semibold text-[hsl(var(--foreground))]">
-                Company
-                <input className={inputClass} placeholder="Company name" />
-              </label>
-              <label className="mt-5 grid gap-2 text-sm font-semibold text-[hsl(var(--foreground))]">
-                Requirement
-                <textarea
-                  className={`${inputClass} min-h-40 resize-none py-4`}
-                  placeholder="Virtual CFO, treasury, fundraising, accounting, compliance..."
-                />
-              </label>
-              <div className="mt-7">
-                <ButtonLink href="mailto:info@finlever.co">
-                  Schedule a Strategic Consultation
-                </ButtonLink>
-              </div>
-            </form>
+            <ContactForm />
           </Reveal>
         </div>
       </section>

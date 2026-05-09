@@ -4,7 +4,7 @@ export const site = {
   kicker: "FINLEVER CONSULTING | A Trusted partner for your Endeavour",
   tagline: "The Intelligence of AI. The Rigor of Global Finance.",
   description:
-    "We partner with ambitious businesses to deliver Virtual CFO services, strategic finance, treasury excellence, and fundraising support—offering end-to-end financial leadership backed by deep domain expertise and AI-enabled intelligence.",
+    "We partner with ambitious businesses across Consulting & Virtual CFO Services, Transaction and Deal Advisory, Corporate Treasury & Capital Allocation, Global Accounting & Financial Reporting, and Risk Management & Statutory Compliance—offering end-to-end financial leadership backed by deep domain expertise and AI-enabled intelligence.",
   taglines: [
     "From incorporation to exit — we manage your entire financial lifecycle.",
     "Building investor-ready businesses.",
@@ -22,9 +22,9 @@ export const navItems = [
 export const services = [
   {
     title: "Consulting & Virtual CFO Services",
-    shortTitle: "Virtual CFO",
+    shortTitle: "Consulting & Virtual CFO Services",
     href: "/services/consulting",
-    eyebrow: "Strategic Consulting & Virtual CFO",
+    eyebrow: "Consulting & Virtual CFO Services",
     summary:
       "Structured financial planning, process transformation, dashboards, and AI-led predictive analytics for management control.",
     sections: [
@@ -57,8 +57,8 @@ export const services = [
     ],
   },
   {
-    title: "Transaction & Deal Advisory",
-    shortTitle: "Fundraising",
+    title: "Transaction and Deal Advisory",
+    shortTitle: "Transaction and Deal Advisory",
     href: "/services/fund-raising",
     eyebrow: "Transaction and Deal Advisory",
     summary:
@@ -101,7 +101,7 @@ export const services = [
   },
   {
     title: "Corporate Treasury & Capital Allocation",
-    shortTitle: "Treasury",
+    shortTitle: "Corporate Treasury & Capital Allocation",
     href: "/services/treasury",
     eyebrow: "Corporate Treasury & Capital Allocation",
     summary:
@@ -135,8 +135,8 @@ export const services = [
     ],
   },
   {
-    title: "Global Accounting & Reporting",
-    shortTitle: "Accounting",
+    title: "Global Accounting & Financial Reporting",
+    shortTitle: "Global Accounting & Financial Reporting",
     href: "/services/accounting",
     eyebrow: "Global Accounting & Financial Reporting",
     summary:
@@ -168,8 +168,8 @@ export const services = [
     ],
   },
   {
-    title: "Risk Management & Compliance",
-    shortTitle: "Compliance",
+    title: "Risk Management & Statutory Compliance",
+    shortTitle: "Risk Management & Statutory Compliance",
     href: "/services/compliance",
     eyebrow: "Risk Management & Statutory Compliance",
     summary:

@@ -27,15 +27,46 @@ export function ServicePage({ service }: { service: Service }) {
               {service.summary}
             </p>
           </Reveal>
+
+          <Reveal delay={0.12} variant="fade-up">
+            <div className="surface-panel mt-12 grid gap-6 rounded-2xl p-6 sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
+              <div>
+                <p className="text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[hsl(var(--accent))]">
+                  Advisory Structure
+                </p>
+                <h2 className="mt-3 text-2xl font-semibold leading-tight text-[hsl(var(--foreground))]">
+                  A focused operating model for executive finance decisions.
+                </h2>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-3">
+                {service.sections.slice(0, 3).map((section, index) => (
+                  <div
+                    key={section.title}
+                    className="rounded-xl border border-[hsl(var(--border)/0.72)] bg-[hsl(var(--card)/0.62)] p-4"
+                  >
+                    <span className="font-display text-2xl text-[hsl(var(--accent)/0.32)]">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <p className="mt-3 text-sm font-semibold leading-6 text-[hsl(var(--foreground))]">
+                      {section.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
       {/* Content sections grid */}
       <section className="pb-20 sm:pb-28">
-        <div className="site-container grid gap-5 lg:grid-cols-2">
+        <div className="site-container grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {service.sections.map((section, index) => (
             <Reveal key={section.title} delay={index * 0.07} variant={index % 2 === 0 ? "fade-left" : "fade-right"}>
-              <GlassCard className="h-full p-7 lg:p-8">
+              <GlassCard className="premium-service-card h-full p-7 lg:p-8">
+                <p className="mb-4 text-[0.64rem] font-bold uppercase tracking-[0.2em] text-[hsl(var(--accent)/0.72)]">
+                  Capability Group {String(index + 1).padStart(2, "0")}
+                </p>
                 <h2 className="text-xl font-semibold text-[hsl(var(--foreground))] sm:text-2xl">
                   {section.title}
                 </h2>

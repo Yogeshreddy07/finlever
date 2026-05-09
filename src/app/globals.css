@@ -290,6 +290,79 @@
       background-color 0.35s ease;
   }
 
+  .premium-service-card {
+    isolation: isolate;
+  }
+
+  .premium-service-card::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background:
+      radial-gradient(ellipse 64% 50% at 82% 12%, hsl(var(--glow) / 0.24), transparent 18rem),
+      linear-gradient(135deg, transparent 18%, hsl(var(--accent) / 0.12), transparent 72%),
+      linear-gradient(180deg, hsl(0 0% 100% / 0.08), transparent 52%);
+    opacity: 0;
+    transition:
+      opacity 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: scale(0.98);
+  }
+
+  .premium-service-card:hover {
+    transform: translateY(-5px);
+    border-color: hsl(var(--accent) / 0.68);
+    background:
+      linear-gradient(145deg, hsl(var(--card) / 0.98), hsl(var(--card-hover) / 0.9)),
+      radial-gradient(ellipse 90% 60% at 78% 0%, hsl(var(--glow) / 0.08), transparent 24rem);
+    box-shadow:
+      0 28px 76px hsl(var(--shadow) / 0.16),
+      0 0 0 1px hsl(var(--accent) / 0.24) inset,
+      0 0 0 4px hsl(var(--accent) / 0.035),
+      0 0 52px hsl(var(--glow) / 0.12);
+  }
+
+  .premium-service-card:hover::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .premium-service-card .service-card-icon {
+    box-shadow:
+      0 0 0 1px hsl(0 0% 100% / 0.04) inset,
+      0 10px 28px hsl(var(--shadow) / 0.08);
+    transition:
+      transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.42s ease,
+      background-color 0.42s ease,
+      color 0.42s ease,
+      box-shadow 0.42s ease;
+  }
+
+  .premium-service-card:hover .service-card-icon {
+    transform: translate3d(3px, -3px, 0) scale(1.045);
+    border-color: hsl(var(--accent) / 0.64);
+    background-color: hsl(var(--accent) / 0.14);
+    color: hsl(var(--accent));
+    box-shadow:
+      0 12px 34px hsl(var(--glow) / 0.16),
+      0 0 0 1px hsl(var(--accent) / 0.14) inset;
+  }
+
+  .dark .premium-service-card:hover {
+    background:
+      linear-gradient(145deg, hsl(var(--card) / 0.92), hsl(var(--card-hover) / 0.78)),
+      radial-gradient(ellipse 90% 60% at 78% 0%, hsl(var(--glow) / 0.12), transparent 24rem);
+    box-shadow:
+      0 30px 82px hsl(var(--shadow) / 0.56),
+      0 0 0 1px hsl(var(--accent) / 0.26) inset,
+      0 0 0 4px hsl(var(--accent) / 0.04),
+      0 0 56px hsl(var(--glow) / 0.2);
+  }
+
   .premium-card::before {
     content: "";
     position: absolute;
@@ -333,6 +406,159 @@
       linear-gradient(140deg, hsl(0 0% 100% / 0.07), transparent 48%),
       radial-gradient(circle at 16% 0%, hsl(var(--glow) / 0.12), transparent 18rem);
     opacity: 1;
+  }
+
+  .strategic-insight-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: calc(var(--radius) + 8px);
+    border: 1px solid hsl(218 72% 62% / 0.28);
+    background:
+      radial-gradient(ellipse 34% 120% at 50% 48%, hsl(218 86% 66% / 0.1), transparent 64%),
+      linear-gradient(112deg, hsl(222 62% 7%) 0%, hsl(219 50% 12%) 32%, hsl(222 62% 7%) 58%, hsl(216 48% 13%) 100%),
+      radial-gradient(ellipse 46% 90% at 50% 0%, hsl(218 84% 62% / 0.16), transparent 62%);
+    background-size: 100% 100%, 190% 100%, 100% 100%;
+    padding: clamp(1.1rem, 2.2vw, 1.45rem) clamp(1.15rem, 4vw, 2.6rem);
+    text-align: center;
+    box-shadow:
+      0 18px 52px hsl(222 70% 2% / 0.3),
+      0 0 0 1px hsl(0 0% 100% / 0.08) inset,
+      0 0 42px hsl(218 84% 58% / 0.08),
+      0 0 0 4px hsl(218 84% 58% / 0.025);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    animation: strategic-gradient-flow 24s ease-in-out infinite alternate;
+    transition:
+      border-color 0.4s ease,
+      box-shadow 0.4s ease,
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .strategic-insight-card::before,
+  .strategic-insight-card::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .strategic-insight-card::before {
+    inset: -95% -18%;
+    background:
+      radial-gradient(ellipse 26% 38% at 50% 50%, hsl(218 88% 70% / 0.22), transparent 72%),
+      radial-gradient(ellipse 34% 42% at 18% 50%, hsl(218 84% 64% / 0.16), transparent 70%),
+      radial-gradient(ellipse 38% 46% at 82% 48%, hsl(210 72% 52% / 0.12), transparent 72%);
+    filter: blur(26px);
+    opacity: 0.82;
+    animation: strategic-ambient 16s ease-in-out infinite alternate;
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .strategic-insight-card::after {
+    inset: 0;
+    background:
+      linear-gradient(105deg, transparent 26%, hsl(0 0% 100% / 0.11) 48%, transparent 68%),
+      linear-gradient(90deg, transparent, hsl(218 84% 62% / 0.1), transparent);
+    opacity: 0;
+    transform: translateX(-120%) skewX(-16deg);
+    animation: strategic-sweep 12s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  }
+
+  .strategic-insight-card__texture {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(circle at 18% 42%, hsl(218 90% 76% / 0.14) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 74% 56%, hsl(210 76% 70% / 0.1) 0 1px, transparent 1.5px),
+      linear-gradient(hsl(218 84% 70% / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(218 84% 70% / 0.045) 1px, transparent 1px);
+    background-size: 96px 42px, 124px 58px, 34px 34px, 34px 34px;
+    mask-image: linear-gradient(90deg, transparent, rgb(0 0 0 / 0.62) 24%, rgb(0 0 0 / 0.62) 76%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, rgb(0 0 0 / 0.62) 24%, rgb(0 0 0 / 0.62) 76%, transparent);
+    opacity: 0.7;
+    animation: strategic-grid-drift 38s linear infinite;
+  }
+
+  .strategic-insight-card__texture::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(hsl(0 0% 100% / 0.18) 0.55px, transparent 0.65px);
+    background-size: 7px 7px;
+    opacity: 0.08;
+    mix-blend-mode: screen;
+  }
+
+  .strategic-insight-card p {
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+    margin-inline: auto;
+    max-width: 72rem;
+    font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+    font-size: clamp(1rem, 1.75vw, 1.35rem);
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: 0.01em;
+    color: hsl(210 40% 99%);
+    text-wrap: balance;
+    text-shadow:
+      0 10px 30px hsl(222 70% 2% / 0.56),
+      0 0 18px hsl(218 84% 66% / 0.13),
+      0 0 1px hsl(210 40% 100% / 0.62);
+    transition:
+      color 0.4s ease,
+      text-shadow 0.4s ease;
+  }
+
+  .strategic-insight-card p::before {
+    content: "";
+    position: absolute;
+    inset: -0.7rem -1.2rem;
+    z-index: -1;
+    border-radius: 999px;
+    background: radial-gradient(ellipse at center, hsl(218 92% 66% / 0.16), transparent 68%);
+    filter: blur(16px);
+    opacity: 0.72;
+    animation: strategic-text-bloom 6.5s ease-in-out infinite alternate;
+  }
+
+  .strategic-insight-card:hover {
+    transform: translateY(-1px);
+    border-color: hsl(218 84% 70% / 0.42);
+    box-shadow:
+      0 22px 62px hsl(222 70% 2% / 0.34),
+      0 0 0 1px hsl(0 0% 100% / 0.1) inset,
+      0 0 58px hsl(218 84% 58% / 0.16),
+      0 0 0 5px hsl(218 84% 58% / 0.035);
+  }
+
+  .strategic-insight-card:hover::before {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+
+  .strategic-insight-card:hover::after {
+    animation: strategic-hover-sweep 1.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .strategic-insight-card:hover p {
+    color: white;
+    text-shadow:
+      0 12px 32px hsl(222 70% 2% / 0.6),
+      0 0 24px hsl(218 90% 70% / 0.22),
+      0 0 1px hsl(210 40% 100% / 0.78);
+  }
+
+  @media (min-width: 1024px) {
+    .strategic-insight-card p {
+      white-space: nowrap;
+    }
   }
 
   .card-content {
@@ -483,6 +709,73 @@
     }
   }
 
+  @keyframes strategic-ambient {
+    from {
+      opacity: 0.54;
+      transform: translate3d(-1.25%, 0, 0) scale(1);
+    }
+    to {
+      opacity: 0.9;
+      transform: translate3d(1.25%, 0, 0) scale(1.035);
+    }
+  }
+
+  @keyframes strategic-sweep {
+    0%,
+    62% {
+      transform: translateX(-120%) skewX(-16deg);
+      opacity: 0;
+    }
+    72% {
+      opacity: 0.24;
+    }
+    86%,
+    100% {
+      transform: translateX(120%) skewX(-16deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes strategic-hover-sweep {
+    0% {
+      transform: translateX(-120%) skewX(-16deg);
+      opacity: 0;
+    }
+    32% {
+      opacity: 0.36;
+    }
+    100% {
+      transform: translateX(120%) skewX(-16deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes strategic-grid-drift {
+    to {
+      background-position: 42px 42px;
+    }
+  }
+
+  @keyframes strategic-gradient-flow {
+    from {
+      background-position: 50% 50%, 0% 50%, 50% 0%;
+    }
+    to {
+      background-position: 50% 50%, 100% 50%, 50% 0%;
+    }
+  }
+
+  @keyframes strategic-text-bloom {
+    from {
+      opacity: 0.48;
+      transform: scaleX(0.96);
+    }
+    to {
+      opacity: 0.82;
+      transform: scaleX(1.04);
+    }
+  }
+
   @keyframes pulse-glow {
     0%,
     100% {
@@ -569,5 +862,40 @@
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.001ms !important;
+  }
+}
+
+@media (max-width: 639px) {
+  .strategic-insight-card {
+    border-radius: calc(var(--radius) + 6px);
+    padding: 1rem 1.05rem;
+    box-shadow:
+      0 16px 44px hsl(222 70% 2% / 0.32),
+      0 0 0 1px hsl(0 0% 100% / 0.07) inset,
+      0 0 34px hsl(218 84% 58% / 0.07);
+  }
+
+  .strategic-insight-card::before {
+    inset: -70% -22%;
+    filter: blur(22px);
+    opacity: 0.62;
+    animation-duration: 22s;
+  }
+
+  .strategic-insight-card::after {
+    opacity: 0.24;
+    animation-duration: 13s;
+  }
+
+  .strategic-insight-card__texture {
+    background-size: 30px 30px;
+    opacity: 0.44;
+  }
+
+  .strategic-insight-card p {
+    max-width: 28rem;
+    font-size: clamp(0.95rem, 4.4vw, 1.08rem);
+    line-height: 1.5;
+    letter-spacing: 0.005em;
   }
 }

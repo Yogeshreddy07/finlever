@@ -1,6 +1,4 @@
-import Link from "next/link";
-import { FiArrowUpRight } from "react-icons/fi";
-import { GlassCard } from "@/components/ui/GlassCard";
+import { ServiceCard } from "@/components/sections/ServiceCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { services } from "@/data/site";
@@ -27,37 +25,15 @@ export default function ServicesPage() {
             />
           </Reveal>
 
-          <div className="mt-12 grid gap-5 lg:grid-cols-2">
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-6">
             {services.map((service, index) => (
-              <Reveal key={service.href} delay={index * 0.07} variant={index % 2 === 0 ? "fade-left" : "fade-right"}>
-                <Link href={service.href} className="group block h-full">
-                  <GlassCard className="h-full p-8 lg:p-10">
-                    <div className="flex items-start justify-between gap-6">
-                      <div className="flex-1">
-                        {/* Number + divider row */}
-                        <div className="mb-5 flex items-center gap-4">
-                          <span className="font-display text-3xl font-normal text-[hsl(var(--accent)/0.26)] transition duration-300 group-hover:text-[hsl(var(--accent)/0.44)]">
-                            {String(index + 1).padStart(2, "0")}
-                          </span>
-                          <div className="h-px flex-1 bg-[hsl(var(--border)/0.5)]" />
-                        </div>
-                        <p className="text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[hsl(var(--accent))]">
-                          {service.eyebrow}
-                        </p>
-                        <h2 className="mt-3 text-2xl font-semibold text-[hsl(var(--foreground))] sm:text-3xl">
-                          {service.title}
-                        </h2>
-                      </div>
-                      {/* Arrow icon in circle */}
-                      <div className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[hsl(var(--border)/0.8)] text-[hsl(var(--accent)/0.55)] transition duration-200 group-hover:border-[hsl(var(--accent)/0.6)] group-hover:bg-[hsl(var(--accent)/0.1)] group-hover:text-[hsl(var(--accent))]">
-                        <FiArrowUpRight className="size-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                      </div>
-                    </div>
-                    <p className="mt-5 text-base leading-8 text-[hsl(var(--muted-foreground))]">
-                      {service.summary}
-                    </p>
-                  </GlassCard>
-                </Link>
+              <Reveal
+                key={service.href}
+                delay={index * 0.07}
+                variant={index % 2 === 0 ? "fade-left" : "fade-right"}
+                className={index < 3 ? "lg:col-span-2" : "lg:col-span-3"}
+              >
+                <ServiceCard service={service} index={index} variant="listing" />
               </Reveal>
             ))}
           </div>
