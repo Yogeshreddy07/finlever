@@ -4,55 +4,55 @@
   :root {
     color-scheme: light;
 
-    --background: 42 28% 97%;
+    --background: 220 24% 97%;
     --foreground: 222 47% 10%;
-    --muted: 155 12% 35%;
-    --muted-foreground: 150 10% 38%;
+    --muted: 218 14% 46%;
+    --muted-foreground: 218 12% 48%;
     --card: 0 0% 100%;
     --card-foreground: 222 47% 10%;
-    --card-hover: 148 20% 96%;
+    --card-hover: 220 22% 96%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 10%;
     --primary: 222 47% 11%;
     --primary-foreground: 210 40% 98%;
-    --primary-dark: #234d3a;
-    --primary-mid: #2f6b50;
-    --primary-soft: #3a8266;
-    --secondary: 148 18% 93%;
+    --primary-dark: #080e1e;
+    --primary-mid: #0d1628;
+    --primary-soft: #132038;
+    --secondary: 220 20% 93%;
     --secondary-foreground: 222 47% 13%;
-    --accent: 158 42% 38%;
+    --accent: 218 72% 52%;
     --accent-foreground: 0 0% 100%;
-    --accent-soft: 155 36% 94%;
+    --accent-soft: 218 60% 95%;
     --destructive: 0 76% 46%;
     --destructive-foreground: 210 40% 98%;
-    --border: 148 16% 80%;
-    --input: 148 14% 87%;
-    --ring: 158 42% 38%;
-    --glow: 155 44% 40%;
+    --border: 220 20% 82%;
+    --input: 220 18% 88%;
+    --ring: 218 72% 52%;
+    --glow: 218 78% 58%;
     --shadow: 220 43% 11%;
-    --section: 42 22% 94%;
-    --section-neutral: 40 18% 95%;
+    --section: 220 22% 95%;
+    --section-neutral: 220 18% 96%;
     --cta: 222 47% 11%;
     --cta-foreground: 0 0% 100%;
-    --warm: 36 30% 52%;
+    --warm: 218 28% 58%;
     --radius: 0.625rem;
 
     /* Premium design tokens */
-    --accent-vivid: 158 48% 42%;
-    --surface: 42 20% 98%;
-    --hairline: 148 16% 83%;
+    --accent-vivid: 218 78% 56%;
+    --surface: 220 20% 98%;
+    --hairline: 220 18% 84%;
     --chrome: 222 34% 14%;
     --chrome-foreground: 210 40% 97%;
-    --chrome-muted: 155 16% 76%;
-    --chrome-border: 148 22% 30%;
+    --chrome-muted: 218 16% 72%;
+    --chrome-border: 220 28% 30%;
     --footer: 222 38% 10%;
     --footer-foreground: 210 40% 97%;
-    --footer-muted: 155 12% 72%;
+    --footer-muted: 218 14% 70%;
 
     /* CTA gradient tokens */
-    --cta-gradient-end: 155 46% 34%;
-    --nav-cta-bg: 158 42% 36%;
-    --nav-cta-hover: 158 46% 42%;
+    --cta-gradient-end: 218 76% 58%;
+    --nav-cta-bg: 218 72% 48%;
+    --nav-cta-hover: 218 76% 54%;
   }
 
   .dark {
@@ -74,9 +74,9 @@
     --accent: 218 84% 60%;
     --accent-foreground: 222 47% 7%;
     --accent-soft: 220 62% 15%;
-    --primary-dark: #050c1f;
-    --primary-mid: #091630;
-    --primary-soft: #0f2244;
+    --primary-dark: #060b18;
+    --primary-mid: #0a1224;
+    --primary-soft: #101c36;
     --destructive: 0 63% 46%;
     --destructive-foreground: 210 40% 98%;
     --border: 220 32% 19%;
@@ -85,12 +85,12 @@
     --glow: 218 92% 62%;
     --shadow: 222 70% 2%;
     --section: 220 46% 7%;
-    --cta: 356 70% 48%;
-    --cta-foreground: 0 0% 98%;
-    --warm: 356 48% 52%;
+    --cta: 218 78% 56%;
+    --cta-foreground: 222 47% 6%;
+    --warm: 218 38% 48%;
 
     /* Premium design tokens */
-    --accent-vivid: 240 82% 64%;
+    --accent-vivid: 218 82% 64%;
     --surface: 220 46% 7%;
     --hairline: 220 30% 16%;
     --chrome: 220 46% 9%;
@@ -102,9 +102,9 @@
     --footer-muted: 218 20% 70%;
 
     /* CTA gradient tokens */
-    --cta-gradient-end: 240 78% 62%;
-    --nav-cta-bg: 356 70% 46%;
-    --nav-cta-hover: 356 74% 52%;
+    --cta-gradient-end: 218 76% 62%;
+    --nav-cta-bg: 218 78% 52%;
+    --nav-cta-hover: 218 82% 58%;
   }
 }
 
@@ -129,10 +129,10 @@
     min-width: 320px;
     overflow-x: clip;
     background:
-      radial-gradient(ellipse 72% 44% at 50% -8%, hsl(var(--glow) / 0.14), transparent),
-      radial-gradient(circle at 88% 8%, hsl(var(--warm) / 0.08), transparent 28rem),
-      radial-gradient(circle at 5% 78%, hsl(var(--accent) / 0.07), transparent 26rem),
-      linear-gradient(180deg, hsl(42 28% 97.5%), hsl(var(--background)) 34rem),
+      radial-gradient(ellipse 72% 44% at 50% -8%, hsl(218 78% 58% / 0.07), transparent),
+      radial-gradient(circle at 88% 8%, hsl(220 30% 90% / 0.5), transparent 28rem),
+      radial-gradient(circle at 5% 78%, hsl(218 60% 92% / 0.4), transparent 26rem),
+      linear-gradient(180deg, hsl(220 24% 97.5%), hsl(var(--background)) 34rem),
       hsl(var(--background));
     color: hsl(var(--foreground));
   }
@@ -209,13 +209,13 @@
     border-bottom: 1px solid hsl(var(--border) / 0.48);
   }
 
-  /* Light theme: section-alt becomes the subtle brand-tinted layer. */
+  /* Light theme: section-alt — neutral blue-steel layer. */
   :root:not(.dark) .section-alt {
     background:
-      radial-gradient(circle at 12% 0%, hsl(var(--accent) / 0.075), transparent 24rem),
-      linear-gradient(180deg, hsl(var(--section)), hsl(42 22% 95.5%));
-    border-top-color: hsl(var(--border) / 0.42);
-    border-bottom-color: hsl(var(--border) / 0.42);
+      radial-gradient(circle at 12% 0%, hsl(218 72% 52% / 0.04), transparent 24rem),
+      linear-gradient(180deg, hsl(var(--section)), hsl(220 18% 96%));
+    border-top-color: hsl(var(--border) / 0.38);
+    border-bottom-color: hsl(var(--border) / 0.38);
   }
 
   .dark .section-alt {
@@ -250,14 +250,14 @@
 
   :root:not(.dark) .light-cta-panel {
     background:
-      radial-gradient(circle at 18% 0%, hsl(var(--glow) / 0.18), transparent 24rem),
-      radial-gradient(circle at 86% 112%, hsl(var(--accent) / 0.12), transparent 22rem),
-      linear-gradient(135deg, hsl(158 36% 26%), hsl(155 40% 32%) 52%, hsl(150 34% 26%));
-    border-color: hsl(var(--accent) / 0.32);
+      radial-gradient(circle at 22% 0%, hsl(218 84% 62% / 0.18), transparent 28rem),
+      radial-gradient(circle at 82% 110%, hsl(220 60% 28% / 0.14), transparent 24rem),
+      linear-gradient(140deg, hsl(222 58% 8%) 0%, hsl(220 52% 12%) 50%, hsl(222 56% 7%) 100%);
+    border-color: hsl(218 72% 52% / 0.24);
     box-shadow:
-      0 28px 80px hsl(var(--shadow) / 0.18),
-      0 0 0 1px hsl(0 0% 100% / 0.12) inset,
-      0 0 48px hsl(var(--glow) / 0.12);
+      0 28px 80px hsl(222 70% 2% / 0.36),
+      0 0 0 1px hsl(0 0% 100% / 0.08) inset,
+      0 0 56px hsl(218 84% 58% / 0.08);
   }
 
   .dark .surface-panel {
