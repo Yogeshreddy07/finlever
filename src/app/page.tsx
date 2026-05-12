@@ -16,7 +16,7 @@ import { TestimonialSlider } from "@/components/sections/TestimonialSlider";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { services, site } from "@/data/site";
+import { contact, services, site } from "@/data/site";
 
 const shift = [
   {
@@ -71,7 +71,7 @@ const advantagePoints = [
   "CFO-level expertise without full-time overhead",
   "AI-powered dashboards and real-time analytics",
   "End-to-end financial lifecycle management",
-  "Transaction and Deal Advisory frameworks for investor readiness",
+  "Transaction & Deal Advisory frameworks for investor readiness",
   "Deep domain expertise across SME to enterprise",
 ];
 
@@ -80,6 +80,7 @@ const strategicInsight =
 
 const heroVideoSrc = "/Video/video.mp4";
 const heroPosterSrc = "/image/about.jpg";
+const primaryContactHref = `tel:${contact.phones[0].replace(/\D/g, "")}`;
 
 function StrategicInsightCard() {
   return (
@@ -303,18 +304,14 @@ export default function Home() {
               Explore the service areas designed to cover your entire financial
               lifecycle.
             </p>
-            <div className="mt-7 grid gap-4 sm:grid-cols-2">
+            <div className="mt-7 grid auto-rows-fr gap-4 sm:grid-cols-2">
               {previewServices.map((service, i) => (
                 <Link
                   key={service.href}
                   href={service.href}
-                  className={`group premium-card premium-service-card block h-full p-5 transition duration-300 hover:-translate-y-0.5 hover:border-[hsl(var(--accent)/0.55)] ${
-                    i === 4
-                      ? "sm:col-span-2 sm:mx-auto sm:w-[calc(50%-0.5rem)]"
-                      : ""
-                  }`}
+                  className="group premium-card premium-service-card flex h-full min-h-[7.75rem] p-5 transition duration-300 hover:-translate-y-0.5 hover:border-[hsl(var(--accent)/0.55)]"
                 >
-                  <div className="card-content flex items-start justify-between gap-3">
+                  <div className="card-content flex h-full w-full items-start justify-between gap-3">
                     <div>
                       <span className="text-[0.62rem] font-bold text-[hsl(var(--accent)/0.65)]">
                         0{i + 1}
@@ -528,7 +525,7 @@ export default function Home() {
                       Schedule a call
                     </ButtonLink>
                     <ButtonLink
-                      href="/contact"
+                      href={primaryContactHref}
                       variant="secondary"
                       className="border-white/[0.12] bg-white/[0.06] text-white/80 hover:border-white/[0.22] hover:bg-white/[0.1] hover:text-white"
                     >

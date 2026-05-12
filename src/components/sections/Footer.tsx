@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { FiLinkedin } from "react-icons/fi";
+import { FiInstagram, FiLinkedin } from "react-icons/fi";
+import { FaXTwitter } from "react-icons/fa6";
 import { Logo } from "@/components/ui/Logo";
 import { Reveal } from "@/components/ui/Reveal";
 import { contact, navItems, services, site } from "@/data/site";
@@ -10,7 +11,19 @@ const socialLinks = [
     href: "/contact",
     icon: FiLinkedin,
   },
+  {
+    label: "Instagram",
+    href: "/contact",
+    icon: FiInstagram,
+  },
+  {
+    label: "Twitter/X",
+    href: "/contact",
+    icon: FaXTwitter,
+  },
 ];
+
+const emailHref = `mailto:${contact.email}`;
 
 export function Footer() {
   return (
@@ -34,9 +47,12 @@ export function Footer() {
             <p className="mt-6 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[hsl(var(--accent))]">
               Chennai &amp; Coimbatore
             </p>
-            <p className="mt-1.5 text-xs text-white/60">
+            <a
+              href={emailHref}
+              className="mt-1.5 inline-block text-xs text-white/60 transition duration-200 hover:text-[hsl(var(--accent))]"
+            >
               {contact.email}
-            </p>
+            </a>
           </Reveal>
 
           {/* Quick links */}
@@ -79,7 +95,13 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="site-container relative flex flex-col gap-4 border-t border-white/10 py-5 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
           <p>
-            {site.name} &nbsp;·&nbsp; {contact.email}
+            {site.name} &nbsp;·&nbsp;{" "}
+            <a
+              href={emailHref}
+              className="transition duration-200 hover:text-[hsl(var(--accent))]"
+            >
+              {contact.email}
+            </a>
           </p>
           <div className="flex items-center gap-2.5">
             {socialLinks.map(({ icon: Icon, href, label }) => (

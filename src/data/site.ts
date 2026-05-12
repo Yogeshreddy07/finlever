@@ -4,7 +4,7 @@ export const site = {
   kicker: "FINLEVER CONSULTING | A Trusted partner for your Endeavour",
   tagline: "The Intelligence of AI. The Rigor of Global Finance.",
   description:
-    "We partner with ambitious businesses across Consulting & Virtual CFO Services, Transaction and Deal Advisory, Corporate Treasury & Capital Allocation, Global Accounting & Reporting, and Risk Management & Compliance—offering end-to-end financial leadership backed by deep domain expertise and AI-enabled intelligence.",
+    "We partner with ambitious businesses across Consulting & Virtual CFO Services, Transaction & Deal Advisory, Corporate Treasury & Capital Allocation, Global Accounting & Reporting, and Risk Management & Compliance—offering end-to-end financial leadership backed by deep domain expertise and AI-enabled intelligence.",
   taglines: [
     "From incorporation to exit — we manage your entire financial lifecycle.",
     "Building investor-ready businesses.",
@@ -48,19 +48,19 @@ export const services = [
       {
         title: "FinTech Solutions & Analytics",
         items: [
-          "Design and deployment of interactive dashboards and advanced data visualizations for real-time decision-making.",
-          "Data storytelling frameworks tailored for management reviews and investor presentations.",
-          "AI-led predictive analytics, including Agentic AI, to forecast trends and drive proactive strategies.",
-          "Automation of MIS and reporting frameworks for efficiency and control.",
+          "Design and deployment of interactive dashboards and advanced data visualizations for real-time decision-making",
+          "Data storytelling frameworks tailored for management reviews and investor presentations",
+          "AI-led predictive analytics, including Agentic AI, to forecast trends and drive proactive strategies",
+          "Automation of MIS and reporting frameworks for efficiency and control",
         ],
       },
     ],
   },
   {
-    title: "Transaction and Deal Advisory",
-    shortTitle: "Transaction and Deal Advisory",
+    title: "Transaction & Deal Advisory",
+    shortTitle: "Transaction & Deal Advisory",
     href: "/services/fund-raising",
-    eyebrow: "Transaction and Deal Advisory",
+    eyebrow: "Transaction & Deal Advisory",
     summary:
       "End-to-end fundraising, M&A, investment structuring, valuation, documentation, and deal execution support.",
     sections: [
@@ -150,7 +150,7 @@ export const services = [
         ],
       },
       {
-        title: "Global Reporting",
+        title: "Global Financial Reporting",
         items: [
           "Preparation and consolidation of financial statements in compliance with Ind AS, IFRS, and US GAAP",
           "Ensuring accuracy, consistency, and regulatory alignment across reporting frameworks",
@@ -208,7 +208,7 @@ export const services = [
         ],
       },
       {
-        title: "Regulatory Compliance",
+        title: "Regulatory & Statutory Compliance",
         items: [
           "End-to-end management of Income Tax, TDS, GST, RBI and MCA filings.",
           "Advance tax computation and compliance planning to ensure timely and accurate adherence.",
@@ -291,7 +291,7 @@ export const team = [
       "A dynamic Chartered Accountant with over 5 years of post-qualification experience across financial reporting, taxation, and internal controls with a strong focus on compliance and accuracy.",
       "Previously served as Manager – Finance at E.I.D.-Parry (India) Limited, where he managed corporate finance and taxation functions ensuring high standards of financial discipline and regulatory adherence.",
       "Brings Expertise in Ind AS and GAAP reporting, direct taxation, Internal Financial Controls (IFC), and internal audits, ensuring robust compliance and governance frameworks.",
-      "Currently leads FINLEVER’s Global Accounting, Reporting, and Internal Controls functions, ensuring accuracy, compliance, and consistency across financial operations.",
+      "Currently leads FINLEVER’s Global Accounting & Reporting and Internal Controls functions, ensuring accuracy, compliance, and consistency across financial operations.",
     ],
   },
 ];

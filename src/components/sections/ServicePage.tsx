@@ -7,7 +7,15 @@ import { services, site } from "@/data/site";
 
 type Service = (typeof services)[number];
 
-export function ServicePage({ service }: { service: Service }) {
+type ServicePageProps = {
+  service: Service;
+  titleOverride?: string;
+};
+
+export function ServicePage({ service, titleOverride }: ServicePageProps) {
+  const advisoryGridClass =
+    service.sections.length > 3 ? "sm:grid-cols-2 xl:grid-cols-3" : "sm:grid-cols-3";
+
   return (
     <main>
       {/* Hero */}
@@ -21,7 +29,7 @@ export function ServicePage({ service }: { service: Service }) {
           <Reveal variant="blur-up">
             <div className="capsule-badge mb-6">{service.eyebrow}</div>
             <h1 className="mt-2 max-w-5xl text-balance font-display text-4xl font-normal leading-[1.06] tracking-[-0.01em] text-[hsl(var(--foreground))] sm:text-5xl lg:text-6xl">
-              {service.title}
+              {titleOverride ?? service.title}
             </h1>
             <p className="mt-7 max-w-3xl text-lg leading-8 text-[hsl(var(--muted-foreground))]">
               {service.summary}
@@ -38,8 +46,8 @@ export function ServicePage({ service }: { service: Service }) {
                   A focused operating model for executive finance decisions.
                 </h2>
               </div>
-              <div className="grid gap-3 sm:grid-cols-3">
-                {service.sections.slice(0, 3).map((section, index) => (
+              <div className={`grid gap-3 ${advisoryGridClass}`}>
+                {service.sections.map((section, index) => (
                   <div
                     key={section.title}
                     className="rounded-xl border border-[hsl(var(--border)/0.72)] bg-[hsl(var(--card)/0.62)] p-4"

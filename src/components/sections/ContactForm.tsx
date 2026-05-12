@@ -43,7 +43,7 @@ const serviceGroups = [
     category: "Global Accounting & Reporting",
     items: [
       "Accounting & Book Closure",
-      "Global Reporting",
+      "Global Financial Reporting",
       "Accounting Standards & Technical Advisory",
     ],
   },
@@ -53,7 +53,7 @@ const serviceGroups = [
       "Governance, Risk & Internal Controls",
       "Business Continuity & Resilience Planning",
       "SOP Design & Implementation",
-      "Regulatory Compliance",
+      "Regulatory & Statutory Compliance",
       "Secretarial & Corporate Compliance",
       "Litigation Support",
     ],
@@ -66,9 +66,10 @@ const serviceGroups = [
 
 export function ContactForm() {
   const [selectedService, setSelectedService] = useState("");
+  const [isServiceMenuOpen, setServiceMenuOpen] = useState(false);
 
   return (
-    <form className="surface-panel rounded-2xl p-6 sm:p-8">
+    <form className="surface-panel relative rounded-2xl p-6 sm:p-8">
       <h3 className="mb-6 text-lg font-semibold text-[hsl(var(--foreground))]">
         Send us a message
       </h3>
@@ -92,7 +93,7 @@ export function ContactForm() {
       </label>
       <div className="mt-5 grid gap-2 text-sm font-semibold text-[hsl(var(--foreground))]">
         Services of Interest
-        <DropdownMenu>
+        <DropdownMenu open={isServiceMenuOpen} onOpenChange={setServiceMenuOpen}>
           <DropdownMenuTrigger asChild>
             <button
               type="button"
@@ -110,9 +111,12 @@ export function ContactForm() {
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="start"
+            side="bottom"
             sideOffset={10}
-            collisionPadding={16}
-            className="services-interest-dropdown z-[70] w-[min(var(--radix-dropdown-menu-trigger-width),calc(100vw-2rem))] rounded-2xl border border-[hsl(var(--border)/0.82)] bg-[hsl(var(--card)/0.97)] p-0 text-[hsl(var(--foreground))] shadow-[0_24px_70px_hsl(var(--shadow)/0.24),0_1px_0_hsl(0_0%_100%/0.08)_inset] backdrop-blur-2xl dark:bg-[hsl(var(--card)/0.92)] dark:shadow-[0_24px_80px_hsl(var(--shadow)/0.62),0_1px_0_hsl(0_0%_100%/0.06)_inset]"
+            avoidCollisions={false}
+            onEscapeKeyDown={() => setServiceMenuOpen(false)}
+            onPointerDownOutside={() => setServiceMenuOpen(false)}
+            className="services-interest-dropdown z-40 w-[min(var(--radix-dropdown-menu-trigger-width),calc(100vw-2rem))] rounded-2xl border border-[hsl(var(--border)/0.82)] bg-[hsl(var(--card)/0.97)] p-0 text-[hsl(var(--foreground))] shadow-[0_18px_54px_hsl(var(--shadow)/0.22),0_1px_0_hsl(0_0%_100%/0.08)_inset] backdrop-blur-2xl dark:bg-[hsl(var(--card)/0.92)] dark:shadow-[0_22px_64px_hsl(var(--shadow)/0.54),0_1px_0_hsl(0_0%_100%/0.06)_inset]"
           >
             <div className="services-interest-scroll">
               {serviceGroups.map((group, groupIndex) => (
@@ -133,7 +137,10 @@ export function ContactForm() {
                       return (
                         <DropdownMenuItem
                           key={item}
-                          onSelect={() => setSelectedService(item)}
+                          onSelect={() => {
+                            setSelectedService(item);
+                            setServiceMenuOpen(false);
+                          }}
                           className={cn(
                             "group/item flex min-h-10 cursor-pointer items-center justify-between gap-3 rounded-xl border border-transparent px-3 py-2.5 text-[0.82rem] font-medium leading-snug text-[hsl(var(--muted-foreground))] outline-none transition duration-200 hover:border-[hsl(var(--accent)/0.28)] hover:bg-[hsl(var(--accent)/0.08)] hover:text-[hsl(var(--foreground))] focus:border-[hsl(var(--accent)/0.38)] focus:bg-[hsl(var(--accent)/0.1)] focus:text-[hsl(var(--foreground))] data-[highlighted]:border-[hsl(var(--accent)/0.32)] data-[highlighted]:bg-[hsl(var(--accent)/0.09)] data-[highlighted]:text-[hsl(var(--foreground))]",
                             isSelected &&
@@ -164,7 +171,7 @@ export function ContactForm() {
       </label>
       <div className="mt-7">
         <ButtonLink href="mailto:info@finlever.co">
-          Schedule a Strategic Consultation
+          Submit
         </ButtonLink>
       </div>
     </form>

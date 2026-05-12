@@ -6,5 +6,10 @@ export const metadata = {
 };
 
 export default function ConsultingPage() {
-  return <ServicePage service={services[0]} />;
+  return (
+    <ServicePage
+      service={services[0]}
+      titleOverride="Strategic Consulting & Virtual CFO Services"
+    />
+  );
 }

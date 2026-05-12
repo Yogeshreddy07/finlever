@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { FiChevronDown, FiMenu, FiX } from "react-icons/fi";
@@ -41,7 +41,9 @@ const activeMobileLinkClass =
 export function Header() {
   const [isMobileOpen, setMobileOpen] = useState(false);
   const [isServicesOpen, setServicesOpen] = useState(false);
+  const [isMobileServicesOpen, setMobileServicesOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const servicesActive = pathname.startsWith("/services");
   const shouldReduceMotion = useReducedMotion();
   const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -52,6 +54,18 @@ export function Header() {
     return () => { document.body.style.overflow = ""; };
   }, [isMobileOpen]);
 
+  const closeMobileMenu = () => {
+    setMobileServicesOpen(false);
+    setMobileOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    if (isMobileOpen) {
+      setMobileServicesOpen(false);
+    }
+    setMobileOpen((value) => !value);
+  };
+
   // Desktop hover handlers for services dropdown
   const openServices = () => {
     if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
@@ -60,6 +74,12 @@ export function Header() {
   const closeServices = () => {
     if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
     hoverTimerRef.current = setTimeout(() => setServicesOpen(false), 180);
+  };
+
+  const navigateToServices = () => {
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    setServicesOpen(false);
+    router.push("/services");
   };
 
   return (
@@ -103,8 +123,9 @@ export function Header() {
                 <DropdownMenuTrigger asChild>
                   <button
                     type="button"
+                    onClick={navigateToServices}
                     className={cn(navItemClass, "gap-1.5", servicesActive && activeNavItemClass)}
-                    aria-label="Open services menu"
+                    aria-label="View services"
                     aria-current={servicesActive ? "page" : undefined}
                   >
                     Services
@@ -126,7 +147,11 @@ export function Header() {
                   {serviceLinks.map((link) => {
                     const isActive = pathname === link.href;
                     return (
-                      <DropdownMenuItem key={link.href} asChild>
+                      <DropdownMenuItem
+                        key={link.href}
+                        asChild
+                        onSelect={() => setServicesOpen(false)}
+                      >
                         <Link
                           href={link.href}
                           onClick={() => setServicesOpen(false)}
@@ -183,7 +208,7 @@ export function Header() {
               type="button"
               aria-label={isMobileOpen ? "Close navigation" : "Open navigation"}
               aria-expanded={isMobileOpen}
-              onClick={() => setMobileOpen((v) => !v)}
+              onClick={toggleMobileMenu}
               className="inline-flex size-10 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.07] text-white/80 transition hover:border-white/[0.22] hover:bg-white/[0.12] hover:text-white"
             >
               <AnimatePresence mode="wait" initial={false}>
@@ -216,7 +241,7 @@ export function Header() {
             {/* Backdrop */}
             <div
               className="absolute inset-0 bg-black/60 backdrop-blur-[4px]"
-              onClick={() => setMobileOpen(false)}
+              onClick={closeMobileMenu}
               aria-hidden="true"
             />
 
@@ -236,7 +261,7 @@ export function Header() {
                   <button
                     type="button"
                     aria-label="Close navigation"
-                    onClick={() => setMobileOpen(false)}
+                    onClick={closeMobileMenu}
                     className="inline-flex size-9 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.07] text-white/75 transition hover:border-white/[0.22] hover:bg-white/[0.12] hover:text-white"
                   >
                     <FiX className="size-4" />
@@ -253,7 +278,7 @@ export function Header() {
                       <Link
                         key={link.href}
                         href={link.href}
-                        onClick={() => setMobileOpen(false)}
+                        onClick={closeMobileMenu}
                         className={cn(mobileLinkClass, isActive && activeMobileLinkClass)}
                         aria-current={isActive ? "page" : undefined}
                       >
@@ -262,27 +287,82 @@ export function Header() {
                     );
                   })}
 
-                  <p className="mt-4 px-4 pb-1.5 text-[0.6rem] font-bold uppercase tracking-[0.26em] text-[hsl(218_72%_62%)]">
-                    Services
-                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setMobileServicesOpen((value) => !value)}
+                    className={cn(
+                      mobileLinkClass,
+                      "mt-3 flex w-full items-center justify-between gap-3",
+                      servicesActive && activeMobileLinkClass,
+                    )}
+                    aria-expanded={isMobileServicesOpen}
+                    aria-controls="mobile-services-submenu"
+                    aria-current={servicesActive ? "page" : undefined}
+                  >
+                    <span>Services</span>
+                    <FiChevronDown
+                      className={cn(
+                        "size-4 shrink-0 transition duration-200",
+                        isMobileServicesOpen && "rotate-180 text-[hsl(218_84%_62%)]",
+                      )}
+                    />
+                  </button>
 
-                  {serviceLinks.map((link) => {
-                    const isActive = pathname === link.href;
-                    return (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        onClick={() => setMobileOpen(false)}
-                        className={cn(
-                          "block rounded-xl px-5 py-2.5 text-sm font-medium text-white/55 transition-all duration-200 hover:bg-white/[0.07] hover:text-white/90",
-                          isActive && "bg-white/[0.09] text-white/90",
-                        )}
-                        aria-current={isActive ? "page" : undefined}
+                  <AnimatePresence initial={false}>
+                    {isMobileServicesOpen && (
+                      <motion.div
+                        id="mobile-services-submenu"
+                        initial={
+                          shouldReduceMotion
+                            ? false
+                            : { height: 0, opacity: 0, y: -4 }
+                        }
+                        animate={
+                          shouldReduceMotion
+                            ? undefined
+                            : { height: "auto", opacity: 1, y: 0 }
+                        }
+                        exit={
+                          shouldReduceMotion
+                            ? undefined
+                            : { height: 0, opacity: 0, y: -4 }
+                        }
+                        transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                        className="overflow-hidden"
                       >
-                        {link.label}
-                      </Link>
-                    );
-                  })}
+                        <div className="grid gap-0.5 py-1">
+                          <Link
+                            href="/services"
+                            onClick={closeMobileMenu}
+                            className={cn(
+                              "block rounded-xl px-5 py-2.5 text-sm font-semibold text-white/72 transition-all duration-200 hover:bg-white/[0.07] hover:text-white/95",
+                              pathname === "/services" && "bg-white/[0.09] text-white/90",
+                            )}
+                            aria-current={pathname === "/services" ? "page" : undefined}
+                          >
+                            View All Services
+                          </Link>
+                          {serviceLinks.map((link) => {
+                            const isActive = pathname === link.href;
+                            return (
+                              <Link
+                                key={link.href}
+                                href={link.href}
+                                onClick={closeMobileMenu}
+                                className={cn(
+                                  "block rounded-xl px-5 py-2.5 text-sm font-medium text-white/55 transition-all duration-200 hover:bg-white/[0.07] hover:text-white/90",
+                                  isActive && "bg-white/[0.09] text-white/90",
+                                )}
+                                aria-current={isActive ? "page" : undefined}
+                              >
+                                {link.label}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                   <div className="my-4 h-px bg-white/[0.08]" />
 
@@ -292,7 +372,7 @@ export function Header() {
                       <Link
                         key={link.href}
                         href={link.href}
-                        onClick={() => setMobileOpen(false)}
+                        onClick={closeMobileMenu}
                         className={cn(mobileLinkClass, isActive && activeMobileLinkClass)}
                         aria-current={isActive ? "page" : undefined}
                       >
@@ -307,7 +387,7 @@ export function Header() {
               <div className="shrink-0 px-4 pb-8 pt-2">
                 <Link
                   href="/contact"
-                  onClick={() => setMobileOpen(false)}
+                  onClick={closeMobileMenu}
                   className="block rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-3.5 text-center text-sm font-semibold text-white shadow-[0_4px_18px_rgba(0,0,0,0.28)] transition-all duration-300 hover:-translate-y-px hover:border-[hsl(218_84%_58%/0.55)] hover:bg-[hsl(218_80%_50%/0.86)] hover:shadow-[0_8px_28px_hsl(218_92%_62%/0.26)]"
                 >
                   Get Started

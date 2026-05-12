@@ -13,19 +13,22 @@ const contactCards = [
   {
     icon: FiMapPin,
     label: "Address",
-    content: contact.address,
+    type: "address",
   },
   {
     icon: FiPhone,
     label: "Contact",
-    content: contact.phones.join("  ·  "),
+    type: "phone",
   },
   {
     icon: FiMail,
     label: "Email ID",
-    content: contact.email,
+    type: "email",
   },
 ];
+
+const emailHref = `mailto:${contact.email}`;
+const getPhoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
 
 export default function ContactPage() {
   return (
@@ -47,7 +50,7 @@ export default function ContactPage() {
             </Reveal>
 
             <div className="mt-10 grid gap-4">
-              {contactCards.map(({ icon: Icon, label, content }, i) => (
+              {contactCards.map(({ icon: Icon, label, type }, i) => (
                 <Reveal key={label} variant="fade-left" delay={0.07 + i * 0.08}>
                   <GlassCard className="p-5">
                     <div className="flex gap-4">
@@ -60,7 +63,31 @@ export default function ContactPage() {
                           {label}
                         </p>
                         <p className="mt-1 text-sm leading-7 text-[hsl(var(--muted-foreground))]">
-                          {content}
+                          {type === "address" ? contact.address : null}
+                          {type === "phone" ? (
+                            <>
+                              {contact.phones.map((phone, phoneIndex) => (
+                                <span key={phone}>
+                                  {phoneIndex > 0 ? "  ·  " : null}
+                                  <a
+                                    href={getPhoneHref(phone)}
+                                    className="transition duration-200 hover:text-[hsl(var(--accent))]"
+                                    aria-label={`Call ${phone}`}
+                                  >
+                                    {phone}
+                                  </a>
+                                </span>
+                              ))}
+                            </>
+                          ) : null}
+                          {type === "email" ? (
+                            <a
+                              href={emailHref}
+                              className="transition duration-200 hover:text-[hsl(var(--accent))]"
+                            >
+                              {contact.email}
+                            </a>
+                          ) : null}
                         </p>
                       </div>
                     </div>

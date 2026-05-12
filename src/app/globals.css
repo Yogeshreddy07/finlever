@@ -294,6 +294,47 @@
     isolation: isolate;
   }
 
+  .about-feature-card {
+    isolation: isolate;
+  }
+
+  .about-feature-card::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background:
+      radial-gradient(ellipse 70% 46% at 78% 12%, hsl(var(--glow) / 0.16), transparent 18rem),
+      linear-gradient(135deg, transparent 16%, hsl(var(--accent) / 0.1), transparent 72%);
+    opacity: 0;
+    transform: translateY(4px);
+    transition:
+      opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .about-feature-card:hover {
+    border-color: hsl(var(--accent) / 0.6);
+    box-shadow:
+      0 24px 64px hsl(var(--shadow) / 0.14),
+      0 0 0 1px hsl(var(--accent) / 0.16) inset,
+      0 0 42px hsl(var(--glow) / 0.1);
+  }
+
+  .about-feature-card:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .dark .about-feature-card:hover {
+    box-shadow:
+      0 28px 76px hsl(var(--shadow) / 0.52),
+      0 0 0 1px hsl(var(--accent) / 0.2) inset,
+      0 0 50px hsl(var(--glow) / 0.16);
+  }
+
   .premium-service-card::after {
     content: "";
     position: absolute;
@@ -850,9 +891,10 @@
 
   /* Contact service selector: viewport-aware premium scroll surface */
   .services-interest-dropdown {
-    max-height: min(26rem, calc(var(--radix-dropdown-menu-content-available-height) - 0.25rem));
+    max-height: min(18rem, calc(var(--radix-dropdown-menu-content-available-height, 18rem) - 0.25rem), calc(100svh - 12rem));
     overflow: hidden;
     transform-origin: var(--radix-dropdown-menu-content-transform-origin);
+    overscroll-behavior: contain;
   }
 
   .services-interest-scroll {
@@ -922,7 +964,7 @@
 @media (max-width: 639px) {
   .services-interest-dropdown {
     width: min(var(--radix-dropdown-menu-trigger-width), calc(100vw - 1.5rem));
-    max-height: min(22rem, calc(var(--radix-dropdown-menu-content-available-height) - 0.25rem));
+    max-height: min(15.5rem, calc(var(--radix-dropdown-menu-content-available-height, 15.5rem) - 0.25rem), calc(100svh - 10rem));
   }
 
   .strategic-insight-card {

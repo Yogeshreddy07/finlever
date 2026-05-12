@@ -29,8 +29,8 @@ const teamMembers: TeamMember[] = [
     role: "Director",
     subtitle: "CFO Advisory & Digital Finance Lead",
     image: "/image/SenthilkumarThirumalaisamy%20.jpeg",
-    cardImageClass: "object-[50%_15%] scale-[1.2] group-hover:scale-[1.24]",
-    modalImageClass: "object-[50%_14%] scale-[1.18]",
+    cardImageClass: "object-[50%_20%] scale-[1.08] group-hover:scale-[1.12]",
+    modalImageClass: "object-[50%_18%] scale-[1.08]",
     shortBio:
       "A seasoned finance professional with 16+ years in corporate finance, treasury, capital structuring, and SME growth advisory across India's leading conglomerates.",
     bio: [
@@ -53,8 +53,8 @@ const teamMembers: TeamMember[] = [
     role: "Director",
     subtitle: "Corporate Treasury & Capital Allocation Lead",
     image: "/image/Balamurugan.jpeg",
-    cardImageClass: "object-[50%_29%] scale-[1.03] group-hover:scale-[1.07]",
-    modalImageClass: "object-[50%_28%] scale-[1.04]",
+    cardImageClass: "object-[50%_32%] group-hover:scale-[1.04]",
+    modalImageClass: "object-[50%_31%]",
     shortBio:
       "An accomplished finance professional with 15+ years across corporate finance, treasury management, and strategic financial planning — backed by an MBA in Finance.",
     bio: [
@@ -75,7 +75,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Ganesh Vaidyanathan",
     role: "Associate",
-    subtitle: "Global Accounting & Internal Controls Lead",
+    subtitle: "Global Accounting & Reporting Lead",
     image: "/image/GaneshVaidyanathan.jpeg",
     cardImageClass: "object-[50%_21%] scale-[1.14] group-hover:scale-[1.18]",
     modalImageClass: "object-[50%_18%] scale-[1.12]",
@@ -85,7 +85,7 @@ const teamMembers: TeamMember[] = [
       "A dynamic Chartered Accountant with over 5 years of post-qualification experience across financial reporting, taxation, and internal controls with a strong focus on compliance and accuracy.",
       "Previously served as Manager – Finance at E.I.D.-Parry (India) Limited, where he managed corporate finance and taxation functions ensuring high standards of financial discipline and regulatory adherence.",
       "Brings expertise in Ind AS and GAAP reporting, direct taxation, Internal Financial Controls (IFC), and internal audits, ensuring robust compliance and governance frameworks.",
-      "Currently leads FINLEVER's Global Accounting, Reporting, and Internal Controls functions, ensuring accuracy, compliance, and consistency across financial operations.",
+      "Currently leads FINLEVER's Global Accounting & Reporting and Internal Controls functions, ensuring accuracy, compliance, and consistency across financial operations.",
     ],
     tags: ["Ind AS / GAAP", "Internal Audit", "Compliance", "Direct Tax"],
     highlights: [
@@ -174,7 +174,7 @@ export function TeamClient() {
       </section>
 
       {/* ── TEAM GRID ────────────────────────────────────────────── */}
-      <section className="pt-4 pb-[clamp(5rem,9vw,8.5rem)] sm:pt-6">
+      <section className="pt-4 pb-[clamp(2rem,4vw,4rem)] sm:pt-6">
         <div className="site-container">
           <div className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {teamMembers.map((member, idx) => (
@@ -259,6 +259,15 @@ export function TeamClient() {
               </Reveal>
             ))}
           </div>
+          <Reveal delay={0.2} variant="fade-up">
+            <div className="mx-auto mt-10 max-w-4xl border-t border-[hsl(var(--border)/0.58)] pt-7 text-center sm:mt-12 sm:pt-8">
+              <p className="text-sm leading-7 text-[hsl(var(--muted-foreground))] sm:text-base sm:leading-8">
+                The leadership team combines deep domain expertise, institutional
+                experience, and a technology-driven approach to deliver strategic
+                financial solutions and build future-ready organizations.
+              </p>
+            </div>
+          </Reveal>
         </div>
       </section>
 

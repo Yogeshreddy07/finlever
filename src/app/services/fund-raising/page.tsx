@@ -2,7 +2,7 @@ import { ServicePage } from "@/components/sections/ServicePage";
 import { services } from "@/data/site";
 
 export const metadata = {
-  title: "Transaction and Deal Advisory | FinLever Consulting",
+  title: "Transaction & Deal Advisory | FinLever Consulting",
 };
 
 export default function FundRaisingPage() {

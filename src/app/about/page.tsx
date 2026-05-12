@@ -40,7 +40,7 @@ export default function AboutPage() {
       <section className="section-pad-sm">
         <div className="site-container grid gap-6 lg:grid-cols-2">
           <Reveal variant="fade-left">
-            <GlassCard className="h-full p-8 lg:p-10">
+            <GlassCard className="about-feature-card h-full p-8 lg:p-10">
               <SectionHeader
                 eyebrow="Core Philosophy"
                 title="Beyond Accounting. Built for Strategic Finance."
@@ -59,7 +59,7 @@ export default function AboutPage() {
           </Reveal>
 
           <Reveal delay={0.1} variant="fade-right">
-            <GlassCard className="h-full p-8 lg:p-10">
+            <GlassCard className="about-feature-card h-full p-8 lg:p-10">
               <SectionHeader
                 eyebrow="The Virtual CFO Model"
                 title="CFO Expertise, Without Full-Time Cost"
