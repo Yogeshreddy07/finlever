@@ -298,8 +298,8 @@ export const team = [
 
 export const contact = {
   address:
-    "The Executive Zone, Shakti Towers-1, 766 Anna Road Chennai Tamil Nadu India 600002",
-  phones: ["96770 44077", "9942059900", "94444 36114"],
+    "The Executive Zone, Shakti Towers-1, 766 Anna Road, Chennai, Tamil Nadu, India 600002",
+  phones: ["96770 44077", "99420 59900", "94444 36114"],
   email: "info@finlever.co",
   socials: ["Linkedin", "Instagram", "Youtube", "Twitter"],
 };

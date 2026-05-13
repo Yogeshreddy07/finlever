@@ -1,14 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { FiCheck, FiChevronDown } from "react-icons/fi";
+import { FiArrowRight, FiCheck, FiChevronDown } from "react-icons/fi";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu";
-import { ButtonLink } from "@/components/ui/ButtonLink";
 import { cn } from "@/lib/utils";
 
 const inputClass =
@@ -64,32 +63,140 @@ const serviceGroups = [
   },
 ];
 
+type FieldKey = "name" | "email" | "service" | "requirement";
+
+type FormValues = {
+  name: string;
+  email: string;
+  company: string;
+  requirement: string;
+};
+
+const initialValues: FormValues = {
+  name: "",
+  email: "",
+  company: "",
+  requirement: "",
+};
+
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const emailHref = "mailto:info@finlever.co";
+
 export function ContactForm() {
   const [selectedService, setSelectedService] = useState("");
   const [isServiceMenuOpen, setServiceMenuOpen] = useState(false);
+  const [values, setValues] = useState<FormValues>(initialValues);
+  const [errors, setErrors] = useState<Partial<Record<FieldKey, string>>>({});
+
+  const validate = () => {
+    const nextErrors: Partial<Record<FieldKey, string>> = {};
+    const name = values.name.trim();
+    const email = values.email.trim();
+    const requirement = values.requirement.trim();
+
+    if (!name) nextErrors.name = "Please enter your name";
+    if (!email) {
+      nextErrors.email = "Please enter your email";
+    } else if (!emailPattern.test(email)) {
+      nextErrors.email = "Please enter a valid email";
+    }
+    if (!selectedService) nextErrors.service = "Please select a service";
+    if (!requirement) nextErrors.requirement = "Please share your requirement";
+
+    return nextErrors;
+  };
+
+  const updateValue =
+    (field: keyof FormValues) =>
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setValues((current) => ({ ...current, [field]: event.target.value }));
+      if (errors[field as FieldKey]) {
+        setErrors((current) => ({ ...current, [field]: undefined }));
+      }
+    };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const nextErrors = validate();
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length > 0) return;
+
+    const subject = encodeURIComponent(`FINLEVER enquiry from ${values.name.trim()}`);
+    const body = encodeURIComponent(
+      [
+        `Name: ${values.name.trim()}`,
+        `Email: ${values.email.trim()}`,
+        values.company.trim() ? `Company: ${values.company.trim()}` : null,
+        `Service of Interest: ${selectedService}`,
+        "",
+        "Requirement:",
+        values.requirement.trim(),
+      ]
+        .filter(Boolean)
+        .join("\n"),
+    );
+
+    window.location.href = `${emailHref}?subject=${subject}&body=${body}`;
+  };
+
+  const errorText = (field: FieldKey) =>
+    errors[field] ? (
+      <span id={`${field}-error`} className="text-xs font-medium text-[hsl(var(--destructive)/0.82)]">
+        {errors[field]}
+      </span>
+    ) : null;
+
+  const fieldClass = (field: FieldKey) =>
+    cn(
+      inputClass,
+      errors[field] &&
+        "border-[hsl(var(--destructive)/0.55)] bg-[hsl(var(--destructive)/0.035)] focus:border-[hsl(var(--destructive)/0.68)] focus:shadow-[0_0_0_3px_hsl(var(--destructive)/0.1)]",
+    );
 
   return (
-    <form className="surface-panel relative rounded-2xl p-6 sm:p-8">
+    <form className="surface-panel relative rounded-2xl p-6 sm:p-8" onSubmit={handleSubmit} noValidate>
       <h3 className="mb-6 text-lg font-semibold text-[hsl(var(--foreground))]">
         Send us a message
       </h3>
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="grid gap-2 text-sm font-semibold text-[hsl(var(--foreground))]">
           Name
-          <input className={inputClass} placeholder="Your name" />
+          <input
+            name="name"
+            value={values.name}
+            onChange={updateValue("name")}
+            className={fieldClass("name")}
+            placeholder="Your name"
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? "name-error" : undefined}
+          />
+          {errorText("name")}
         </label>
         <label className="grid gap-2 text-sm font-semibold text-[hsl(var(--foreground))]">
           Email
           <input
+            name="email"
             type="email"
-            className={inputClass}
+            value={values.email}
+            onChange={updateValue("email")}
+            className={fieldClass("email")}
             placeholder="you@company.com"
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? "email-error" : undefined}
           />
+          {errorText("email")}
         </label>
       </div>
       <label className="mt-5 grid gap-2 text-sm font-semibold text-[hsl(var(--foreground))]">
         Company
-        <input className={inputClass} placeholder="Company name" />
+        <input
+          name="company"
+          value={values.company}
+          onChange={updateValue("company")}
+          className={inputClass}
+          placeholder="Company name"
+        />
       </label>
       <div className="mt-5 grid gap-2 text-sm font-semibold text-[hsl(var(--foreground))]">
         Services of Interest
@@ -101,7 +208,10 @@ export function ContactForm() {
                 inputClass,
                 "group flex w-full items-center justify-between gap-3 text-left",
                 !selectedService && "text-[hsl(var(--muted-foreground)/0.72)]",
+                errors.service &&
+                  "border-[hsl(var(--destructive)/0.55)] bg-[hsl(var(--destructive)/0.035)] focus:border-[hsl(var(--destructive)/0.68)]",
               )}
+              aria-describedby={errors.service ? "service-error" : undefined}
             >
               <span className="min-w-0 truncate">
                 {selectedService || "Select a service focus"}
@@ -140,6 +250,9 @@ export function ContactForm() {
                           onSelect={() => {
                             setSelectedService(item);
                             setServiceMenuOpen(false);
+                            if (errors.service) {
+                              setErrors((current) => ({ ...current, service: undefined }));
+                            }
                           }}
                           className={cn(
                             "group/item flex min-h-10 cursor-pointer items-center justify-between gap-3 rounded-xl border border-transparent px-3 py-2.5 text-[0.82rem] font-medium leading-snug text-[hsl(var(--muted-foreground))] outline-none transition duration-200 hover:border-[hsl(var(--accent)/0.28)] hover:bg-[hsl(var(--accent)/0.08)] hover:text-[hsl(var(--foreground))] focus:border-[hsl(var(--accent)/0.38)] focus:bg-[hsl(var(--accent)/0.1)] focus:text-[hsl(var(--foreground))] data-[highlighted]:border-[hsl(var(--accent)/0.32)] data-[highlighted]:bg-[hsl(var(--accent)/0.09)] data-[highlighted]:text-[hsl(var(--foreground))]",
@@ -161,18 +274,29 @@ export function ContactForm() {
           </DropdownMenuContent>
         </DropdownMenu>
         <input type="hidden" name="service" value={selectedService} />
+        {errorText("service")}
       </div>
       <label className="mt-5 grid gap-2 text-sm font-semibold text-[hsl(var(--foreground))]">
         Requirement
         <textarea
-          className={`${inputClass} min-h-40 resize-none py-4`}
+          name="requirement"
+          value={values.requirement}
+          onChange={updateValue("requirement")}
+          className={cn(fieldClass("requirement"), "min-h-40 resize-none py-4")}
           placeholder="Share your finance, transaction, reporting, treasury, or compliance priorities..."
+          aria-invalid={Boolean(errors.requirement)}
+          aria-describedby={errors.requirement ? "requirement-error" : undefined}
         />
+        {errorText("requirement")}
       </label>
       <div className="mt-7">
-        <ButtonLink href="mailto:info@finlever.co">
-          Submit
-        </ButtonLink>
+        <button
+          type="submit"
+          className="group relative inline-flex min-h-12 items-center justify-center gap-3 overflow-hidden rounded-full bg-[hsl(var(--cta))] px-6 text-sm font-semibold text-[hsl(var(--cta-foreground))] shadow-[0_14px_32px_hsl(var(--shadow)/0.18)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_44px_hsl(var(--glow)/0.2)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring active:translate-y-0"
+        >
+          <span>Submit</span>
+          <FiArrowRight className="size-4 transition duration-300 group-hover:translate-x-1" />
+        </button>
       </div>
     </form>
   );

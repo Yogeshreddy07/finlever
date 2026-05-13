@@ -14,6 +14,7 @@ type TeamMember = {
   role: string;
   subtitle: string;
   image: string;
+  imageFit?: "cover" | "contain";
   cardImageClass: string;
   modalImageClass: string;
   shortBio: string;
@@ -29,8 +30,9 @@ const teamMembers: TeamMember[] = [
     role: "Director",
     subtitle: "CFO Advisory & Digital Finance Lead",
     image: "/image/SenthilkumarThirumalaisamy%20.jpeg",
-    cardImageClass: "object-[50%_20%] scale-[1.08] group-hover:scale-[1.12]",
-    modalImageClass: "object-[50%_18%] scale-[1.08]",
+    imageFit: "cover",
+    cardImageClass: "object-[50%_12%] scale-[1.02] group-hover:scale-[1.055]",
+    modalImageClass: "object-[50%_18%] scale-[1.02]",
     shortBio:
       "A seasoned finance professional with 16+ years in corporate finance, treasury, capital structuring, and SME growth advisory across India's leading conglomerates.",
     bio: [
@@ -53,8 +55,9 @@ const teamMembers: TeamMember[] = [
     role: "Director",
     subtitle: "Corporate Treasury & Capital Allocation Lead",
     image: "/image/Balamurugan.jpeg",
-    cardImageClass: "object-[50%_32%] group-hover:scale-[1.04]",
-    modalImageClass: "object-[50%_31%]",
+    imageFit: "contain",
+    cardImageClass: "object-[50%_50%] group-hover:scale-[1.025]",
+    modalImageClass: "object-[50%_50%]",
     shortBio:
       "An accomplished finance professional with 15+ years across corporate finance, treasury management, and strategic financial planning — backed by an MBA in Finance.",
     bio: [
@@ -197,7 +200,8 @@ export function TeamClient() {
                       fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                       preload={idx < 2}
-                      className={`object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${member.cardImageClass}`}
+                      style={{ objectFit: member.imageFit ?? "cover" }}
+                      className={`transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${member.cardImageClass}`}
                     />
                     {/* Role badge */}
                     <div className="absolute left-4 top-4 z-10 rounded-full border border-[hsl(218_84%_76%/0.42)] bg-[hsl(222_58%_8%/0.72)] px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-white/92 shadow-[0_8px_24px_hsl(222_70%_2%/0.28)] backdrop-blur-md">
@@ -370,7 +374,8 @@ export function TeamClient() {
                     alt={activeMember.name}
                     fill
                     sizes="136px"
-                    className={`object-cover ${activeMember.modalImageClass}`}
+                    style={{ objectFit: activeMember.imageFit ?? "cover" }}
+                    className={activeMember.modalImageClass}
                   />
                 </div>
                 <div className="flex-1 pr-8 sm:pr-10">

@@ -17,6 +17,7 @@ import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { contact, services, site } from "@/data/site";
+import { cn } from "@/lib/utils";
 
 const shift = [
   {
@@ -309,7 +310,11 @@ export default function Home() {
                 <Link
                   key={service.href}
                   href={service.href}
-                  className="group premium-card premium-service-card flex h-full min-h-[7.75rem] p-5 transition duration-300 hover:-translate-y-0.5 hover:border-[hsl(var(--accent)/0.55)]"
+                  className={cn(
+                    "group premium-card premium-service-card flex h-full min-h-[7.75rem] p-5 transition duration-300 hover:-translate-y-0.5 hover:border-[hsl(var(--accent)/0.55)]",
+                    i === previewServices.length - 1 &&
+                      "sm:col-span-2 sm:mx-auto sm:w-[calc(50%_-_0.5rem)]",
+                  )}
                 >
                   <div className="card-content flex h-full w-full items-start justify-between gap-3">
                     <div>
