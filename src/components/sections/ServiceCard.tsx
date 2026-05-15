@@ -38,11 +38,6 @@ export function ServiceCard({
             <span className="font-display text-3xl font-normal text-[hsl(var(--accent)/0.24)] transition duration-500 group-hover:text-[hsl(var(--accent)/0.48)]">
               {number}
             </span>
-            {isListing ? (
-              <p className="mt-4 text-[0.66rem] font-bold uppercase tracking-[0.22em] text-[hsl(var(--accent))]">
-                {service.eyebrow}
-              </p>
-            ) : null}
           </div>
 
           <span

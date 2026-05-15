@@ -112,9 +112,6 @@ export function Footer() {
               Contact
             </h3>
             <div className="mt-5 grid max-w-sm gap-3 text-sm leading-6 text-white/62">
-              <p className="text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[hsl(var(--accent))]">
-                Chennai
-              </p>
               <div className="flex items-start gap-3">
                 <FiPhone className="mt-1 size-3.5 shrink-0 text-[hsl(var(--accent)/0.82)]" />
                 <div className="grid gap-1">

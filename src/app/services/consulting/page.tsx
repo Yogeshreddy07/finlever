@@ -9,7 +9,7 @@ export default function ConsultingPage() {
   return (
     <ServicePage
       service={services[0]}
-      titleOverride="Strategic Consulting & Virtual CFO Services"
+      titleOverride="Consulting & Virtual CFO Services"
     />
   );
 }

@@ -72,9 +72,6 @@ export function ServicePage({ service, titleOverride }: ServicePageProps) {
           {service.sections.map((section, index) => (
             <Reveal key={section.title} delay={index * 0.07} variant={index % 2 === 0 ? "fade-left" : "fade-right"}>
               <GlassCard className="premium-service-card h-full p-7 lg:p-8">
-                <p className="mb-4 text-[0.64rem] font-bold uppercase tracking-[0.2em] text-[hsl(var(--accent)/0.72)]">
-                  Capability Group {String(index + 1).padStart(2, "0")}
-                </p>
                 <h2 className="text-xl font-semibold text-[hsl(var(--foreground))] sm:text-2xl">
                   {section.title}
                 </h2>

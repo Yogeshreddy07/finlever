@@ -36,12 +36,12 @@ const teamMembers: TeamMember[] = [
     shortBio:
       "A seasoned finance professional with 16+ years in corporate finance, treasury, capital structuring, and SME growth advisory across India's leading conglomerates.",
     bio: [
-      "Senthilkumar Thirumalaisamy is a seasoned finance professional with over 16 years of experience in corporate finance, treasury, and capital structuring.",
+      "Senthilkumar Thirumalaisamy is a Finance and treasury professional with over two decades of expertise in strategic planning, debt & capital structuring, cash flow management, banking, compliance, and business process digitization.",
       "With prior experience at leading conglomerates like the Murugappa Group and TVS Group, he brings institutional financial discipline to growing businesses. He has successfully managed over ₹2,500 Crores in debt syndication and investment transactions and has guided companies through IPO readiness for valuations exceeding ₹500 Crores.",
       "As Director at FINLEVER, he specializes in helping SMEs and mid-market companies become investment-ready through strategic financial frameworks.",
       "He currently leads FINLEVER's Consulting, Virtual CFO Services and Digital Finance verticals, enabling businesses to optimize capital, strengthen financial systems, and achieve sustainable growth.",
     ],
-    tags: ["CFO Advisory", "Treasury", "Capital Markets", "IPO Readiness"],
+    tags: ["CFO Advisory", "Treasury", "Capital Markets", "IPO Readiness", "Debt Market"],
     highlights: [
       "₹2,500 Cr+ in debt syndication & investment transactions",
       "IPO readiness for valuations exceeding ₹500 Crores",

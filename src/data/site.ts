@@ -112,6 +112,8 @@ export const services = [
         items: [
           "End-to-end liquidity planning and management to ensure optimal cash utilization",
           "Continuous monitoring and forecasting of working capital requirements for operational efficiency",
+          "Preparation and Monitoring of Periodic Cashflow Reports",
+          "Fixed Income & Debt Market Solutions",
         ],
       },
       {
@@ -120,6 +122,8 @@ export const services = [
           "Advisory on short-term and long-term financing, including structuring and negotiations with lenders for optimal terms",
           "End-to-end debt documentation and execution support",
           "Strategic guidance to engage the right investors and optimize capital structure",
+          "Guidance on Commercial Paper & NCD Fundraising",
+          "Debt Optimization & Restructuring Advisory",
           "IPO readiness support, including financial structuring, compliance alignment, and coordination with intermediaries for a seamless transition to public markets",
         ],
       },
@@ -266,7 +270,7 @@ export const team = [
     role: "Director",
     image: "/image/SenthilkumarThirumalaisamy%20.jpeg",
     bio: [
-      "Senthilkumar Thirumalaisamy is a seasoned finance professional with over 16 years of experience in corporate finance, treasury, and capital structuring.",
+      "Senthilkumar Thirumalaisamy is a Finance and treasury professional with over two decades of expertise in strategic planning, debt & capital structuring, cash flow management, banking, compliance, and business process digitization.",
       "With prior experience at leading conglomerates like the Murugappa Group and TVS Group, he brings institutional financial discipline to growing businesses. He has successfully managed over ₹2,500 Crores in debt syndication and investment transactions and has guided companies through IPO readiness for valuations exceeding ₹500 Crores.",
       "As Director at FINLEVER, he specializes in helping SMEs and mid-market companies become investment-ready through strategic financial frameworks.",
       "He currently leads FINLEVER’s Consulting, Virtual CFO Services and Digital Finance verticals, enabling businesses to optimize capital, strengthen financial systems, and achieve sustainable growth.",
