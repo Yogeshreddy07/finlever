@@ -80,13 +80,15 @@ const initialValues: FormValues = {
 };
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const emailHref = "mailto:info@finlever.co";
 
 export function ContactForm() {
   const [selectedService, setSelectedService] = useState("");
   const [isServiceMenuOpen, setServiceMenuOpen] = useState(false);
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<Partial<Record<FieldKey, string>>>({});
+  const [isSubmitting, setSubmitting] = useState(false);
+  const [isSubmitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const validate = () => {
     const nextErrors: Partial<Record<FieldKey, string>> = {};
@@ -115,29 +117,42 @@ export function ContactForm() {
       }
     };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const nextErrors = validate();
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) return;
 
-    const subject = encodeURIComponent(`FINLEVER enquiry from ${values.name.trim()}`);
-    const body = encodeURIComponent(
-      [
-        `Name: ${values.name.trim()}`,
-        `Email: ${values.email.trim()}`,
-        values.company.trim() ? `Company: ${values.company.trim()}` : null,
-        `Service of Interest: ${selectedService}`,
-        "",
-        "Requirement:",
-        values.requirement.trim(),
-      ]
-        .filter(Boolean)
-        .join("\n"),
-    );
+    setSubmitting(true);
+    setSubmitError(null);
 
-    window.location.href = `${emailHref}?subject=${subject}&body=${body}`;
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: values.name.trim(),
+          email: values.email.trim(),
+          company: values.company.trim() || undefined,
+          service: selectedService,
+          requirement: values.requirement.trim(),
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to submit. Please try again.");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error ? err.message : "Failed to submit. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const errorText = (field: FieldKey) =>
@@ -289,15 +304,34 @@ export function ContactForm() {
         />
         {errorText("requirement")}
       </label>
-      <div className="mt-7">
-        <button
-          type="submit"
-          className="group relative inline-flex min-h-12 items-center justify-center gap-3 overflow-hidden rounded-full bg-[hsl(var(--cta))] px-6 text-sm font-semibold text-[hsl(var(--cta-foreground))] shadow-[0_14px_32px_hsl(var(--shadow)/0.18)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_44px_hsl(var(--glow)/0.2)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring active:translate-y-0"
-        >
-          <span>Submit</span>
-          <FiArrowRight className="size-4 transition duration-300 group-hover:translate-x-1" />
-        </button>
-      </div>
+      {isSubmitted ? (
+        <div className="mt-7 rounded-xl border border-[hsl(var(--accent)/0.3)] bg-[hsl(var(--accent)/0.07)] px-5 py-4">
+          <p className="text-sm font-semibold text-[hsl(var(--foreground))]">
+            Thank you &mdash; we&apos;ve received your inquiry.
+          </p>
+          <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
+            Our team will coordinate with you within 24 hours.
+          </p>
+        </div>
+      ) : (
+        <div className="mt-7">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="group relative inline-flex min-h-12 items-center justify-center gap-3 overflow-hidden rounded-full bg-[hsl(var(--cta))] px-6 text-sm font-semibold text-[hsl(var(--cta-foreground))] shadow-[0_14px_32px_hsl(var(--shadow)/0.18)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_44px_hsl(var(--glow)/0.2)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring active:translate-y-0 disabled:pointer-events-none disabled:opacity-60"
+          >
+            <span>{isSubmitting ? "Sending…" : "Submit"}</span>
+            {!isSubmitting && (
+              <FiArrowRight className="size-4 transition duration-300 group-hover:translate-x-1" />
+            )}
+          </button>
+          {submitError && (
+            <p className="mt-3 text-xs font-medium text-[hsl(var(--destructive)/0.82)]">
+              {submitError}
+            </p>
+          )}
+        </div>
+      )}
     </form>
   );
 }

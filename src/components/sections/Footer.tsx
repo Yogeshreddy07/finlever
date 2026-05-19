@@ -8,8 +8,9 @@ import { contact, navItems, services, site } from "@/data/site";
 const socialLinks = [
   {
     label: "LinkedIn",
-    href: "/contact",
+    href: "https://www.linkedin.com/company/finlever-consulting-private-limited/",
     icon: FiLinkedin,
+    external: true,
   },
   {
     label: "Instagram",
@@ -57,11 +58,12 @@ export function Footer() {
               stronger control, sharper capital decisions, and durable growth.
             </p>
             <div className="mt-5 flex items-center gap-2.5">
-              {socialLinks.map(({ icon: Icon, href, label }) => (
+              {socialLinks.map(({ icon: Icon, href, label, external }) => (
                 <Link
                   key={label}
                   href={href}
                   aria-label={label}
+                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className="inline-flex size-9 items-center justify-center rounded-full border border-white/14 bg-white/9 text-white/58 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-[hsl(var(--accent)/0.6)] hover:text-[hsl(var(--accent))]"
                 >
                   <Icon className="size-3.5" />
@@ -147,18 +149,8 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="site-container relative grid gap-4 border-t border-white/10 py-5 text-xs text-white/50 md:grid-cols-[1fr_auto_1fr] md:items-center">
+        <div className="site-container relative grid gap-4 border-t border-white/10 py-5 text-xs text-white/50 md:grid-cols-[1fr_auto] md:items-center">
           <p className="md:justify-self-start">
-            <a
-              href="https://yotechsys.in/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition duration-200 hover:text-[hsl(var(--accent))]"
-            >
-              Engineered by YoTechSYS
-            </a>
-          </p>
-          <p className="md:justify-self-center">
             © {currentYear} {site.name}. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 md:justify-self-end">

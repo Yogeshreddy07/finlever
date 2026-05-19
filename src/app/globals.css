@@ -122,11 +122,13 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden; /* Safari < 16 fallback: clip is unsupported */
     overflow-x: clip;
   }
 
   body {
     min-width: 320px;
+    overflow-x: hidden; /* Safari < 16 fallback: clip is unsupported */
     overflow-x: clip;
     background:
       radial-gradient(ellipse 72% 44% at 50% -8%, hsl(218 78% 58% / 0.07), transparent),
@@ -722,7 +724,8 @@
 
   @keyframes finance-orbit {
     to {
-      rotate: 360deg;
+      /* rotate: individual transform property — not supported in Safari < 14.1 */
+      transform: rotate(360deg);
     }
   }
 
@@ -873,9 +876,11 @@
   /* ── Performance: GPU-accelerated layers ───────────────────── */
 
   /* Applied to hero title / right card for jank-free entry animations */
+  /* NOTE: will-change removed — it over-allocates GPU memory on Safari/iOS
+     and causes white-screen crashes when applied to multiple elements. */
   .gpu-layer {
-    will-change: transform, opacity;
     transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
   }
 
@@ -891,7 +896,8 @@
 
   /* Contact service selector: viewport-aware premium scroll surface */
   .services-interest-dropdown {
-    max-height: min(18rem, calc(var(--radix-dropdown-menu-content-available-height, 18rem) - 0.25rem), calc(100svh - 12rem));
+    /* 100vh fallback: svh unit unsupported in Safari < 15.4, invalidates entire min() expr */
+    max-height: min(18rem, calc(var(--radix-dropdown-menu-content-available-height, 18rem) - 0.25rem), calc(100vh - 12rem));
     overflow: hidden;
     transform-origin: var(--radix-dropdown-menu-content-transform-origin);
     overscroll-behavior: contain;
@@ -944,6 +950,20 @@
       linear-gradient(180deg, hsl(var(--card) / 0.96), hsl(var(--card) / 0.86));
   }
 
+  /* ── Viewport unit fallbacks for Safari < 15.4 ─────────────── */
+  /* Tailwind v4 generates single-value rules (100dvh / 100svh) with no vh fallback.
+     These overrides re-declare the same class with the fallback first so that
+     browsers ignoring dvh/svh automatically use 100vh instead of getting 0. */
+  .min-h-dvh {
+    min-height: 100vh;   /* Safari < 15.4 fallback */
+    min-height: 100dvh;  /* Progressive: respects dynamic address-bar on iOS */
+  }
+
+  .min-h-svh {
+    min-height: 100vh;   /* Safari < 15.4 fallback */
+    min-height: 100svh;  /* Progressive: stable small-viewport height on iOS */
+  }
+
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -964,7 +984,8 @@
 @media (max-width: 639px) {
   .services-interest-dropdown {
     width: min(var(--radix-dropdown-menu-trigger-width), calc(100vw - 1.5rem));
-    max-height: min(15.5rem, calc(var(--radix-dropdown-menu-content-available-height, 15.5rem) - 0.25rem), calc(100svh - 10rem));
+    /* 100vh fallback: svh unsupported in Safari < 15.4 */
+    max-height: min(15.5rem, calc(var(--radix-dropdown-menu-content-available-height, 15.5rem) - 0.25rem), calc(100vh - 10rem));
   }
 
   .strategic-insight-card {

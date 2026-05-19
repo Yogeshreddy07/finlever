@@ -29,8 +29,11 @@ const variantMap = {
     visible: { opacity: 1, scale: 1 },
   },
   "blur-up": {
-    hidden: { opacity: 0, y: 18, scale: 0.98, filter: "blur(5px)" },
-    visible: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+    // filter: blur() removed — animating filter+opacity+scale+y simultaneously
+    // exhausts the Safari/iOS GPU compositor and causes white-screen crashes.
+    // The entrance motion (opacity+y+scale) is preserved identically.
+    hidden: { opacity: 0, y: 18, scale: 0.98 },
+    visible: { opacity: 1, y: 0, scale: 1 },
   },
 } satisfies Record<RevealVariant, { hidden: object; visible: object }>;
 
