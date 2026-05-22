@@ -14,13 +14,15 @@ const socialLinks = [
   },
   {
     label: "Instagram",
-    href: "/contact",
+    href: "https://www.instagram.com/finleverindia/",
     icon: FiInstagram,
+    external: true,
   },
   {
     label: "Twitter/X",
-    href: "/contact",
+    href: "https://x.com/finlever",
     icon: FaXTwitter,
+    external: true,
   },
 ];
 
